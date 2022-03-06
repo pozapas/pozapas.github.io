@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Pozapas</title>
+    <link>http://pozapas.github.io/</link>
+    <description>Recent content on Pozapas</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 06 Mar 2022 17:37:15 +0330</lastBuildDate><atom:link href="http://pozapas.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My First Post</title>
+      <link>http://pozapas.github.io/posts/my-first-post/</link>
+      <pubDate>Sun, 06 Mar 2022 17:37:15 +0330</pubDate>
+      
+      <guid>http://pozapas.github.io/posts/my-first-post/</guid>
+      <description>Hi I am here</description>
+    </item>
+    
+  </channel>
+</rss>
