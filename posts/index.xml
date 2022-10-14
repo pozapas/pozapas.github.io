@@ -4,16 +4,20 @@
     <title>Posts on Pozapas</title>
     <link>http://pozapas.github.io/posts/</link>
     <description>Recent content in Posts on Pozapas</description>
+    <image>
+      <url>http://pozapas.github.io/image/piz.png</url>
+      <link>http://pozapas.github.io/image/piz.png</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>fa</language>
     <lastBuildDate>Sun, 06 Mar 2022 17:37:15 +0330</lastBuildDate><atom:link href="http://pozapas.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>My First Post</title>
+      <title>حمل و نقل</title>
       <link>http://pozapas.github.io/posts/my-first-post/</link>
       <pubDate>Sun, 06 Mar 2022 17:37:15 +0330</pubDate>
       
       <guid>http://pozapas.github.io/posts/my-first-post/</guid>
-      <description>Hi I am here</description>
+      <description>حمل‌نقل عمومی جاده‌ای به عنوان یکی از بخش‌هایی از حمل و نقل که در ارتباط مستقیم با مسافر و به نوعی خدمت‌گیرنده از hgy kikljo سامانه قرار دارد، همواره در معرض قضاوت‌ها و برآوردهای سنجش کیفیت است. مسافر یه عنوان یکی از ارکان اصلی در این سامانه همواره به صورت خودآگاه یا ناخودآگاه خدمات شرکت‌های مسافربری را مورد سنجش قرار می‌دهد تا بتواند از بین گزینه‌های موجود دست به انتخاب بزند.</description>
     </item>
     
   </channel>

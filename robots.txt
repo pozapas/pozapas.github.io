@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: http://pozapas.github.io/sitemap.xml

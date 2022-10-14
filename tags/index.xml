@@ -4,7 +4,11 @@
     <title>Tags on Pozapas</title>
     <link>http://pozapas.github.io/tags/</link>
     <description>Recent content in Tags on Pozapas</description>
+    <image>
+      <url>http://pozapas.github.io/image/piz.png</url>
+      <link>http://pozapas.github.io/image/piz.png</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://pozapas.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>fa</language><atom:link href="http://pozapas.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
