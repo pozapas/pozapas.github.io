@@ -21,3 +21,11 @@
 .post-content h4 {
     font-size: 20px;
 }
+@font-face {
+    font-family: Vazirmatn;
+    src: url('Vazirmatn.eot');
+    src: url('Vazirmatn.eot?#iefix') format('embedded-opentype'),
+    url('Vazirmatn.woff') format('woff'),
+    url('Vazirmatn.ttf') format('truetype');
+    font-weight: normal;
+    }
