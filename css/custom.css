@@ -1,59 +1,23 @@
 .post-title {
     font-size: 32px;
-    font-family: Vazir;
-    src: url('Vazir.eot');
-    src: url('Vazir.eot?#iefix') format('embedded-opentype'),
-    url('Vazir.woff') format('woff'),
-    url('Vazir.ttf') format('truetype');
-    font-weight: normal;
 }
 
 .post-content h1, h2, h3, h4, h5, h6 {
     margin: 10px !important;
-    font-family: Vazir;
-    src: url('Vazir.eot');
-    src: url('Vazir.eot?#iefix') format('embedded-opentype'),
-    url('Vazir.woff') format('woff'),
-    url('Vazir.ttf') format('truetype');
-    font-weight: normal;
 }
 
 .post-content h1 {
     font-size: 32px;
-    font-family: Vazir;
-    src: url('Vazir.eot');
-    src: url('Vazir.eot?#iefix') format('embedded-opentype'),
-    url('Vazir.woff') format('woff'),
-    url('Vazir.ttf') format('truetype');
-    font-weight: normal;
 }
 
 .post-content h2 {
     font-size: 26px;
-    font-family: Vazir;
-    src: url('Vazir.eot');
-    src: url('Vazir.eot?#iefix') format('embedded-opentype'),
-    url('Vazir.woff') format('woff'),
-    url('Vazir.ttf') format('truetype');
-    font-weight: normal;
 }
 
 .post-content h3 {
     font-size: 22px;
-    font-family: Vazir;
-    src: url('Vazir.eot');
-    src: url('Vazir.eot?#iefix') format('embedded-opentype'),
-    url('Vazir.woff') format('woff'),
-    url('Vazir.ttf') format('truetype');
-    font-weight: normal;
 }
 
 .post-content h4 {
     font-size: 20px;
-    font-family: Vazir;
-    src: url('Vazir.eot');
-    src: url('Vazir.eot?#iefix') format('embedded-opentype'),
-    url('Vazir.woff') format('woff'),
-    url('Vazir.ttf') format('truetype');
-    font-weight: normal;
 }
