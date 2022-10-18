@@ -1,39 +1,64 @@
-/* vazirmatn-regular - latin */
+body {
+    font-family: Vazirmatn,roboto;
+}
+
 @font-face {
-    font-family: 'Vazirmatn';
+    font-family: Vazirmatn;
+    src: url('../fonts/Vazirmatn-Regular.eot');
+    src: url('../fonts/Vazirmatn-Regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Vazirmatn-Regular.woff2') format('woff2'),
+         url('../fonts/Vazirmatn-Regular.woff') format('woff'),
+         url('../fonts/Vazirmatn-Regular.ttf') format('truetype');
+    font-weight: normal;
     font-style: normal;
-    font-weight: 400;
-    src: url('/fonts/vazirmatn-v6-latin-regular.eot'); /* IE9 Compat Modes */
-    src: local(''),
-         url('/fonts/vazirmatn-v6-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('/fonts/vazirmatn-v6-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-         url('/fonts/vazirmatn-v6-latin-regular.woff') format('woff'), /* Modern Browsers */
-         url('/fonts/vazirmatn-v6-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
-         url('/fonts/vazirmatn-v6-latin-regular.svg#Vazirmatn') format('svg'); /* Legacy iOS */
-  }
-  /* vazirmatn-500 - latin */
-  @font-face {
-    font-family: 'Vazirmatn';
+}
+@font-face {
+    font-family: Vazirmatn;
+    src: url('../fonts/Vazirmatn-Bold.eot');
+    src: url('../fonts/Vazirmatn-Bold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Vazirmatn-Bold.woff2') format('woff2'),
+         url('../fonts/Vazirmatn-Bold.woff') format('woff'),
+         url('../fonts/Vazirmatn-Bold.ttf') format('truetype');
+    font-weight: bold;
     font-style: normal;
+}
+@font-face {
+    font-family: Vazirmatn;
+    src: url('../fonts/Vazirmatn-Black.eot');
+    src: url('../fonts/Vazirmatn-Black.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Vazirmatn-Black.woff2') format('woff2'),
+         url('../fonts/Vazirmatn-Black.woff') format('woff'),
+         url('../fonts/Vazirmatn-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: Vazirmatn;
+    src: url('../fonts/Vazirmatn-Medium.eot');
+    src: url('../fonts/Vazirmatn-Medium.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Vazirmatn-Medium.woff2') format('woff2'),
+         url('../fonts/Vazirmatn-Medium.woff') format('woff'),
+         url('../fonts/Vazirmatn-Medium.ttf') format('truetype');
     font-weight: 500;
-    src: url('/fonts/vazirmatn-v6-latin-500.eot'); /* IE9 Compat Modes */
-    src: local(''),
-         url('/fonts/vazirmatn-v6-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('/fonts/vazirmatn-v6-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
-         url('/fonts/vazirmatn-v6-latin-500.woff') format('woff'), /* Modern Browsers */
-         url('/fonts/vazirmatn-v6-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
-         url('/fonts/vazirmatn-v6-latin-500.svg#Vazirmatn') format('svg'); /* Legacy iOS */
-  }
-  /* vazirmatn-600 - latin */
-  @font-face {
-    font-family: 'Vazirmatn';
     font-style: normal;
-    font-weight: 600;
-    src: url('/fonts/vazirmatn-v6-latin-600.eot'); /* IE9 Compat Modes */
-    src: local(''),
-         url('/fonts/vazirmatn-v6-latin-600.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('/fonts/vazirmatn-v6-latin-600.woff2') format('woff2'), /* Super Modern Browsers */
-         url('/fonts/vazirmatn-v6-latin-600.woff') format('woff'), /* Modern Browsers */
-         url('/fonts/vazirmatn-v6-latin-600.ttf') format('truetype'), /* Safari, Android, iOS */
-         url('/fonts/vazirmatn-v6-latin-600.svg#Vazirmatn') format('svg'); /* Legacy iOS */
-  }
+}
+@font-face {
+    font-family: Vazirmatn;
+    src: url('../fonts/Vazirmatn-Light.eot');
+    src: url('../fonts/Vazirmatn-Light.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Vazirmatn-Light.woff2') format('woff2'),
+         url('../fonts/Vazirmatn-Light.woff') format('woff'),
+         url('../fonts/Vazirmatn-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: Vazirmatn;
+    src: url('../fonts/Vazirmatn-Thin.eot');
+    src: url('../fonts/Vazirmatn-Thin.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Vazirmatn-Thin.woff2') format('woff2'),
+         url('../fonts/Vazirmatn-Thin.woff') format('woff'),
+         url('../fonts/Vazirmatn-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
