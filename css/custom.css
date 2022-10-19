@@ -1,6 +1,6 @@
-
 .post-title {
-    font-size: 32px;}
+    font-size: 32px;
+}
 
 .post-content h1, h2, h3, h4, h5, h6 {
     margin: 10px !important;
@@ -20,5 +20,4 @@
 
 .post-content h4 {
     font-size: 20px;
-    font-weight: normal;
 }
