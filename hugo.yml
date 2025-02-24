@@ -93,6 +93,8 @@ params:
           url: https://www.researchgate.net/profile/Amir-Rafe
         - icon: fab fa-youtube
           url: https://www.youtube.com/@AmirRafe
+        - icon: fab fa-spotify
+          url: https://open.spotify.com/show/6H4aJ0L2pjlQ0z8XN9qZJ4?si=0p7PDuYjS7qQRPVCxdT4_A
 
   about:
     enable: true
