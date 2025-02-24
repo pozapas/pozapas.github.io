@@ -3,6 +3,10 @@ languageCode: "en-us"
 title: Amir Rafe
 theme: hugo-profile
 
+services:
+  disqus:
+    shortname: "https-pozapas-github-io" # Replace this with your actual Disqus shortname
+
 # Disable default menu generation
 disableKinds: ["taxonomy", "term"]
 
