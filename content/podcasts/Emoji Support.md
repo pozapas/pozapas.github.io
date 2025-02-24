@@ -1,34 +1,48 @@
 ---
 draft: false
-title: "Podcast Support"
-date: 2021-04-03T22:53:58+05:30
+title: "Decoding Causality"
+date: 2024-01-20
 draft: false
-github_link: "https://github.com/gurusabarish/hugo-profile"
-author: "Gurusabarish"
+author: "Amir Rafe"
 tags:
-  - Emoji support
-  - Sample
-  - example
-image: "/images/projects/crowd.jpg"
-description: ""
+  - Causality
+  - AI
+  - Science
+image: "/images/pod.jpg"
+description: "Welcome to Decoding Causality, where conversations unravel the mysteries of cause and effect."
 toc: 
 ---
 
-Public road transportation, as one of the sectors of transportation that is in direct contact with passengers and service users, is always subject to quality assessment judgments and evaluations. The passenger, as one of the main pillars in this system, consciously or unconsciously evaluates the services of transportation companies to make choices among available options. Therefore, one of the most important aspects that can influence the competitive market between different public transportation systems in the intercity passenger sector is the matter of services and their quality.
+Welcome to Decoding Causality, where conversations unravel the mysteries of cause and effect. Inspired by the ideas explored in The Book of Why, this podcast delves into the fascinating world of causal reasoning, counterfactuals, and the science of asking 'why.' Each episode breaks down complex concepts into accessible and thought-provoking insights. Perfect for researchers, students, and curious minds, this podcast offers a fresh take on decision-making and discovery.
 
-In this study, given the importance of services in the development of public road transportation, we first discuss various aspects of this topic in terms of general concepts, followed by a comparative study and review of other studies conducted in this field. Finally, after presenting appropriate indicators for evaluating service quality and completing and analyzing related questionnaires, suggested solutions in this area have been explained and elaborated.
+## Season 1: The Book of Why
+In Season 1, two AI-generated voices guide us through the foundational concepts of causality, exploring groundbreaking ideas from The Book of Why.
+
+
+### Episode 1: From Data to Discovery: How We Learned to Ask Why
+What separates humans from other species, and from today's AI systems, is not just the ability to observe patterns but the power to ask why. In this episode, we explore the profound shift that enabled humanity to move beyond mere data collection to uncovering the hidden web of cause and effect. From the Garden of Eden to the Cognitive Revolution, we trace the origins of causal reasoning and how it transformed our ability to understand and shape the world.
+
 
 {{< rawhtml >}}
-<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/340721321&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/reengineering" title="re:engineering" target="_blank" style="color: #cccccc; text-decoration: none;">re:engineering</a> · <a href="https://soundcloud.com/reengineering/sets/transportation-round-3" title="Transportation Round 3" target="_blank" style="color: #cccccc; text-decoration: none;">Transportation Round 3</a></div>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/6gXdZ6jQhUm2xND0mfAS30" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 {{< /rawhtml >}}
 
-In this study, considering the importance of service quality, several analytical tools have been used. In chapter three of this study, after categorizing the services provided in the public road transportation sector, the evaluation indicators in this area have been described based on comparative studies. On the other hand, since these indicators need to be refined according to the opinions of experts, stakeholders, and involved parties, internal and external factors questionnaires were designed for this purpose, and the views of this group were carefully extracted and analyzed.
+<br>
+<br>
 
-What makes the issue of service quality in public road transportation even more important is the effect 123456789 that improvement in this area has on the development and increase of public road transportation's share in intercity travel in competition with rail and air systems.
+### Episode 2: The Causality Quest: From Superstition to Science
+For centuries, humanity relied on intuition, folklore, and trial and error to understand the world. But how did we transition from anecdotal reasoning to the rigorous science of causal inference? In this episode, we uncover the historical breakthroughs that laid the foundation for modern causality, from the early insights of Francis Galton to the statistical revolution that shaped how we analyze cause and effect.
 
-```python
-require 'redcarpet'
-markdown = Redcarpet.new("Hello World!")
-puts markdown.to_html
-```
-* However
+{{< rawhtml >}}
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/3vJJNCdtotb3WWTak1oW13" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+{{< /rawhtml >}}
+
+<br>
+<br>
+
+### Episode 3: The Detective's Dilemma: How We Infer Causes from Evidence
+What do Sherlock Holmes and artificial intelligence have in common? Both rely on evidence to reach conclusions, but only one truly understands why things happen. In this episode, we dive into the logic of inference, exploring how the Reverend Thomas Bayes and the principles of probability laid the groundwork for reasoning from effect to cause.
+
+{{< rawhtml >}}
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/5nyqFj3QdEkTNW5yEs0AOz" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+{{< /rawhtml >}}
