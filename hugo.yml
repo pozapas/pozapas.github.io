@@ -91,6 +91,8 @@ params:
           url: https://scholar.google.com/citations?hl=en&user=IUVLrp9PgFEC&view_op=list_works
         - icon: fab fa-researchgate
           url: https://www.researchgate.net/profile/Amir-Rafe
+        - icon: fab fa-youtube
+          url: https://www.youtube.com/@AmirRafe
 
   about:
     enable: true
