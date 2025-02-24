@@ -43,7 +43,8 @@ favicon = "/piz.png"
 useBootstrapCDN = true
 animate = true
 mathjax = false
-theme_color = "light"  # Options: light, dark
+theme_color = "light"
+[params.theme]
 defaultTheme = "light" # Options: light, dark, auto
 
   [params.font]
