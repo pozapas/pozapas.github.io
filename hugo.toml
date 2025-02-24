@@ -1,0 +1,22 @@
+baseURL = "https://pozapas.github.io/"
+languageCode = "en-us"
+title = "My Portfolio"
+theme = "hugo-profile"
+
+[params]
+  # theme
+  theme = "dark"
+  
+  # font style
+  font_family = "Poppins"
+  
+  # Home
+  title = "My Portfolio"
+  subtitle = "Welcome to my website"
+  hero_image = ""  # Add your hero image path later if desired
+
+[params.navbar]
+  enable = true
+  
+[params.footer]
+  enable = true
