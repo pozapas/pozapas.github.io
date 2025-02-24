@@ -3,20 +3,49 @@ languageCode = "en-us"
 title = "My Portfolio"
 theme = "hugo-profile"
 
+[outputs]
+home = ["HTML", "RSS", "JSON"]
+page = ["HTML", "RSS"]
+
+enableRobotsTXT = true
+
+[markup.goldmark.renderer]
+unsafe = true
+
 [params]
-  # theme
-  theme = "dark"
-  
-  # font style
-  font_family = "Poppins"
-  
-  # Home
-  title = "My Portfolio"
-  subtitle = "Welcome to my website"
-  hero_image = ""  # Add your hero image path later if desired
+title = "My Portfolio"
+description = "My personal portfolio website"
+favicon = "/fav.png"
+animate = true
+
+[params.theme]
+defaultTheme = "dark"
+disableThemeToggle = false
+
+[params.font]
+fontSize = "1rem"
+fontWeight = 400
+lineHeight = 1.5
+textAlign = "left"
+
+[params.hero]
+enable = true
+intro = "Hi, my name is"
+title = "John Doe"  # Replace with your name
+subtitle = "I build things for the web"
+content = "A passionate web developer creating modern and functional websites."
+image = "/images/hero.svg"
+
+[params.hero.button]
+enable = true
+name = "Resume"
+url = "#"
+download = true
+newPage = false
 
 [params.navbar]
-  enable = true
-  
+enable = true
+align = "ms-auto"
+
 [params.footer]
-  enable = true
+enable = true
