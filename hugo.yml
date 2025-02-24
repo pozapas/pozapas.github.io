@@ -1,0 +1,369 @@
+baseURL: "http://pozapas.github.io"
+languageCode: "en-us"
+title: Amir Rafe
+theme: hugo-profile
+
+# Disable default menu generation
+disableKinds: ["taxonomy", "term"]
+
+outputs:
+  home:
+    - "HTML"
+    - "RSS"
+    - "JSON"
+  page:
+    - "HTML"
+    - "RSS"
+
+Paginate: 3
+enableRobotsTXT: true
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+Menus:
+  main:
+    - identifier: blog
+      name: Blog
+      title: Blog posts
+      url: /blogs/
+      weight: 1
+    - identifier: podcast
+      name: Podcast
+      title: Podcasts
+      url: /podcasts/
+      weight: 2
+    - identifier: gallery
+      name: Gallery
+      title: Blog posts
+      url: /gallery
+      weight: 3
+
+params:
+  title: "Amir Rafe"
+  description: "Exploring human behavior & AI applications in pedestrian dynamics"
+  favicon: "/piz.png"
+  useBootstrapCDN: true
+  animate: true
+  mathjax: false
+
+  font:
+    fontSize: 1rem
+    fontWeight: 400
+    lineHeight: 1.5
+    textAlign: left
+
+  navbar:
+    align: ms-auto
+    brandName: "Amir Rafe"
+    disableSearch: false
+    stickyNavBar:
+      enable: true
+      showOnScrollUp: true
+    enableSeparator: false
+
+  hero:
+    enable: true
+    intro: "Hi, my name is"
+    title: "Amir."
+    subtitle: "I explore human behavior & AI applications"
+    content: "A passionate researcher in pedestrian studies and applied AI. My work focuses on developing models and simulations to analyze crowd dynamics, optimize emergency evacuation strategies, and enhance urban mobility and safety. I leverage machine learning, complexity science, and data-driven insights to better understand how people navigate cities and interact with their environments."
+    image: /images/me.JPG
+    bottomImage:
+      enable: true
+    button:
+      enable: true
+      name: "Resume"
+      url: "https://usu-my.sharepoint.com/:b:/g/personal/a02347157_aggies_usu_edu/EYvNMbfe5MFJmYhLCgzXvDUBnRelKKO6ykB-8s2tu5VsNA?e=ghG8cv"
+      download: true
+      newPage: true
+    socialLinks:
+      fontAwesomeIcons:
+        - icon: fab fa-github
+          url: https://github.com/pozapas
+        - icon: fab fa-linkedin
+          url: https://www.linkedin.com/in/amir-rafe/
+        - icon: fab fa-x-twitter
+          url: https://twitter.com/rafeamir
+        - icon: fab fa-google
+          url: https://scholar.google.com/citations?hl=en&user=IUVLrp9PgFEC&view_op=list_works
+        - icon: fab fa-researchgate
+          url: https://www.researchgate.net/profile/Amir-Rafe
+
+  about:
+    enable: true
+    title: "About Me"
+    image: "/images/me.JPG"
+    content: |-
+      I am a transportation engineer and researcher exploring AI-driven solutions for pedestrian safety, urban mobility, and evacuation. My work integrates AI with transportation engineering to enhance modeling, simulation, and decision-making in complex environments. With expertise in pedestrian dynamics, traffic flow, and machine learning, I develop innovative tools to improve urban planning and disaster response. As cities evolve, I aim to bridge AI innovation with real-world challenges, creating smarter and safer urban spaces.
+
+      I am currently working on EvacuAIDi, an AI-powered framework that optimizes emergency evacuation strategies by integrating large language models (LLMs), and pedestrian dynamics modeling. This system provides adaptive evacuation guidance, especially for individuals with disabilities, ensuring a more inclusive and efficient response during emergencies.
+    skills:
+      enable: true
+      title: "Technical Skills:"
+      items:
+        - "Python, R"
+        - "PostgreSQL, BigQuery"
+        - "AI & ML"
+        - "Cloud Computing"
+        - "Traffic Simulation"
+        - "Pedestrian Simulation"
+        - "Data Analysis"
+        - "QGIS"
+
+  education:
+    enable: true
+    items:
+      - title: "Ph.D. in Civil and Environmental Engineering"
+        school:
+          name: "Utah State University"
+          url: "https://www.usu.edu"
+        date: "2022 - 2025"
+        content: |-
+          Transportation Engineering specialization
+
+          Dissertation: Artificial Intelligence (AI)-Guided Crowd Evacuation: A Novel Approach to Enhancing Emergency Response (EvacuAIDi)
+
+      - title: "Master of Science in Civil and Environmental Engineering"
+        school:
+          name: "Azad University: South Tehran Branch"
+          url: "https://iau.ir/en"
+        date: "2010 - 2013"
+        content: |-
+          Transportation Engineering specialization
+
+          Thesis: Pedestrian Dynamic Modeling using Social Force Model: A Heterogeneous Approach
+
+      - title: "Bachelor of Science in Civil Engineering"
+        school:
+          name: "Azad University of Ahvaz"
+          url: "https://iau.ir/en"
+        date: "2005 - 2009"
+
+  publications:
+    enable: true
+    title: "Publications"
+    items:
+      - job: "Journal Papers"
+        company: ""
+        date: ""
+        content: |-
+          2025:
+            
+            - Rafe, A., Singleton, P. A., Boyer, S., & Mekker, M. (2025). Pedestrian Crossing Behaviors at Signalized Intersections in Utah: Factors Affecting Spatial and Temporal Violations. International Journal of Transportation Science and Technology. https://doi.org/10.1016/j.ijtst.2024.12.005
+
+          2024:
+
+            - Rafe, A., Arman, M. A., & Singleton, P. A. (2024). A Comparative Study Using Generalized Ordered Probit, Stacking Ensemble, and TabNet: Application to Determinants of Pedestrian Crash Severity. Data Science for Transportation, 6(2), 13, https://doi.org/10.1007/s42421-024-00098-x
+
+            - Rafe, A., & Singleton, P. A. (2024). Imputing Time Series Pedestrian Volume Data With Consideration of Epidemiological-Environmental Variables. Transportation Research Record, https://doi.org/10.1177/03611981241240758
+
+            - Rafe, A., & Singleton, P. A. (2024). Exploring the Complexity of Pedestrian Dynamics: Impact of Societal Behaviors and Personal Attributes in Urban Environments. Transportation Research Record, https://doi.org/10.1177/03611981241260707
+
+      - job: "Conference Papers"
+        company: ""
+        date: ""
+        content: |-
+          2025:
+            - Rafe, A., Lawrence, P.J., Lovreglio, R., Spearpoint, M., Singleton, P. A. (2025). Enhancing Occupant Evacuation Simulation Using LLMs and Retrieval-Augmented Generation. International Conference on Transportation and Development 2025
+
+          2024:
+            - Rafe, A., & Singleton, P. A. (2024). Exploring the Determinants of Pedestrian Crash Severity Using an AutoML Approach. In International Conference on Transportation and Development 2024 (pp. 442-455), https://doi.org/10.1061/9780784485514.039
+
+            - Rafe, A., Arman, M.A., Singleton, P. A. (2024). An In-depth Investigation into Factors Influencing Pedestrian Crash Severity: Comparative Analysis of Ordered Probit, Stacking Ensemble Model, and TabNet, Transportation Research Board 103rd Annual Meeting
+          
+          2023:
+
+            - Rafe, A., Kretz, T., & Singleton, P. A. (2023). Importance of social behaviors on pedestrian dynamics: A case study of Islamic clothing in Iran, Transportation Research Board 102nd Annual Meeting
+
+          2014-2015:
+            - Arman, M. A., Rafe, A., & Kretz, T. (2015) Pedestrian Gap Acceptance Behavior, A Case Study: Tehran, Transportation Research Board 94th Annual Meeting
+
+            - Rafe, A., Karimi, M. (2014) Calibrating Social force model based on design experiments method, The 13th International Conference on Traffic and Transportation Engineering
+
+            - Rafe, A., Khavarzade, R. (2014) Investigation of Pedestrian's Gap Acceptance behavior at Crosswalk, The 13th International Conference on Traffic and Transportation Engineering
+
+            - Rafe, A., Shariat, A., Kalantari, N., Arman, M.A. & Yazdanpanah, (2014) Pedestrian simulation with Viswalk at various walking facilities, The 13th International Conference on Traffic and Transportation Engineering
+
+      - job: "Other Publications"
+        company: ""
+        date: ""
+        content: |-
+          - Rafe, A. (2025), Ethics on Foot: Balancing Technology and Human Values in AI-Driven Transport Systems. IATBR newsletter. https://iatbr.weebly.com/jan-2025.html 
+
+          - Singleton, P. A., Rafe, A., Humagain, P., Runa, F., Islam, A., Mekker, M., & Mountain-Plains Consortium. (2024). Utilizing Traffic Signal Pedestrian Push-Button Data for Pedestrian Planning and Safety Analysis (No. MPC-24-525). Mountain-Plains Consortium. https://www.ugpti.org/resources/reports/details.php?id=1168
+
+          - Arman, M. A., Rafe, A., & Kretz, T. (2019). Applied hybrid binary mixed logit to investigate pedestrian crossing safety at midblock and unsignalized intersection. https://doi.org/10.48550/arXiv.1905.09403
+
+          - Rafe, A., Amini, I., (2018), Python for Everybody: Exploring Data in Python 3, Ramona Publication (Translation to Persian)
+
+          - Rafe, A., Shariat, A., Kalantari, N., Arman, (2013), Pedestrian Dynamic Modelling, Tehran Municipality Publication (Book)
+
+  projects:
+    enable: true
+    title: "Tools"
+    items:
+      - title: Crowd-Analyzer
+        content: Crowd Analyzer is a Python application designed to analyze pedestrian and crowd mobility patterns using computer vision and machine learning techniques. It incorporates YOLO for object detection, Kalman filters for tracking, and various methods for density and speed estimation.
+        image: /images/projects/crowd.jpg
+        badges:
+          - "Machine Learning"
+          - "OpenCV"
+          - "YOLO"
+          - "GUI"
+        links:
+          - icon: fab fa-github
+            url: https://github.com/pozapas/Crowd-Analyzer
+
+      - title: PEDAT
+        content: PEDAT is a Streamlit-based web application designed to visualize pedestrian volume data in Utah. It offers an interactive and user-friendly interface to analyze and understand pedestrian traffic patterns effectively.
+        image: /images/projects/pedat.jpg
+        featured:
+          name: Live Demo
+          link: https://pedpush.dev.udot.utah.gov/
+        badges:
+          - "Streamlit"
+          - "Dashboard"
+          - "Google Cloud"
+        links:
+          - icon: fab fa-github
+            url: https://github.com/pozapas/PEDAT
+
+      - title: CrashAutoML
+        content: This app is designed to analyze crash severity data using automated machine learning (AutoML) methods. It allows users to upload CSV files containing crash data, select features and target variables for modeling, and handle data imbalances using SMOTE (Synthetic Minority Over-sampling Technique).
+        image: /images/projects/crash.jpg
+        badges:
+          - "Machine Learning"
+          - "AutoML"
+          - "Streamlit"
+        links:
+          - icon: fab fa-github
+            url: https://github.com/pozapas/CrashAutoML
+
+      - title: EvacuAIDi
+        content: This tool optimizes evacuation planning in stadiums using advanced algorithms, image processing, and AI to generate personalized evacuation routes tailored to user locations and specific needs.
+        image: /images/projects/evacu.jpg
+        badges:
+          - "AI/ML"
+          - "Streamlit"
+          - "LLMs"
+          - A* Algorithm
+        links:
+          - icon: fab fa-github
+            url: https://github.com/pozapas/EvacuAIDi
+
+      - title: PedImpute
+        content: This tool evaluates pedestrian volume data quality for safety and urban planning. It detects anomalies and imputes missing values using ML and deep learning. Analyzing Utah’s traffic signal data (2018–2022) with EpiEnv variables, it finds DBSCAN best for anomaly detection and Random Forest, LSTM, and GRU effective for imputation. Results highlight EpiEnv factors' impact on data accuracy.
+        image: /images/projects/impute.jpg
+        badges:
+          - "Machine Learning"
+          - "DBSCAN"
+          - "LSTM"
+          - "GRU"
+        links:
+          - icon: fab fa-github
+            url: https://github.com/pozapas/PedImpute
+
+      - title: Awesome Crowd Dynamics Hub
+        content: A curated collection of open-source tools and resources for studying and analyzing crowd dynamics, pedestrian flow, and evacuation strategies. It includes libraries, datasets, research papers, and software solutions that are valuable for researchers, urban planners, and developers working in the field of crowd dynamics.
+        image: /images/projects/awesome.jpg
+        badges:
+          - "Resource Collection"
+          - "Documentation"
+        links:
+          - icon: fab fa-github
+            url: https://github.com/pozapas/awesome-crowdynamics
+
+  experience:
+    enable: true
+    items:
+      - job: "Graduate Research Assistant"
+        company: "USU"
+        companyUrl: "https://engineering.usu.edu/cee/research/labs/patrick-singleton/"
+        date: "Aug 2022 - present"
+        featuredLink:
+          enable: true
+          name: "PEDAT Dashboard"
+          url: "https://pedpush.dev.udot.utah.gov/"
+        content: |
+          I am currently working as a Graduate Research Assistant at the [Singleton Transportation Lab](https://engineering.usu.edu/cee/research/labs/patrick-singleton/) at Utah State University. My research focuses on developing AI-powered tools in pedestrian and evacuation studies.
+
+      - job: "Algorithm Engineer"
+        company: "Ramona"
+        date: "Nov 2015 - Jul 2022"
+        content: |
+          Developed core algorithms for a Traffic Guide Sign Design Software, enabling automated detection of required sign locations using interactive maps, guidelines, and manuals. Designed the system to generate production-ready outputs and support multi-language traffic signs, ensuring compliance with regulatory standards. Collaborated with developers to refine implementation, conducted rigorous testing, and validated results to enhance accuracy and usability.
+
+      - job: "Transport Modeler & Data Scientist "
+        company: "IRIANA"
+        date: "May 2015 - Jun 2020"
+        content: |
+          Worked on various projects involving transportation modeling, data analysis, and AI-driven solutions for urban mobility and infrastructure planning. Designed and implemented computational models to support decision-making in large-scale transportation projects.
+
+          Key Projects:
+            - Crowd Evacuation Modeling
+            - Transportation Master Plans
+            - Airport Design & Planning
+            - Freight Master Plans
+            - Traffic Impact Studies
+            
+
+      - job: "Pedestrian Modeling Specialist & Transportation Researcher"
+        company: "IUST"
+        companyUrl: "https://www.iust.ac.ir/en"
+        date: "Aug 2012 - May 2015"
+        content: |
+          Worked on various projects related to pedestrian modeling, emergency evacuation, and transportation network resilience to support urban planning and mobility strategies.
+
+          Key Projects:
+            - Pedestrian simulation and modeling in urban environments
+            - Emergency evacuation studies for highways and tunnels
+            - Transportation network resilience analysis and optimization
+            - Traffic flow assessments and impact studies
+ 
+  contact:
+    enable: true
+    content: Feel free to reach out if you're interested in my research or would like to collaborate on projects related to pedestrian dynamics and AI applications.
+    btnName: Email me
+    btnLink: mailto:amir.rafe@usu.edu
+
+  footer:
+    recentPosts:
+      path: "blogs"
+      count: 3
+      title: Recent Posts
+      enable: true
+      disableFeaturedImage: false
+    socialNetworks:
+      github: https://github.com/pozapas
+      linkedin: https://linkedin.com/in/amir-rafe
+      twitter: https://twitter.com/rafeamir
+      instagram: https://instagram.com/pozapas
+      facebook: https://facebook.com/people/Amir-Rafe/pfbid0n3AAHhjw6JFkLGyCN5tC7NSypGyVNhFQXWK7NhN6HTooGZVf8ubZRVBBC9YA61eXl/
+
+  listPages:
+    disableFeaturedImage: false
+
+  singlePages:
+    socialShare: true
+    readTime:
+      enable: true
+      content: "min read"
+    scrollprogress:
+      enable: true
+    tags:
+      openInNewTab: true
+
+  terms:
+    read: "Read"
+    toc: "Table Of Contents"
+    copyright: "All rights reserved"
+    pageNotFound: "Page not found"
+    emailText: "Check out this site"
+
+  datesFormat:
+    article: "Jan 2, 2006"
+    articleList: "Jan 2, 2006"
+    articleRecent: "Jan 2, 2006"
