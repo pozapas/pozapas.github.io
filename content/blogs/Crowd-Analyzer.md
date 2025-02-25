@@ -1,6 +1,6 @@
 ---
 draft: false
-title: "Crowd-Analyzer: AI-Powered Crowd Behavior Analysis"
+title: "Crowd-Analyzer"
 date: 2025-02-24
 draft: false
 github_link: "https://github.com/pozapas/Crowd-Analyzer"
