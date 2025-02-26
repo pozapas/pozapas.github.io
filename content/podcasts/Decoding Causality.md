@@ -54,5 +54,5 @@ What do Sherlock Holmes and artificial intelligence have in common? Both rely on
 Not all correlations tell the truth. Hidden biases and confounding factors can distort our understanding of cause and effect, leading to flawed conclusions in science, medicine, and beyond. In this episode, we explore how controlled experiments, causal diagrams, and statistical techniques help separate real causation from misleading associations. From biblical experiments to modern clinical trials, we uncover the tools that allow us to "deconfound" our reasoning and truly see cause and effect.
 
 {{< rawhtml >}}
-<iframe style="border-radius:12px" src="https://open.spotify.com/episode/5D1Sbm80tpOy05jUB7p3qH?si=u-wLqhDfTCylnzru_TrDeQ" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/5D1Sbm80tpOy05jUB7p3qH?si=u-wLqhDfTCylnzru_TrDeQ" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 {{< /rawhtml >}}
