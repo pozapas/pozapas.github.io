@@ -19,7 +19,7 @@ Welcome to Decoding Causality, where conversations unravel the mysteries of caus
 In Season 1, two AI-generated voices guide us through the foundational concepts of causality, exploring groundbreaking ideas from The Book of Why.
 
 
-### Episode 1: From Data to Discovery: How We Learned to Ask Why
+### Episode 1: From Data to Discovery - How We Learned to Ask Why
 What separates humans from other species, and from today's AI systems, is not just the ability to observe patterns but the power to ask why. In this episode, we explore the profound shift that enabled humanity to move beyond mere data collection to uncovering the hidden web of cause and effect. From the Garden of Eden to the Cognitive Revolution, we trace the origins of causal reasoning and how it transformed our ability to understand and shape the world.
 
 
@@ -30,7 +30,7 @@ What separates humans from other species, and from today's AI systems, is not ju
 <br>
 <br>
 
-### Episode 2: The Causality Quest: From Superstition to Science
+### Episode 2: The Causality Quest - From Superstition to Science
 For centuries, humanity relied on intuition, folklore, and trial and error to understand the world. But how did we transition from anecdotal reasoning to the rigorous science of causal inference? In this episode, we uncover the historical breakthroughs that laid the foundation for modern causality, from the early insights of Francis Galton to the statistical revolution that shaped how we analyze cause and effect.
 
 {{< rawhtml >}}
@@ -40,9 +40,19 @@ For centuries, humanity relied on intuition, folklore, and trial and error to un
 <br>
 <br>
 
-### Episode 3: The Detective's Dilemma: How We Infer Causes from Evidence
+### Episode 3: The Detective's Dilemma - How We Infer Causes from Evidence
 What do Sherlock Holmes and artificial intelligence have in common? Both rely on evidence to reach conclusions, but only one truly understands why things happen. In this episode, we dive into the logic of inference, exploring how the Reverend Thomas Bayes and the principles of probability laid the groundwork for reasoning from effect to cause.
 
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/5nyqFj3QdEkTNW5yEs0AOz" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+{{< /rawhtml >}}
+
+<br>
+<br>
+
+### Episode 4: Untangling the Web – How to Overcome Hidden Bias in Data
+Not all correlations tell the truth. Hidden biases and confounding factors can distort our understanding of cause and effect, leading to flawed conclusions in science, medicine, and beyond. In this episode, we explore how controlled experiments, causal diagrams, and statistical techniques help separate real causation from misleading associations. From biblical experiments to modern clinical trials, we uncover the tools that allow us to "deconfound" our reasoning and truly see cause and effect.
+
+{{< rawhtml >}}
+<iframe style="border-radius:12px" src="https://open.spotify.com/episode/5D1Sbm80tpOy05jUB7p3qH?si=u-wLqhDfTCylnzru_TrDeQ" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 {{< /rawhtml >}}
