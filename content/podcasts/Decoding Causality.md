@@ -16,7 +16,7 @@ toc:
 Welcome to Decoding Causality, where conversations unravel the mysteries of cause and effect. Inspired by the ideas explored in The Book of Why, this podcast delves into the fascinating world of causal reasoning, counterfactuals, and the science of asking 'why.' Each episode breaks down complex concepts into accessible and thought-provoking insights. Perfect for researchers, students, and curious minds, this podcast offers a fresh take on decision-making and discovery.
 
 {{< rawhtml >}}
-<iframe width="100%" height="415" src="https://www.youtube.com/embed/videoseries?list=PLHU8z2HGsZgYCjYki2tRmCFdRejf7VV4K" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" height="515" src="https://www.youtube.com/embed/videoseries?list=PLHU8z2HGsZgYCjYki2tRmCFdRejf7VV4K" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 {{< /rawhtml >}}
 
 <br>
