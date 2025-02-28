@@ -15,6 +15,10 @@ toc:
 
 Welcome to Decoding Causality, where conversations unravel the mysteries of cause and effect. Inspired by the ideas explored in The Book of Why, this podcast delves into the fascinating world of causal reasoning, counterfactuals, and the science of asking 'why.' Each episode breaks down complex concepts into accessible and thought-provoking insights. Perfect for researchers, students, and curious minds, this podcast offers a fresh take on decision-making and discovery.
 
+{{< rawhtml >}}
+<iframe width="100%" height="315" src="https://www.youtube.com/embed/videoseries?list=PLHU8z2HGsZgYCjYki2tRmCFdRejf7VV4K" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+{{< /rawhtml >}}
+
 ## Season 1: The Book of Why
 In Season 1, two AI-generated voices guide us through the foundational concepts of causality, exploring groundbreaking ideas from The Book of Why.
 
@@ -55,4 +59,14 @@ Not all correlations tell the truth. Hidden biases and confounding factors can d
 
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/5D1Sbm80tpOy05jUB7p3qH?si=u-wLqhDfTCylnzru_TrDeQ" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+{{< /rawhtml >}}
+
+<br>
+<br>
+
+### Episode 5: Breaking the Illusion - How to Prove Causation Without Experiments
+How can we prove that one thing causes another when experiments are impossible or unethical? In this episode, we explore the challenge of establishing causation using observational data and statistical reasoning. From historical scientific debates to modern breakthroughs, we examine how researchers separate real causal relationships from misleading correlations. What methods allow us to move beyond association? How can causal inference reshape the way we approach science, medicine, and AI?
+
+{{< rawhtml >}}
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/4iiPLwWoXq4TdGy0qPmGla?si=3PoXRKWlTJ-DNnlUqFTXvQ" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 {{< /rawhtml >}}
