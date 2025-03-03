@@ -73,3 +73,23 @@ How can we prove that one thing causes another when experiments are impossible o
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/4iiPLwWoXq4TdGy0qPmGla?si=3PoXRKWlTJ-DNnlUqFTXvQ" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 {{< /rawhtml >}}
+
+<br>
+<br>
+
+### Episode 6: The Paradox Problem – When Data Misleads Our Intuition
+Sometimes, the numbers lie—or at least, they seem to. In this episode, we dive into some of the most famous paradoxes in statistics and probability, from Simpson's paradox to the Monty Hall problem. These puzzles reveal the hidden tensions between correlation and causation, challenging our intuition and exposing the limitations of traditional data analysis. Why do paradoxes arise? How can they mislead us in decision-making, science, and AI? And what does it take to resolve them?
+
+{{< rawhtml >}}
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/7C1YCvYz4NAEOuJ19LrNvn?si=Xv0NMEx3T3WjRQvvkl_lXw" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+{{< /rawhtml >}}
+
+<br>
+<br>
+
+### Episode 7: Counterfactual Worlds – Imagining the What-Ifs of Causality
+What if things had happened differently? Counterfactual reasoning—the ability to imagine alternate realities—lies at the heart of human intelligence and scientific discovery. In this episode, we explore how counterfactuals allow us to answer questions like "What would have happened if I had chosen differently?" or "Did this treatment actually save lives?" From legal judgments to AI decision-making, we examine how this powerful tool reshapes our understanding of causality and prediction. How do counterfactuals help us uncover true cause-and-effect relationships? And why do even the most advanced AI systems struggle with them?
+
+{{< rawhtml >}}
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/3Bchlql1C5pRfSu6oArUkt?si=oFalVqJxQPGOXmuasXFS9A" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+{{< /rawhtml >}}
