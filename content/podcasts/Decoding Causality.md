@@ -103,3 +103,13 @@ What if Cleopatra's nose had been shorter? What if Joe had taken the aspirin? In
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/1OVkpXRALANG3DZoPc9q9p?si=6M05k93JRLOM7PEBNAQjRg" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 {{< /rawhtml >}}
+
+<br>
+<br>
+
+### Episode 9: Tracing the Invisible - How Causes Travel Through the World
+This episode explores the concept of mediation, the often-hidden processes that link causes to their effects. Using historical and scientific examples, from James Lind’s discovery about scurvy to modern intelligence research, it highlights how understanding the chain of events between an action and its outcome is essential to uncovering the true mechanisms behind observed effects. The episode also honors Barbara Burks, a trailblazing scientist who used path diagrams to untangle nature and nurture long before her time. Ultimately, it asks why some causes act directly while others operate through mediators, and how grasping these dynamics can reshape fields like medicine, scientific policy, and 
+
+{{< rawhtml >}}
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/2CQ7mLuX7XpNHGeqDZjNMX?si=lnJ1PbqxQpuZiXU06qEHHA" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+{{< /rawhtml >}}
