@@ -44,11 +44,10 @@ Menus:
       name: Gallery
       title: Blog posts
       url: /gallery
-      weight: 7
-    - identifier: tools
+      weight: 7    - identifier: tools
       name: Tools
       title: Tools
-      url: /projects/
+      url: /#projects
       weight: 4
 
 params:
