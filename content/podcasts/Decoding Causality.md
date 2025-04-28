@@ -113,3 +113,13 @@ This episode explores the concept of mediation, the often-hidden processes that 
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/2CQ7mLuX7XpNHGeqDZjNMX?si=lnJ1PbqxQpuZiXU06qEHHA" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 {{< /rawhtml >}}
+
+<br>
+<br>
+
+### Episode 10: Can AI Ask Why? The Final Frontier of Causal Reasoning
+In this season finale, we explore the fascinating intersection of artificial intelligence and causal reasoning. While modern AI systems excel at finding patterns in data, they often miss what comes naturally to humans: understanding why things happen. From the foundations of machine learning to the latest breakthroughs in causal AI, we examine the gap between correlation-based prediction and true causal understanding. Can we teach machines to think counterfactually? Will AI ever truly grasp causation? Drawing on insights from computer science, cognitive psychology, and philosophy, we explore what it means for machines to not just predict the future, but to understand it. The episode concludes by looking ahead to the transformative potential of causal AI in fields ranging from medicine to scientific discovery.
+
+{{< rawhtml >}}
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/4XrnLDGvJZBN2TAza6VrCu?si=nP7QWvzBSiGwhKwS0jjIHQ" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+{{< /rawhtml >}}

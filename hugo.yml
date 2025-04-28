@@ -261,8 +261,8 @@ params:
           - "GRU"
         links:
           - icon: fab fa-github
-            url: https://github.com/pozapas/PedImpute
-
+            url: https://github.com/pozapas/PedImpute      
+      
       - title: Awesome Crowd Dynamics Hub
         content: A curated collection of open-source tools and resources for studying and analyzing crowd dynamics, pedestrian flow, and evacuation strategies. It includes libraries, datasets, research papers, and software solutions that are valuable for researchers, urban planners, and developers working in the field of crowd dynamics.
         image: /images/projects/awesome.jpg
@@ -272,6 +272,18 @@ params:
         links:
           - icon: fab fa-github
             url: https://github.com/pozapas/awesome-crowdynamics
+
+      - title: EnginML
+        content: EnginML is a Python package created for educational purposes, enabling engineers and students to understand and implement fundamental machine learning workflows, such as regression, classification, and clustering, with little to no programming expertise.
+        image: /images/projects/enginml.jpg
+        badges:
+          - "Machine Learning"
+          - "Engineering"
+          - "Data Analysis"
+          - "Python"
+        links:
+          - icon: fab fa-github
+            url: https://github.com/pozapas/EnginML
 
   experience:
     enable: true
