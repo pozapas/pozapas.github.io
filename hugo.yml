@@ -276,6 +276,9 @@ params:
       - title: EnginML
         content: EnginML is a Python package created for educational purposes, enabling engineers and students to understand and implement fundamental machine learning workflows, such as regression, classification, and clustering, with little to no programming expertise.
         image: /images/projects/enginml.jpg
+        featured:
+          name: PyPI Package
+          link: https://pypi.org/project/EnginML/
         badges:
           - "Machine Learning"
           - "Engineering"
