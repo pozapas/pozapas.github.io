@@ -80,7 +80,7 @@ params:
     title: "Amir."
     subtitle: "I explore human behavior & AI applications"
     content: "A passionate researcher in pedestrian studies and applied AI. My work focuses on developing models and simulations to analyze crowd dynamics, optimize emergency evacuation strategies, and enhance urban mobility and safety. I leverage machine learning, complexity science, and data-driven insights to better understand how people navigate cities and interact with their environments."
-    image: /images/me.JPG
+    image: /images/me1.JPG
     bottomImage:
       enable: true
     button:
