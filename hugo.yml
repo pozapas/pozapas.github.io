@@ -138,7 +138,7 @@ params:
         content: |-
           Transportation Engineering specialization
 
-          Dissertation: Artificial Intelligence (AI)-Guided Crowd Evacuation: A Novel Approach to Enhancing Emergency Response (EvacuAIDi)
+          Dissertation: [EvacuAIDi:An AI-Driven, Causal-Informed Framework for Probabilistic and Disability-Inclusive Evacuation Guidance](https://evacuaidi.vercel.app/)
 
       - title: "Master of Science in Civil and Environmental Engineering"
         school:
@@ -291,16 +291,26 @@ params:
   experience:
     enable: true
     items:
+      - job: "Postdoctoral Researcher"
+        company: "Texas State University"
+        companyUrl: "https://www.txst.edu"
+        date: "Sep 2025 - present"
+        featuredLink:
+          enable: true
+          name: "AI in Transportation Lab"
+          url: "https://ait-lab.vercel.app/"
+        content: |-
+          Postdoctoral researcher focusing on causal AI, computation epistemology in AI, and safety.  
       - job: "Graduate Research Assistant"
         company: "USU"
         companyUrl: "https://engineering.usu.edu/cee/research/labs/patrick-singleton/"
-        date: "Aug 2022 - present"
+        date: "Aug 2022 - Aug 2025"
         featuredLink:
           enable: true
           name: "PEDAT Dashboard"
           url: "https://pedpush.dev.udot.utah.gov/"
-        content: |
-          I am currently working as a Graduate Research Assistant at the [Singleton Transportation Lab](https://engineering.usu.edu/cee/research/labs/patrick-singleton/) at Utah State University. My research focuses on developing AI-powered tools in pedestrian and evacuation studies.
+        content: |-
+          Served as a Graduate Research Assistant at the [Singleton Transportation Lab](https://engineering.usu.edu/cee/research/labs/patrick-singleton/) at Utah State University. Focused on developing AI-powered tools for pedestrian and evacuation studies, including data-driven modeling, simulation, and applied machine learning for safety and mobility.
 
       - job: "Algorithm Engineer"
         company: "Ramona"
