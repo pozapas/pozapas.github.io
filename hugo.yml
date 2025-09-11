@@ -79,14 +79,14 @@ params:
     intro: "Hi, my name is"
     title: "Amir."
     subtitle: "I explore human behavior & AI applications"
-    content: "A passionate researcher in pedestrian studies and applied AI. My work focuses on developing models and simulations to analyze crowd dynamics, optimize emergency evacuation strategies, and enhance urban mobility and safety. I leverage machine learning, complexity science, and data-driven insights to better understand how people navigate cities and interact with their environments."
+    content: "Researcher in causal AI, computational epistemology, complexity, and safety. I study how intelligent systems reason about and interact with humans, evacuations, and other safety-critical environments—bridging human behavior modeling, causal reasoning, and AI-driven simulation to build systems that not only work, but also explain why they work."
     image: /images/me1.JPG
     bottomImage:
       enable: true
     button:
       enable: true
       name: "Resume"
-      url: "https://usu-my.sharepoint.com/:b:/g/personal/a02347157_aggies_usu_edu/EXFrVUCiadNNlSeXlgLD0s0BPrNPR2l8PGeZmGPr5-PH6g?e=sZClmK"
+      url: "https://1drv.ms/b/c/be345cce9684e6d4/EaS9mUCUYtRIosDEbA8Yb7UBCFTti_mGdTInn55WieN0Dw?e=QEInRV"
       download: true
       newPage: true
     socialLinks:
@@ -111,9 +111,11 @@ params:
     title: "About Me"
     image: "/images/me.JPG"
     content: |-
-      I am a transportation engineer and researcher exploring AI-driven solutions for pedestrian safety, urban mobility, and evacuation. My work integrates AI with transportation engineering to enhance modeling, simulation, and decision-making in complex environments. With expertise in pedestrian dynamics, traffic flow, and machine learning, I develop innovative tools to improve urban planning and disaster response. As cities evolve, I aim to bridge AI innovation with real-world challenges, creating smarter and safer urban spaces.
+      I am a researcher in causal AI, computational epistemology, complexity, and safety. My work focuses on how intelligent systems build and apply knowledge in dynamic, safety-critical environments, with emphasis on pedestrian dynamics and evacuation science. I integrate AI, human behavior modeling, causal inference, and simulation to design decision-support tools that are robust, explainable, and inclusive.
 
-      I am currently working on EvacuAIDi, an AI-powered framework that optimizes emergency evacuation strategies by integrating large language models (LLMs), and pedestrian dynamics modeling. This system provides adaptive evacuation guidance, especially for individuals with disabilities, ensuring a more inclusive and efficient response during emergencies.
+      My doctoral research, EvacuAIDi, developed an AI-driven, causal-informed framework for disability-inclusive evacuation guidance, combining large language models, behavioral modeling, and causal reasoning. With 15+ years of experience in transportation engineering and a strong programming background, I also build open-source tools for modeling and probabilistic reasoning. Beyond research, I share insights through my podcast Decoding Causality and a LinkedIn page on evacuation science.
+
+      My broader goal is to advance methods that fuse human insight, causal reasoning, and AI to build safer, more resilient systems that not only work but also explain why they work.
     skills:
       enable: true
       title: "Technical Skills:"
@@ -302,7 +304,7 @@ params:
         content: |-
           Postdoctoral researcher focusing on causal AI, computation epistemology in AI, and safety.  
       - job: "Graduate Research Assistant"
-        company: "USU"
+        company: "Utah State University"
         companyUrl: "https://engineering.usu.edu/cee/research/labs/patrick-singleton/"
         date: "Aug 2022 - Aug 2025"
         featuredLink:
@@ -349,7 +351,7 @@ params:
     enable: true
     content: Feel free to reach out if you're interested in my research or would like to collaborate on projects related to pedestrian dynamics and AI applications.
     btnName: Email me
-    btnLink: mailto:amir.rafe@usu.edu
+    btnLink: mailto:amir.rafe@txstate.edu
 
   footer:
     recentPosts:
