@@ -287,7 +287,7 @@ params:
 
       - title: Awesome Causal AI
         content: A meticulously curated collection of cutting-edge research, frameworks, and methodologies in Causal AI, including comprehensive lists of GitHub repositories, research papers, libraries, and educational resources. Features over 100+ repositories ranging from causal inference and causal machine learning to causal reinforcement learning and causal discovery.
-        image: /images/projects/awesome.jpg
+        image: /images/projects/ACI.png
         badges:
           - "Resource Collection"
           - "Causal AI"
@@ -298,7 +298,7 @@ params:
 
       - title: HFPaperFetch
         content: An automated daily downloader for Hugging Face trending papers. This Python-based tool fetches PDFs from Hugging Face Daily Papers, organizes them by date in structured directories, tracks downloaded papers to avoid duplicates, and generates JSON summaries for each download session. Includes multiple scheduling options for automated daily runs.
-        image: /images/projects/awesome.jpg
+        image: /images/projects/HF.jpg
         badges:
           - "Python"
           - "Automation"
