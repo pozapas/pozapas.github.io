@@ -298,7 +298,7 @@ params:
 
       - title: HFPaperFetch
         content: An automated daily downloader for Hugging Face trending papers. This Python-based tool fetches PDFs from Hugging Face Daily Papers, organizes them by date in structured directories, tracks downloaded papers to avoid duplicates, and generates JSON summaries for each download session. Includes multiple scheduling options for automated daily runs.
-        image: /images/projects/HF.jpg
+        image: /images/projects/HF.png
         badges:
           - "Python"
           - "Automation"
