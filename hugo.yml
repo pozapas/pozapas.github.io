@@ -86,7 +86,7 @@ params:
     button:
       enable: true
       name: "Resume"
-      url: "https://1drv.ms/b/c/be345cce9684e6d4/EaS9mUCUYtRIosDEbA8Yb7UBCFTti_mGdTInn55WieN0Dw?e=QEInRV"
+      url: "https://txst-my.sharepoint.com/:b:/r/personal/nib37_txstate_edu/Documents/Faculty/Documents/Amir_Rafe_CV.pdf?csf=1&web=1&e=SvylMM"
       download: true
       newPage: true
     socialLinks:
@@ -164,6 +164,16 @@ params:
     items:
       - date: "2025"
         content: |
+          - **Rafe, A.**, & Das, S. (2025). Causal AI and Computational Epistemology - A Survey. http://dx.doi.org/10.2139/ssrn.6045495
+
+          - Chhetri, G., Brotee, S., Ansari, M. W., Bellamkonda, V. S., **Rafe, A.**, Alnawmasi, N., Dutta, A., & Das, S. (2025). Machine Unlearning in the Era of Foundation Models: Taxonomy, Methods, and Guarantees. http://dx.doi.org/10.2139/ssrn.5968054
+
+          - Brotee, S., Chhetri, G., Polock, S. B. B., Bellamkonda, V. S., **Rafe, A.**, & Das, S. (2025). A Survey on Joint Embedding Predictive Architectures and World Models. http://dx.doi.org/10.2139/ssrn.5772122
+
+          - Somvanshi, S., Sheley, R., Shuvo, S. A., **Rafe, A.**, & Das, S. (2025). A Survey on Automated Vehicles in Low Visibility and Infrastructure-Limited Roadway Settings. http://dx.doi.org/10.2139/ssrn.5387394
+
+          - Somvanshi, S., Islam, M. M., **Rafe, A.**, Tusti, A. G., Chakraborty, A., Baitullah, A., Chowdhury, T. I., Alnawmasi, N., Dutta, A., & Das, S. (2025). Bridging the Black Box: A Survey on Mechanistic Interpretability in AI. http://dx.doi.org/10.2139/ssrn.5345552
+
           - **Rafe, A.**, Lawrence, P.J., Lovreglio, R., Spearpoint, M., Singleton, P. A. (2025). Enhancing Occupant Evacuation Simulation Using LLMs and Retrieval-Augmented Generation. International Conference on Transportation and Development 2025.
 
           - **Rafe, A.**, Singleton, P. A., Boyer, S., & Mekker, M. (2025). Pedestrian Crossing Behaviors at Signalized Intersections in Utah: Factors Affecting Spatial and Temporal Violations. International Journal of Transportation Science and Technology. https://doi.org/10.1016/j.ijtst.2024.12.005
@@ -274,6 +284,28 @@ params:
         links:
           - icon: fab fa-github
             url: https://github.com/pozapas/awesome-crowdynamics
+
+      - title: Awesome Causal AI
+        content: A meticulously curated collection of cutting-edge research, frameworks, and methodologies in Causal AI, including comprehensive lists of GitHub repositories, research papers, libraries, and educational resources. Features over 100+ repositories ranging from causal inference and causal machine learning to causal reinforcement learning and causal discovery.
+        image: /images/projects/awesome.jpg
+        badges:
+          - "Resource Collection"
+          - "Causal AI"
+          - "Research Papers"
+        links:
+          - icon: fab fa-github
+            url: https://github.com/pozapas/awesome-causal-ai
+
+      - title: HFPaperFetch
+        content: An automated daily downloader for Hugging Face trending papers. This Python-based tool fetches PDFs from Hugging Face Daily Papers, organizes them by date in structured directories, tracks downloaded papers to avoid duplicates, and generates JSON summaries for each download session. Includes multiple scheduling options for automated daily runs.
+        image: /images/projects/awesome.jpg
+        badges:
+          - "Python"
+          - "Automation"
+          - "Selenium"
+        links:
+          - icon: fab fa-github
+            url: https://github.com/pozapas/hfpaperfetch
 
       - title: EnginML
         content: EnginML is a Python package created for educational purposes, enabling engineers and students to understand and implement fundamental machine learning workflows, such as regression, classification, and clustering, with little to no programming expertise.
