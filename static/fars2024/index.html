@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FARS 2024 — Interactive Spatial Analysis Dashboard</title>
+<meta name="description" content="39,254 traffic fatalities explored through interactive spatial data lenses with multi-ring radial breakdowns across 18 crash dimensions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+:root{
+  --bg:#0a0e14;--bg2:#12171f;--bg3:#1a2030;--card:#1e2536;--card2:#242d3d;
+  --ink:#e8ecf2;--ink2:#8b95a5;--ink3:#5a6478;--border:#2a3344;--border2:#354055;
+  --red:#ff6b6b;--teal:#4ecdc4;--amber:#ffd166;--blue:#6cb4ee;--purple:#a78bfa;
+  --coral:#ff8a80;--navy:#3d7cf5;--rose:#f472b6;--lime:#a3e635;--cyan:#67e8f9;
+  --emerald:#34d399;--orange:#fb923c;--sky:#38bdf8;--fuchsia:#d946ef;
+  --font:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;overflow:hidden;height:100vh}
+.app{display:grid;grid-template-rows:auto 1fr;height:100vh}
+
+/* ═══ HEADER ═══ */
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:0 14px;height:42px;background:var(--bg2);border-bottom:1px solid var(--border);z-index:600}
+.hdr-left{display:flex;align-items:center;gap:8px}
+.hdr-dot{width:8px;height:8px;background:var(--red);border-radius:50%;box-shadow:0 0 10px rgba(255,107,107,.5)}
+.hdr-t{font-size:.78rem;font-weight:700;letter-spacing:-.3px}
+.hdr-t span{color:var(--ink2);font-weight:400;margin-left:6px}
+.hdr-right{display:flex;align-items:center;gap:5px}
+.hbtn{background:var(--bg3);border:1px solid var(--border);color:var(--ink2);font-family:var(--font);font-size:.62rem;font-weight:600;padding:5px 11px;border-radius:6px;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:3px}
+.hbtn:hover{background:var(--card);color:var(--ink)}
+.hbtn.gear{background:var(--card);border-color:var(--border2)}
+.hsep{width:1px;height:18px;background:var(--border)}
+.hstat{font-size:.6rem;color:var(--ink3);display:flex;align-items:center;gap:3px}
+.hstat b{font-family:var(--mono);color:var(--ink);font-size:.66rem}
+
+/* MAP */
+#map{width:100%;height:100%;z-index:1}
+.leaflet-control-zoom{border:1px solid var(--border)!important;border-radius:8px!important;overflow:hidden}
+.leaflet-control-zoom a{background:var(--bg2)!important;color:var(--ink)!important;border-bottom:1px solid var(--border)!important;width:28px!important;height:28px!important;line-height:28px!important;font-size:14px!important}
+.leaflet-control-zoom a:hover{background:var(--card)!important}
+.leaflet-control-attribution{background:rgba(10,14,20,.85)!important;color:var(--ink3)!important;font-size:.46rem!important;padding:2px 5px!important}
+.leaflet-control-attribution a{color:var(--ink2)!important}
+
+/* ═══ SETTINGS DRAWER ═══ */
+.dov{position:absolute;inset:0;background:rgba(0,0,0,.35);z-index:900;opacity:0;pointer-events:none;transition:opacity .25s}
+.dov.open{opacity:1;pointer-events:all}
+.drw{position:absolute;top:0;right:0;width:320px;height:100%;background:var(--bg2);border-left:1px solid var(--border);z-index:910;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);overflow-y:auto;padding-bottom:20px}
+.drw.open{transform:translateX(0)}
+.drw-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg2);z-index:2}
+.drw-t{font-size:.8rem;font-weight:700}
+.drw-x{background:none;border:1px solid var(--border);color:var(--ink2);width:24px;height:24px;border-radius:6px;cursor:pointer;font-size:11px;display:grid;place-items:center}
+.drw-x:hover{background:var(--card);color:var(--ink)}
+.ds{padding:12px 14px;border-bottom:1px solid var(--border)}
+.ds-t{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--ink3);margin-bottom:8px}
+.ds-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.ds-lbl{font-size:.68rem;color:var(--ink2)}
+.ds-sel{background:var(--card);border:1px solid var(--border);color:var(--ink);font-family:var(--font);font-size:.66rem;padding:4px 6px;border-radius:5px;cursor:pointer;max-width:160px}
+.ds-rng{width:90px;accent-color:var(--navy);height:3px}
+.ds-rv{font-family:var(--mono);font-size:.6rem;color:var(--blue);min-width:28px;text-align:right}
+.tiles{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:5px}
+.tile{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:6px;cursor:pointer;text-align:center;transition:.15s}
+.tile:hover{border-color:var(--blue)}
+.tile.on{border-color:var(--navy);background:rgba(61,124,245,.12)}
+.tile-prev{height:22px;border-radius:3px;margin-bottom:3px}
+.tile-nm{font-size:.52rem;font-weight:600}
+
+/* ═══ LEFT PANEL ═══ */
+.panel{position:absolute;background:rgba(18,23,31,0.95);backdrop-filter:blur(18px);border:1px solid var(--border);border-radius:12px;z-index:500;overflow:hidden}
+.panel.stats{bottom:10px;left:10px;width:230px;padding:12px}
+.panel.agg{top:10px;left:10px;width:200px;padding:10px 12px}
+.p-hdr{display:flex;align-items:center;gap:5px;margin-bottom:3px}
+.p-dot{width:6px;height:6px;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.p-title{font-size:.74rem;font-weight:700}
+.p-sub{color:var(--ink3);font-size:.56rem;margin-bottom:8px}
+.p-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:8px}
+.p-m{background:var(--card);border-radius:7px;padding:6px 8px}
+.p-m-v{font-family:var(--mono);font-size:.92rem;font-weight:600;line-height:1.2}
+.p-m-l{font-size:.48rem;color:var(--ink3);font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-top:1px}
+.p-bar{display:flex;align-items:center;gap:4px;padding:2px 0}
+.p-bar-sw{width:5px;height:5px;border-radius:2px;flex-shrink:0}
+.p-bar-lb{font-size:.58rem;color:var(--ink2);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p-bar-tk{width:46px;height:3px;background:var(--bg);border-radius:2px;overflow:hidden;flex-shrink:0}
+.p-bar-fl{height:100%;border-radius:2px;transition:width .3s}
+.p-bar-vl{font-family:var(--mono);font-size:.58rem;color:var(--ink);min-width:26px;text-align:right}
+.agg-t{font-size:.56rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.agg-row{display:flex;justify-content:space-between;padding:2px 0;font-size:.6rem}
+.agg-row-l{color:var(--ink2);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.agg-row-v{font-family:var(--mono);font-weight:500}
+
+/* ═══ BOTTOM CHARTS STRIP ═══ */
+.charts-strip{position:absolute;bottom:10px;right:10px;display:flex;gap:8px;z-index:500;flex-wrap:wrap;justify-content:flex-end;max-width:calc(100% - 260px)}
+.chart-card{background:rgba(18,23,31,0.95);backdrop-filter:blur(18px);border:1px solid var(--border);border-radius:12px;padding:10px 12px;min-width:180px;transition:border-color .2s}
+.chart-card:hover{border-color:var(--border2)}
+.chart-card.wide{min-width:230px}
+.cc-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.cc-title{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--ink3)}
+.cc-val{font-family:var(--mono);font-size:.72rem;font-weight:600}
+.cc-body{position:relative}
+.cc-body svg{display:block}
+
+/* LEGEND */
+.legend{position:absolute;top:8px;right:8px;background:rgba(18,23,31,0.92);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:7px;padding:6px 10px;z-index:500;display:flex;gap:7px;flex-wrap:wrap}
+.lg-i{display:flex;align-items:center;gap:3px;font-size:.54rem;color:var(--ink2);font-weight:500}
+.lg-d{width:6px;height:6px;border-radius:50%}
+
+/* ATTRIBUTION */
+.attr{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);font-size:.5rem;color:var(--ink3);z-index:500;white-space:nowrap}
+.attr a{color:var(--ink2);text-decoration:none}
+.attr a:hover{text-decoration:underline}
+
+/* HINT */
+.hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(18,23,31,.96);border:1px solid var(--border);border-radius:14px;padding:18px 26px;z-index:700;text-align:center;pointer-events:none;animation:fadeH 4.5s ease-out forwards}
+.hint h3{font-size:.88rem;font-weight:700;margin-bottom:3px}
+.hint p{font-size:.62rem;color:var(--ink3)}
+@keyframes fadeH{0%{opacity:1}80%{opacity:1}100%{opacity:0;visibility:hidden}}
+
+@media(max-width:900px){.panel.stats{width:170px}.panel.agg{display:none}.drw{width:100%}.charts-strip{max-width:calc(100% - 190px)}.chart-card{min-width:140px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="hdr">
+    <div class="hdr-left">
+      <div class="hdr-dot"></div>
+      <div class="hdr-t">FARS 2024<span>Interactive Spatial Analysis</span></div>
+    </div>
+    <div class="hdr-right">
+      <div class="hstat"><b id="ft-n">0</b> fatalities</div>
+      <div class="hstat"><b id="ft-c">0</b> crashes</div>
+      <div class="hsep"></div>
+      <button class="hbtn gear" onclick="toggleDrw()">⚙ Settings</button>
+    </div>
+  </header>
+
+  <div style="position:relative;width:100%;height:100%;overflow:hidden" id="main">
+    <div id="map"></div>
+
+    <div class="panel agg" id="agg-panel"></div>
+    <div class="panel stats" id="stats-panel">
+      <div class="p-hdr"><span class="p-dot" style="background:var(--red)"></span><span class="p-title">Lens Summary</span></div>
+      <div class="p-sub" id="p-sub">Drag the lens to explore crash clusters</div>
+      <div class="p-grid" id="p-grid"></div>
+      <div style="font-size:.48rem;color:var(--ink3);margin:4px 0 2px;font-weight:600;text-transform:uppercase;letter-spacing:.5px" id="p-bars-lbl"></div>
+      <div id="p-bars"></div>
+    </div>
+
+    <!-- BOTTOM CHARTS -->
+    <div class="charts-strip" id="charts-strip">
+      <div class="chart-card" id="cc-hour">
+        <div class="cc-hdr"><span class="cc-title">Hourly Distribution</span><span class="cc-val" id="cc-hour-peak"></span></div>
+        <div class="cc-body" id="cc-hour-body"></div>
+      </div>
+      <div class="chart-card" id="cc-dow">
+        <div class="cc-hdr"><span class="cc-title">Day of Week</span><span class="cc-val" id="cc-dow-peak"></span></div>
+        <div class="cc-body" id="cc-dow-body"></div>
+      </div>
+      <div class="chart-card" id="cc-month">
+        <div class="cc-hdr"><span class="cc-title">Monthly Trend</span><span class="cc-val" id="cc-month-peak"></span></div>
+        <div class="cc-body" id="cc-month-body"></div>
+      </div>
+      <div class="chart-card wide" id="cc-donut">
+        <div class="cc-hdr"><span class="cc-title" id="cc-donut-title">Light Condition</span><span class="cc-val" id="cc-donut-val"></span></div>
+        <div class="cc-body" id="cc-donut-body"></div>
+      </div>
+    </div>
+
+    <div class="legend" id="legend"></div>
+    <div class="attr">Created by <a href="https://pozapas.github.io/" target="_blank">Amir Rafe</a> · Data: <a href="https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars" target="_blank">NHTSA FARS 2024</a></div>
+
+    <!-- DRAWER -->
+    <div class="dov" id="dov" onclick="toggleDrw()"></div>
+    <div class="drw" id="drw">
+      <div class="drw-hdr"><div class="drw-t">Dashboard Settings</div><button class="drw-x" onclick="toggleDrw()">✕</button></div>
+
+      <div class="ds"><div class="ds-t">Map Style</div>
+        <div class="tiles" id="tile-picker"></div>
+      </div>
+
+      <div class="ds"><div class="ds-t">Lens — Inner Ring</div>
+        <div class="ds-row"><span class="ds-lbl">Data</span><select id="ring1" class="ds-sel" onchange="refresh()"></select></div>
+        <div class="ds-row"><span class="ds-lbl">Vis Type</span>
+          <select id="vis1" class="ds-sel" onchange="refresh()">
+            <option value="arcs">Proportional Arcs</option>
+            <option value="pie">Pie Sectors</option>
+            <option value="concentric">Concentric Rings</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="ds"><div class="ds-t">Lens — Outer Ring</div>
+        <div class="ds-row"><span class="ds-lbl">Data</span><select id="ring2" class="ds-sel" onchange="refresh()"></select></div>
+        <div class="ds-row"><span class="ds-lbl">Vis Type</span>
+          <select id="vis2" class="ds-sel" onchange="refresh()">
+            <option value="bars">Hedgehog Bars</option>
+            <option value="arcs">Proportional Arcs</option>
+            <option value="dots">Dot Density</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="ds"><div class="ds-t">Lens Shape</div>
+        <div class="ds-row"><span class="ds-lbl">Radius</span><input type="range" id="lens-r" class="ds-rng" min="60" max="260" value="130" oninput="lensR=+this.value;refresh()"><span class="ds-rv" id="lr-v">130</span></div>
+      </div>
+
+      <div class="ds"><div class="ds-t">Crash Points</div>
+        <div class="ds-row"><span class="ds-lbl">Color By</span><select id="color-by" class="ds-sel" onchange="renderDots()"></select></div>
+        <div class="ds-row"><span class="ds-lbl">Dot Size</span><input type="range" id="dot-sz" class="ds-rng" min="0.5" max="8" value="2" step="0.5" oninput="renderDots()"><span class="ds-rv">2</span></div>
+        <div class="ds-row"><span class="ds-lbl">Opacity</span><input type="range" id="dot-op" class="ds-rng" min="5" max="100" value="40" oninput="renderDots()"><span class="ds-rv">40%</span></div>
+      </div>
+
+      <div class="ds"><div class="ds-t">Bottom Charts — Donut</div>
+        <div class="ds-row"><span class="ds-lbl">Dimension</span><select id="donut-dim" class="ds-sel" onchange="refresh()"></select></div>
+      </div>
+
+      <div class="ds"><div class="ds-t">National Stats Panel</div>
+        <div class="ds-row"><span class="ds-lbl">Show</span><select id="show-agg" class="ds-sel" onchange="renderAgg()"></select></div>
+      </div>
+
+      <div class="ds" style="border-bottom:none">
+        <div class="ds-t">About</div>
+        <div style="font-size:.64rem;color:var(--ink2);line-height:1.6">
+          Created by <a href="https://pozapas.github.io/" target="_blank" style="color:var(--blue);text-decoration:none">Amir Rafe</a><br>
+          Data: <a href="https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars" target="_blank" style="color:var(--blue);text-decoration:none">NHTSA FARS 2024</a><br>
+          <span style="color:var(--ink3);font-size:.58rem">Fatality Analysis Reporting System · 39,254 fatalities · 36,297 crashes</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hint" id="hint"><h3>⊕ Drag the lens to explore</h3><p>Scroll to zoom · Charts at bottom update in real-time with lens position</p></div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════════
+const C=[
+  '#ff6b6b','#4ecdc4','#ffd166','#6cb4ee','#a78bfa','#ff8a80','#3d7cf5',
+  '#f472b6','#a3e635','#67e8f9','#34d399','#fb923c','#38bdf8','#d946ef',
+  '#e879f9','#fbbf24','#818cf8','#22d3ee','#f87171','#86efac','#c084fc'
+];
+const fmt=d3.format(",");
+
+const DIMS = {
+  lc:{key:'lc',label:'Light Condition',cats:{'Day':'#ffd166','Dark-Unlit':'#3d7cf5','Dark-Lit':'#a78bfa','Dusk':'#ff8a80','Dawn':'#4ecdc4','NR':'#5a6478','Unk':'#5a6478','Oth':'#5a6478'}},
+  wx:{key:'wx',label:'Weather',cats:{'Clear':'#ffd166','Cloudy':'#8b95a5','Rain':'#6cb4ee','Snow':'#e8ecf2','Fog':'#a78bfa','Wind':'#ff6b6b','NR':'#5a6478'}},
+  rd:{key:'rd',label:'Road Type',cats:{'Intst':'#3d7cf5','Frwy':'#38bdf8','PrArt':'#ff6b6b','MnArt':'#fb923c','MjCol':'#ffd166','MnCol':'#a3e635','Local':'#4ecdc4','NR':'#5a6478'}},
+  ru:{key:'ru',label:'Rural vs Urban',cats:{'R':'#34d399','U':'#6cb4ee','?':'#5a6478'}},
+  mc:{key:'mc',label:'Collision Type',cats:{'NonMV':'#ff6b6b','Angle':'#fb923c','F2F':'#ffd166','F2R':'#a78bfa','SSSame':'#4ecdc4','SSOpp':'#3d7cf5','Other':'#5a6478'}},
+  it:{key:'it',label:'Intersection',cats:{'NotInt':'#4ecdc4','4Way':'#ff6b6b','T':'#fb923c','Y':'#ffd166','Circle':'#a78bfa','Ramp':'#3d7cf5','Oth':'#5a6478'}},
+  hr:{key:'hr',label:'Hour of Day',bins:24,range:[0,23]},
+  mo:{key:'mo',label:'Month',bins:12,range:[1,12],names:['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']},
+  dw:{key:'dw',label:'Day of Week',bins:7,range:[1,7],names:['','Sun','Mon','Tue','Wed','Thu','Fri','Sat']},
+  nv:{key:'nv',label:'Vehicles Involved',bins:6,range:[1,6]},
+  np:{key:'np',label:'Persons Involved',bins:8,range:[1,8]},
+  st:{key:'st',label:'State',topN:10},
+  pd:{key:'pd',label:'Pedestrians',bins:4,range:[0,3]},
+};
+
+let GEO=[],crashPts=[],allData={};
+let lensX,lensY,lensR=130;
+let leafletMap,tileLayer,svgLayer,gDots,gLens;
+let isDark=true;
+
+// ════════════════════════════════════════════════════════════
+// LOAD
+// ════════════════════════════════════════════════════════════
+async function loadAll(){
+  const b=window.location.href.substring(0,window.location.href.lastIndexOf('/')+1)+'viz_data/';
+  const names=['geo_points','state_fatals','summary','manner_collision','person_type',
+    'restraint','weather','speed','road_type','rural_urban','alcohol','body_type','monthly'];
+  const res=await Promise.all(names.map(n=>d3.json(b+n+'.json')));
+  names.forEach((n,i)=>allData[n]=res[i]);
+  GEO=allData.geo_points;
+  document.getElementById('ft-n').textContent=fmt(allData.summary.total_fatalities);
+  document.getElementById('ft-c').textContent=fmt(GEO.length);
+  populateSelects();
+  renderAgg();
+}
+
+// ════════════════════════════════════════════════════════════
+function populateSelects(){
+  const dimOpts=Object.values(DIMS).map(d=>`<option value="${d.key}">${d.label}</option>`).join('');
+  ['ring1','ring2','color-by','donut-dim'].forEach(id=>document.getElementById(id).innerHTML=dimOpts);
+  document.getElementById('ring1').value='lc';
+  document.getElementById('ring2').value='hr';
+  document.getElementById('color-by').value='hr';
+  document.getElementById('donut-dim').value='mc';
+
+  const aggOpts=['person_type','manner_collision','restraint','weather','speed','road_type','rural_urban','alcohol','body_type','monthly']
+    .map(k=>`<option value="${k}">${k.replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}</option>`).join('');
+  document.getElementById('show-agg').innerHTML=aggOpts;
+
+  const tileData=[
+    {id:'dark',bg:'linear-gradient(135deg,#1a1a2e,#2d3748)',nm:'Dark'},
+    {id:'light',bg:'linear-gradient(135deg,#dce4ec,#e8eef4)',nm:'Light'},
+    {id:'satellite',bg:'linear-gradient(135deg,#1a3a2a,#2d4a38)',nm:'Satellite'},
+    {id:'toner',bg:'linear-gradient(135deg,#111,#444)',nm:'Toner'}
+  ];
+  document.getElementById('tile-picker').innerHTML=tileData.map(t=>
+    `<div class="tile${t.id==='dark'?' on':''}" data-tile="${t.id}" onclick="setTile('${t.id}',this)"><div class="tile-prev" style="background:${t.bg}"></div><div class="tile-nm">${t.nm}</div></div>`
+  ).join('');
+}
+
+// ════════════════════════════════════════════════════════════
+// MAP
+// ════════════════════════════════════════════════════════════
+const TILES={
+  dark:'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+  light:'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+  satellite:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  toner:'https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png'
+};
+function initMap(){
+  leafletMap=L.map('map',{center:[39.5,-98.5],zoom:5,minZoom:3,maxZoom:18});
+  tileLayer=L.tileLayer(TILES.dark,{subdomains:'abcd',maxZoom:19,
+    attribution:'&copy; <a href="https://carto.com/">CARTO</a>'}).addTo(leafletMap);
+
+  svgLayer=d3.select(leafletMap.getPanes().overlayPane)
+    .append("svg").style("position","absolute").style("z-index","400").style("pointer-events","none");
+  const mg=svgLayer.append("g").attr("class","leaflet-zoom-hide");
+  gDots=mg.append("g");
+  gLens=mg.append("g").style("pointer-events","all");
+
+  const c=leafletMap.latLngToLayerPoint(leafletMap.getCenter());
+  lensX=c.x; lensY=c.y;
+  leafletMap.on('moveend zoomend',onMove);
+  onMove();
+}
+function setTile(id,el){
+  document.querySelectorAll('.tile').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');
+  leafletMap.removeLayer(tileLayer);
+  tileLayer=L.tileLayer(TILES[id],{subdomains:id==='satellite'?undefined:'abcd',maxZoom:19}).addTo(leafletMap);
+  isDark=(id==='dark'||id==='satellite'||id==='toner');
+  onMove();
+}
+function onMove(){
+  const b=leafletMap.getBounds();
+  const tl=leafletMap.latLngToLayerPoint(b.getNorthWest());
+  const br=leafletMap.latLngToLayerPoint(b.getSouthEast());
+  svgLayer.attr("width",br.x-tl.x).attr("height",br.y-tl.y)
+    .style("left",tl.x+"px").style("top",tl.y+"px");
+  svgLayer.select(".leaflet-zoom-hide").attr("transform",`translate(${-tl.x},${-tl.y})`);
+  const s=b.getSouth(),n=b.getNorth(),w=b.getWest(),e=b.getEast();
+  crashPts=[];
+  GEO.forEach(d=>{if(d.lat<s||d.lat>n||d.lng<w||d.lng>e)return;
+    const p=leafletMap.latLngToLayerPoint([d.lat,d.lng]);
+    crashPts.push({...d,px:p.x,py:p.y});
+  });
+  renderDots();refresh();
+  document.getElementById('lr-v').textContent=lensR;
+}
+function refresh(){renderLens();updateStats();updateCharts();}
+
+// ════════════════════════════════════════════════════════════
+// ADAPTIVE COLORS
+// ════════════════════════════════════════════════════════════
+function txtCol(a=1){return isDark?`rgba(232,236,242,${a})`:`rgba(20,30,50,${a})`;}
+function bgCol(a=.7){return isDark?`rgba(10,14,20,${a})`:`rgba(255,255,255,${a})`;}
+function ringStroke(){return isDark?'rgba(255,107,107,0.3)':'rgba(200,40,40,0.4)';}
+
+// ════════════════════════════════════════════════════════════
+// DOTS
+// ════════════════════════════════════════════════════════════
+function renderDots(){
+  gDots.selectAll('*').remove();
+  const dimKey=document.getElementById('color-by').value,dim=DIMS[dimKey];
+  const sz=+document.getElementById('dot-sz').value;
+  const op=+document.getElementById('dot-op').value/100;
+  let colorFn,legend=[];
+  if(dim.cats){
+    colorFn=d=>dim.cats[d[dim.key]]||'#5a6478';
+    legend=Object.entries(dim.cats).filter(([k])=>!['NR','Unk','Oth','?'].includes(k)).slice(0,6).map(([l,c])=>({c,l}));
+  }else if(dim.bins){
+    const fn=d3.scaleSequential(dim.range,[C[6],C[4],C[0],C[2],C[1],C[6]].length?d3.interpolateRgbBasis([C[6],C[4],C[0],C[2],C[1],C[6]]):d3.interpolateViridis);
+    colorFn=d=>fn(d[dim.key]);
+    const step=Math.ceil((dim.range[1]-dim.range[0])/4);
+    for(let i=dim.range[0];i<=dim.range[1];i+=step) legend.push({c:fn(i),l:dim.names?dim.names[i]:String(i)});
+  }else if(dim.topN){
+    colorFn=d=>C[Math.abs(hashStr(d[dim.key]))%C.length];legend=[{c:'#888',l:'by state'}];
+  }
+  gDots.selectAll('circle').data(crashPts).join('circle')
+    .attr('cx',d=>d.px).attr('cy',d=>d.py).attr('r',d=>sz*Math.sqrt(d.f||1))
+    .attr('fill',colorFn).attr('opacity',op).style('pointer-events','none');
+  document.getElementById('legend').innerHTML=legend.map(l=>`<div class="lg-i"><div class="lg-d" style="background:${l.c}"></div>${l.l}</div>`).join('');
+}
+function hashStr(s){let h=0;for(let i=0;i<(s||'').length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return h;}
+
+// ════════════════════════════════════════════════════════════
+// LENS
+// ════════════════════════════════════════════════════════════
+function getNearby(){return crashPts.filter(d=>{const dx=d.px-lensX,dy=d.py-lensY;return dx*dx+dy*dy<=lensR*lensR;});}
+
+function aggregate(data,dimKey){
+  const dim=DIMS[dimKey];if(!dim)return[];
+  if(dim.cats){
+    return d3.rollups(data,v=>d3.sum(v,d=>d.f),d=>d[dim.key]).sort((a,b)=>b[1]-a[1]).filter(d=>d[1]>0)
+      .map(([k,v])=>({label:k,value:v,color:dim.cats[k]||C[Math.abs(hashStr(k))%C.length]}));
+  }
+  if(dim.bins){
+    const lo=dim.range[0],hi=dim.range[1],bins=new Array(hi-lo+1).fill(0);
+    data.forEach(d=>{const v=d[dim.key];if(v>=lo&&v<=hi)bins[v-lo]+=d.f;});
+    const sc=d3.scaleSequential([lo,hi],d3.interpolateRgbBasis([C[6],C[4],C[0],C[2],C[1],C[6]]));
+    return bins.map((v,i)=>({label:dim.names?dim.names[i+lo]:String(i+lo),value:v,color:sc(i+lo),idx:i}));
+  }
+  if(dim.topN){
+    return d3.rollups(data,v=>d3.sum(v,d=>d.f),d=>d[dim.key]).sort((a,b)=>b[1]-a[1]).slice(0,dim.topN)
+      .map(([k,v],i)=>({label:k,value:v,color:C[i%C.length]}));
+  }
+  return[];
+}
+
+function renderLens(){
+  gLens.selectAll('*').remove();
+  const nearby=getNearby(),totalF=d3.sum(nearby,d=>d.f);
+  const cx=lensX,cy=lensY,R=lensR;
+
+  gLens.append('circle').attr('cx',cx).attr('cy',cy).attr('r',R)
+    .attr('fill',isDark?'rgba(255,107,107,0.04)':'rgba(200,40,40,0.06)').style('pointer-events','none');
+  gLens.append('circle').attr('cx',cx).attr('cy',cy).attr('r',R)
+    .attr('fill','none').attr('stroke',ringStroke()).attr('stroke-width',1.5).style('pointer-events','none');
+
+  // RING 1
+  const r1Key=document.getElementById('ring1').value,v1=document.getElementById('vis1').value;
+  const r1Data=aggregate(nearby,r1Key);
+  const arcIn=R+5,arcOut=R+32;
+  if(v1==='arcs'||v1==='pie') drawArcs(r1Data,cx,cy,arcIn,arcOut,v1==='pie');
+  else if(v1==='concentric') drawConc(r1Data,cx,cy,arcIn,arcOut);
+
+  // RING 2
+  const r2Key=document.getElementById('ring2').value,v2=document.getElementById('vis2').value;
+  const r2Data=aggregate(nearby,r2Key);
+  const barIn=arcOut+7;
+  if(v2==='bars') drawBars(r2Data,cx,cy,barIn);
+  else if(v2==='arcs') drawArcs(r2Data,cx,cy,barIn,barIn+26,false);
+  else if(v2==='dots') drawDotDen(r2Data,cx,cy,barIn);
+
+  // CENTER
+  const cr=R*0.35;
+  gLens.append('circle').attr('cx',cx).attr('cy',cy).attr('r',cr).attr('fill',bgCol(0.8)).style('pointer-events','none');
+  gLens.append('circle').attr('cx',cx).attr('cy',cy).attr('r',cr)
+    .attr('fill','none').attr('stroke',isDark?'rgba(255,107,107,0.12)':'rgba(200,40,40,0.15)').attr('stroke-width',1).style('pointer-events','none');
+  const fSz=Math.min(28,R*0.22);
+  gLens.append('text').attr('x',cx).attr('y',cy-12).attr('text-anchor','middle').attr('dominant-baseline','central')
+    .attr('fill',txtCol(1)).attr('font-size',fSz+'px').attr('font-weight','800').attr('font-family','var(--mono)').style('pointer-events','none').text(fmt(totalF));
+  gLens.append('text').attr('x',cx).attr('y',cy+6).attr('text-anchor','middle').attr('dominant-baseline','central')
+    .attr('fill',txtCol(0.3)).attr('font-size','8px').attr('font-weight','700').attr('letter-spacing','2.5px').style('pointer-events','none').text('FATALITIES');
+  gLens.append('text').attr('x',cx).attr('y',cy+22).attr('text-anchor','middle').attr('dominant-baseline','central')
+    .attr('fill',isDark?'rgba(108,180,238,0.6)':'rgba(50,100,200,0.7)').attr('font-size','12px').attr('font-weight','600')
+    .attr('font-family','var(--mono)').style('pointer-events','none').text(fmt(nearby.length)+' crashes');
+
+  // Crosshair
+  const ch=R*0.08;
+  [[0,-ch,0,ch],[ch,0,-ch,0]].forEach(([x1,y1,x2,y2])=>{
+    gLens.append('line').attr('x1',cx+x1).attr('y1',cy+y1).attr('x2',cx+x2).attr('y2',cy+y2)
+      .attr('stroke',isDark?'rgba(255,107,107,0.2)':'rgba(200,40,40,0.25)').attr('stroke-width',1).style('pointer-events','none');
+  });
+  gLens.append('circle').attr('cx',cx).attr('cy',cy+R).attr('r',7)
+    .attr('fill','#ff6b6b').attr('stroke',isDark?'#fff':'#333').attr('stroke-width',2).attr('opacity',.9).style('pointer-events','none');
+
+  // Drag
+  gLens.append('circle').attr('cx',cx).attr('cy',cy).attr('r',R+80)
+    .attr('fill','transparent').attr('stroke','none').style('cursor','grab')
+    .call(d3.drag()
+      .on('start',()=>leafletMap.dragging.disable())
+      .on('drag',e=>{lensX=e.x;lensY=e.y;refresh();})
+      .on('end',()=>leafletMap.dragging.enable()));
+}
+
+// ── VIS: Arcs ──
+function drawArcs(data,cx,cy,rIn,rOut,isPie){
+  if(!data.length)return;const total=d3.sum(data,d=>d.value);if(!total)return;
+  const span=Math.PI*2*(isPie?1:0.92),gapOff=isPie?0:(Math.PI*2*0.04);let cum=-Math.PI/2+gapOff;
+  const pad=isPie?0.01:0.015,arcGen=d3.arc().cornerRadius(isPie?0:3),inner=isPie?0:rIn;
+  data.forEach(d=>{
+    if(!d.value)return;const s=cum+pad,e=cum+(d.value/total)*span-pad;cum+=(d.value/total)*span;
+    gLens.append('path').attr('transform',`translate(${cx},${cy})`)
+      .attr('d',arcGen({innerRadius:inner,outerRadius:rOut,startAngle:s,endAngle:e}))
+      .attr('fill',d.color).attr('opacity',0.82).style('pointer-events','none');
+    const midA=(s+e)/2,labelR=(inner+rOut)/2;
+    if(e-s>0.2){
+      const txt=d.label.length>9?d.label.substring(0,8)+'.':d.label;
+      const tx=cx+Math.sin(midA)*labelR,ty=cy-Math.cos(midA)*labelR;
+      gLens.append('text').attr('x',tx).attr('y',ty).attr('text-anchor','middle').attr('dominant-baseline','central')
+        .attr('fill',txtCol(0.95)).attr('font-size','11px').attr('font-weight','700').attr('font-family','var(--font)')
+        .attr('transform',`rotate(${midA*180/Math.PI},${tx},${ty})`).style('pointer-events','none').text(txt);
+    }
+  });
+}
+// ── VIS: Bars ──
+function drawBars(data,cx,cy,rIn){
+  if(!data.length)return;const maxV=d3.max(data,d=>d.value)||1,barMax=55,n=data.length,sliceA=Math.PI*2/n;
+  const bScale=d3.scaleLinear([0,maxV],[0,barMax]);
+  data.forEach((d,i)=>{
+    if(!d.value)return;const sa=i*sliceA-sliceA*0.38,ea=i*sliceA+sliceA*0.38,outerR=rIn+bScale(d.value);
+    gLens.append('path').attr('transform',`translate(${cx},${cy})`)
+      .attr('d',d3.arc().innerRadius(rIn).outerRadius(outerR).cornerRadius(2)({startAngle:sa,endAngle:ea}))
+      .attr('fill',d.color).attr('opacity',0.85).style('pointer-events','none');
+    if(d.value>maxV*0.1){
+      const tipR=outerR+11,midA=(sa+ea)/2;
+      gLens.append('text').attr('x',cx+Math.sin(midA)*tipR).attr('y',cy-Math.cos(midA)*tipR)
+        .attr('text-anchor','middle').attr('dominant-baseline','central')
+        .attr('fill',txtCol(0.6)).attr('font-size','10px').attr('font-weight','600')
+        .attr('font-family','var(--mono)').style('pointer-events','none').text(d.value);
+    }
+  });
+  const step=Math.max(1,Math.floor(n/4));
+  for(let i=0;i<n;i+=step){
+    const a=i*sliceA,r=rIn+barMax+22;
+    gLens.append('text').attr('x',cx+Math.sin(a)*r).attr('y',cy-Math.cos(a)*r)
+      .attr('text-anchor','middle').attr('dominant-baseline','central')
+      .attr('fill',txtCol(0.45)).attr('font-size','11px').attr('font-weight','700')
+      .attr('font-family','var(--mono)').style('pointer-events','none').text(data[i].label);
+  }
+}
+// ── VIS: Concentric ──
+function drawConc(data,cx,cy,rIn,rOut){
+  if(!data.length)return;const maxV=d3.max(data,d=>d.value)||1;
+  const ringW=(rOut-rIn)/Math.min(data.length,6),top=data.slice(0,6);
+  const angleScale=d3.scaleLinear([0,maxV],[0,Math.PI*2*0.92]);
+  top.forEach((d,i)=>{
+    const r=rIn+i*ringW+ringW*0.15,a=angleScale(d.value);
+    gLens.append('path').attr('transform',`translate(${cx},${cy})`)
+      .attr('d',d3.arc().innerRadius(r).outerRadius(r+ringW*0.6).cornerRadius(2)({startAngle:-Math.PI/2,endAngle:-Math.PI/2+a}))
+      .attr('fill',d.color).attr('opacity',0.75).style('pointer-events','none');
+    if(a>0.3){
+      const lx=cx+Math.sin(-Math.PI/2+a+0.1)*(r+ringW*0.3),ly=cy-Math.cos(-Math.PI/2+a+0.1)*(r+ringW*0.3);
+      gLens.append('text').attr('x',lx).attr('y',ly).attr('text-anchor','start').attr('dominant-baseline','central')
+        .attr('fill',txtCol(0.6)).attr('font-size','9px').attr('font-weight','600').attr('font-family','var(--font)')
+        .style('pointer-events','none').text(d.label.substring(0,8));
+    }
+  });
+}
+// ── VIS: Dots ──
+function drawDotDen(data,cx,cy,rIn){
+  if(!data.length)return;const maxV=d3.max(data,d=>d.value)||1,n=data.length,sliceA=Math.PI*2/n;
+  data.forEach((d,i)=>{
+    if(!d.value)return;const nD=Math.min(Math.ceil(d.value/Math.max(1,maxV/15)),15),midA=i*sliceA;
+    for(let j=0;j<nD;j++){const r=rIn+5+j*4,jit=(Math.random()-0.5)*sliceA*0.3;
+      gLens.append('circle').attr('cx',cx+Math.sin(midA+jit)*r).attr('cy',cy-Math.cos(midA+jit)*r)
+        .attr('r',3).attr('fill',d.color).attr('opacity',0.7).style('pointer-events','none');
+    }
+  });
+}
+
+// ════════════════════════════════════════════════════════════
+// STATS PANEL
+// ════════════════════════════════════════════════════════════
+function updateStats(){
+  const nearby=getNearby(),totalF=d3.sum(nearby,d=>d.f),n=nearby.length;
+  document.getElementById('p-sub').textContent=`${fmt(n)} crashes · ${fmt(totalF)} fatalities`;
+  const day=nearby.filter(d=>d.lc==='Day').length,dark=nearby.filter(d=>d.lc&&d.lc.startsWith('Dark')).length;
+  const rural=nearby.filter(d=>d.ru==='R').length;
+  document.getElementById('p-grid').innerHTML=`
+    <div class="p-m"><div class="p-m-v" style="color:#ff8a80">${fmt(totalF)}</div><div class="p-m-l">Total Deaths</div></div>
+    <div class="p-m"><div class="p-m-v" style="color:#6cb4ee">${fmt(n)}</div><div class="p-m-l">Crash Events</div></div>
+    <div class="p-m"><div class="p-m-v" style="color:#ffd166">${day}</div><div class="p-m-l">Daylight Crashes</div></div>
+    <div class="p-m"><div class="p-m-v" style="color:#a78bfa">${dark}</div><div class="p-m-l">Dark Crashes</div></div>
+    <div class="p-m"><div class="p-m-v" style="color:#34d399">${rural}</div><div class="p-m-l">Rural Crashes</div></div>
+    <div class="p-m"><div class="p-m-v" style="color:#fb923c">${d3.sum(nearby,d=>d.pd)}</div><div class="p-m-l">Ped. Fatalities</div></div>`;
+  const r1Key=document.getElementById('ring1').value;
+  const r1Data=aggregate(nearby,r1Key).slice(0,6);
+  const mx=r1Data[0]?r1Data[0].value:1;
+  const dimLabel=DIMS[r1Key]?DIMS[r1Key].label:'Breakdown';
+  document.getElementById('p-bars-lbl').textContent=dimLabel+' (fatalities)';
+  document.getElementById('p-bars').innerHTML=r1Data.map(d=>{
+    const pct=(d.value/mx*100).toFixed(0);
+    return `<div class="p-bar"><div class="p-bar-sw" style="background:${d.color}"></div><div class="p-bar-lb">${d.label}</div><div class="p-bar-tk"><div class="p-bar-fl" style="width:${pct}%;background:${d.color}"></div></div><div class="p-bar-vl">${fmt(d.value)}</div></div>`;
+  }).join('');
+}
+
+// ════════════════════════════════════════════════════════════
+// BOTTOM CHARTS — update with lens
+// ════════════════════════════════════════════════════════════
+function updateCharts(){
+  const nearby=getNearby();
+  drawHourChart(nearby);
+  drawDOWChart(nearby);
+  drawMonthChart(nearby);
+  drawDonutChart(nearby);
+}
+
+// ── HOURLY AREA CHART ──
+function drawHourChart(data){
+  const W=200,H=60,m={t:2,r:4,b:16,l:20};
+  const bins=new Array(24).fill(0);
+  data.forEach(d=>{if(d.hr>=0&&d.hr<24)bins[d.hr]+=d.f;});
+  const maxV=d3.max(bins)||1;
+  const peakH=bins.indexOf(maxV);
+  document.getElementById('cc-hour-peak').textContent=`Peak: ${peakH}:00`;
+  document.getElementById('cc-hour-peak').style.color=C[0];
+
+  const x=d3.scaleLinear([0,23],[m.l,W-m.r]);
+  const y=d3.scaleLinear([0,maxV],[H-m.b,m.t]);
+  const area=d3.area().x((_,i)=>x(i)).y0(H-m.b).y1(d=>y(d)).curve(d3.curveMonotoneX);
+  const line=d3.line().x((_,i)=>x(i)).y(d=>y(d)).curve(d3.curveMonotoneX);
+
+  const grad='url(#hGrad)';
+  const svg=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+    <defs><linearGradient id="hGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${C[0]}" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="${C[0]}" stop-opacity="0.02"/>
+    </linearGradient></defs>
+    <path d="${area(bins)}" fill="${grad}"/>
+    <path d="${line(bins)}" fill="none" stroke="${C[0]}" stroke-width="2"/>
+    ${[0,6,12,18].map(h=>`<text x="${x(h)}" y="${H-2}" text-anchor="middle" fill="#5a6478" font-size="7" font-family="var(--mono)">${h}h</text>`).join('')}
+    <circle cx="${x(peakH)}" cy="${y(bins[peakH])}" r="3" fill="${C[0]}" stroke="#0a0e14" stroke-width="1.5"/>
+  </svg>`;
+  document.getElementById('cc-hour-body').innerHTML=svg;
+}
+
+// ── DAY OF WEEK BAR CHART ──
+function drawDOWChart(data){
+  const W=165,H=60,m={t:2,r:4,b:16,l:4};
+  const names=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const bins=new Array(7).fill(0);
+  data.forEach(d=>{if(d.dw>=1&&d.dw<=7)bins[d.dw-1]+=d.f;});
+  const maxV=d3.max(bins)||1;
+  const peakD=bins.indexOf(maxV);
+  document.getElementById('cc-dow-peak').textContent=names[peakD];
+  document.getElementById('cc-dow-peak').style.color=C[1];
+
+  const barW=(W-m.l-m.r)/7-3;
+  const y=d3.scaleLinear([0,maxV],[H-m.b,m.t]);
+
+  let bars='';
+  bins.forEach((v,i)=>{
+    const bx=m.l+i*(barW+3);
+    const bh=H-m.b-y(v);
+    const col=i===peakD?C[1]:C[1]+'88';
+    bars+=`<rect x="${bx}" y="${y(v)}" width="${barW}" height="${bh}" rx="2" fill="${col}"/>`;
+    bars+=`<text x="${bx+barW/2}" y="${H-2}" text-anchor="middle" fill="#5a6478" font-size="7" font-family="var(--mono)">${names[i].charAt(0)}</text>`;
+  });
+  document.getElementById('cc-dow-body').innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${bars}</svg>`;
+}
+
+// ── MONTHLY SPARKLINE ──
+function drawMonthChart(data){
+  const W=200,H=60,m={t:4,r:4,b:16,l:20};
+  const bins=new Array(12).fill(0);
+  data.forEach(d=>{if(d.mo>=1&&d.mo<=12)bins[d.mo-1]+=d.f;});
+  const maxV=d3.max(bins)||1;
+  const peakM=bins.indexOf(maxV);
+  const mNames=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('cc-month-peak').textContent=mNames[peakM];
+  document.getElementById('cc-month-peak').style.color=C[4];
+
+  const x=d3.scaleLinear([0,11],[m.l,W-m.r]);
+  const y=d3.scaleLinear([0,maxV],[H-m.b,m.t]);
+  const area=d3.area().x((_,i)=>x(i)).y0(H-m.b).y1(d=>y(d)).curve(d3.curveCardinal);
+  const line=d3.line().x((_,i)=>x(i)).y(d=>y(d)).curve(d3.curveCardinal);
+
+  const svg=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+    <defs><linearGradient id="mGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${C[4]}" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="${C[4]}" stop-opacity="0.02"/>
+    </linearGradient></defs>
+    <path d="${area(bins)}" fill="url(#mGrad)"/>
+    <path d="${line(bins)}" fill="none" stroke="${C[4]}" stroke-width="2"/>
+    ${[0,3,6,9,11].map(m2=>`<text x="${x(m2)}" y="${H-2}" text-anchor="middle" fill="#5a6478" font-size="7" font-family="var(--mono)">${mNames[m2].charAt(0)}</text>`).join('')}
+    <circle cx="${x(peakM)}" cy="${y(bins[peakM])}" r="3" fill="${C[4]}" stroke="#0a0e14" stroke-width="1.5"/>
+  </svg>`;
+  document.getElementById('cc-month-body').innerHTML=svg;
+}
+
+// ── MINI DONUT CHART ──
+function drawDonutChart(data){
+  const dimKey=document.getElementById('donut-dim').value;
+  const dim=DIMS[dimKey];
+  document.getElementById('cc-donut-title').textContent=dim.label;
+
+  const agg=aggregate(data,dimKey).slice(0,6);
+  const total=d3.sum(agg,d=>d.value);
+  document.getElementById('cc-donut-val').textContent=fmt(total);
+  document.getElementById('cc-donut-val').style.color=C[2];
+
+  const W=210,H=80,cx=55,cy=42,R=32,r=18;
+  if(!agg.length||!total){document.getElementById('cc-donut-body').innerHTML='';return;}
+  const arcGen=d3.arc().cornerRadius(2);
+  let cum=-Math.PI/2;
+  let arcs='', labels='';
+
+  agg.forEach((d,i)=>{
+    const span=(d.value/total)*Math.PI*2;
+    const s=cum+0.015,e=cum+span-0.015;cum+=span;
+    arcs+=`<path d="${arcGen({innerRadius:r,outerRadius:R,startAngle:s,endAngle:e})}" fill="${d.color}" opacity="0.85" transform="translate(${cx},${cy})"/>`;
+    // Legend on right side
+    const ly=12+i*12;
+    labels+=`<rect x="${cx+R+8}" y="${ly-4}" width="5" height="5" rx="1" fill="${d.color}"/>`;
+    labels+=`<text x="${cx+R+16}" y="${ly}" fill="#8b95a5" font-size="8" font-family="var(--font)" dominant-baseline="central">${d.label.substring(0,10)}</text>`;
+    labels+=`<text x="${W-2}" y="${ly}" fill="#e8ecf2" font-size="8" font-family="var(--mono)" text-anchor="end" dominant-baseline="central">${d.value}</text>`;
+  });
+  // Center text
+  arcs+=`<text x="${cx}" y="${cy-3}" text-anchor="middle" dominant-baseline="central" fill="#e8ecf2" font-size="11" font-weight="700" font-family="var(--mono)">${fmt(total)}</text>`;
+  arcs+=`<text x="${cx}" y="${cy+9}" text-anchor="middle" dominant-baseline="central" fill="#5a6478" font-size="6" font-weight="600" letter-spacing="1">TOTAL</text>`;
+
+  document.getElementById('cc-donut-body').innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${arcs}${labels}</svg>`;
+}
+
+// ════════════════════════════════════════════════════════════
+// AGGREGATE PANEL
+// ════════════════════════════════════════════════════════════
+function renderAgg(){
+  const key=document.getElementById('show-agg').value;
+  const data=allData[key];if(!data||!data.length){document.getElementById('agg-panel').innerHTML='';return;}
+  const valKey=Object.keys(data[0]).find(k=>typeof data[0][k]==='number'&&k!=='month');
+  const nameKey=Object.keys(data[0]).find(k=>typeof data[0][k]==='string');
+  const sorted=[...data].sort((a,b)=>(b[valKey]||0)-(a[valKey]||0)).slice(0,7);
+  const title=key.replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+  document.getElementById('agg-panel').innerHTML=`<div class="agg-t">${title} (National)</div>
+    ${sorted.map(d=>`<div class="agg-row"><span class="agg-row-l">${(d[nameKey]||'').substring(0,22)}</span><span class="agg-row-v">${fmt(d[valKey]||0)}</span></div>`).join('')}`;
+}
+
+// ════════════════════════════════════════════════════════════
+function toggleDrw(){document.getElementById('drw').classList.toggle('open');document.getElementById('dov').classList.toggle('open');}
+
+// INIT
+(async()=>{await loadAll();initMap();})();
+</script>
+</body>
+</html>
