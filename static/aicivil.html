@@ -1,0 +1,3231 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AI in Civil Engineering &mdash; Dr. Amir Rafe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS RESET & VARIABLES ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg-primary: #111111;
+  --bg-secondary: #191919;
+  --bg-card: rgba(25, 25, 25, 0.85);
+  --glass: rgba(255, 224, 194, 0.04);
+  --glass-border: rgba(255, 224, 194, 0.08);
+  --text-primary: #eeeeee;
+  --text-secondary: #b4b4b4;
+  --text-muted: #646464;
+  --accent-cyan: #ffe0c2;
+  --accent-purple: #d4a574;
+  --accent-orange: #e8a87c;
+  --accent-rose: #e54d2e;
+  --accent-emerald: #c9a06e;
+  --accent-blue: #b08968;
+  --gradient-main: linear-gradient(135deg, #ffe0c2 0%, #d4a574 50%, #b08968 100%);
+  --gradient-warm: linear-gradient(135deg, #ffe0c2 0%, #e54d2e 100%);
+  --gradient-cool: linear-gradient(135deg, #ffe0c2 0%, #d4a574 100%);
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --section-padding: clamp(60px, 8vh, 120px) clamp(20px, 5vw, 80px);
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-purple) var(--bg-primary);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 3px; }
+
+/* ===== NOISE OVERLAY ===== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ===== FLOATING NAV ===== */
+.floating-nav {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nav-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.nav-dot:hover, .nav-dot.active {
+  background: var(--accent-cyan);
+  box-shadow: 0 0 20px var(--accent-cyan);
+  transform: scale(1.4);
+}
+
+.nav-dot::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.nav-dot:hover::after { opacity: 1; }
+
+/* ===== TOP HEADER BAR ===== */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  z-index: 1001;
+  transition: transform 0.3s;
+}
+
+.top-bar-logo {
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--accent-cyan);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.top-bar-links {
+  display: flex;
+  gap: 24px;
+}
+
+.top-bar-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-family: var(--font-mono);
+  letter-spacing: 1px;
+  transition: color 0.3s;
+}
+
+.top-bar-links a:hover { color: var(--accent-cyan); }
+
+/* ===== SECTION BASE ===== */
+.section {
+  min-height: 100vh;
+  padding: var(--section-padding);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  margin-bottom: 16px;
+  opacity: 0.7;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.section-subtitle {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: var(--text-secondary);
+  max-width: 700px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ===== HERO SECTION ===== */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+
+.hero-card {
+  width: 100%;
+  min-height: 100vh;
+  background: rgba(17, 17, 17, 0.96);
+  border-radius: 0;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  box-shadow: none;
+}
+
+
+
+/* Spotlight SVG animation */
+.hero-spotlight {
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+  height: 169%;
+  width: 138%;
+  opacity: 0;
+  animation: spotlight-appear 2s ease 0.5s forwards;
+}
+
+@keyframes spotlight-appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.hero-left {
+  flex: 0 0 45%;
+  padding: clamp(40px, 5vw, 72px);
+  padding-right: 0;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.hero-right {
+  flex: 1;
+  position: relative;
+  min-height: 400px;
+  overflow: hidden;
+}
+
+.hero-right spline-viewer {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hero-spline-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-spline-fallback .loader {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255,255,255,0.1);
+  border-top-color: var(--accent-cyan);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border: 1px solid var(--glass-border);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  animation: fade-up 1s ease 0.2s both;
+}
+
+.hero-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-emerald);
+  animation: pulse-dot 2s ease infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(201, 160, 110, 0.4); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(201, 160, 110, 0); }
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.08;
+  margin-bottom: 8px;
+  animation: fade-up 1s ease 0.4s both;
+}
+
+.hero-title .gradient-text {
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-title .italic { font-style: italic; }
+
+.hero-desc {
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 20px 0 32px;
+  line-height: 1.7;
+  font-weight: 300;
+  animation: fade-up 1s ease 0.6s both;
+}
+
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  animation: fade-up 1s ease 0.8s both;
+}
+
+.hero-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+
+.hero-meta-item svg { width: 16px; height: 16px; opacity: 0.6; }
+
+.hero-cta-group {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+  animation: fade-up 1s ease 1s both;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+}
+
+.btn .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-primary {
+  background: var(--gradient-cool);
+  color: white;
+  box-shadow: 0 4px 20px rgba(255, 224, 194, 0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 224, 194, 0.35);
+}
+
+.btn-ghost {
+  background: var(--glass);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fade-up 1s ease 1.2s both;
+}
+
+.scroll-indicator span {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--accent-cyan), transparent);
+  animation: scroll-pulse 2s ease infinite;
+}
+
+@keyframes scroll-pulse {
+  0%, 100% { opacity: 1; transform: scaleY(1); }
+  50% { opacity: 0.3; transform: scaleY(0.6); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== WHAT ARE AI AGENTS ===== */
+.agents-explain {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 48px;
+}
+
+.agent-diagram {
+  position: relative;
+  padding: 40px;
+}
+
+.agent-loop {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1;
+  position: relative;
+  margin: 0 auto;
+}
+
+.agent-node {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  transition: all 0.5s;
+}
+
+.agent-node:hover {
+  transform: scale(1.08);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 40px rgba(255, 224, 194, 0.15);
+}
+
+.agent-node svg { width: 32px; height: 32px; }
+
+.agent-node.perceive {
+  top: 0; left: 50%; transform: translateX(-50%);
+  background: linear-gradient(135deg, rgba(255, 224, 194, 0.12), rgba(255, 224, 194, 0.03));
+  color: var(--accent-cyan);
+}
+
+.agent-node.reason {
+  top: 50%; right: 0; transform: translateY(-50%);
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.12), rgba(212, 165, 116, 0.03));
+  color: var(--accent-purple);
+}
+
+.agent-node.act {
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  background: linear-gradient(135deg, rgba(229, 77, 46, 0.12), rgba(229, 77, 46, 0.03));
+  color: var(--accent-rose);
+}
+
+.agent-node.learn {
+  top: 50%; left: 0; transform: translateY(-50%);
+  background: linear-gradient(135deg, rgba(201, 160, 110, 0.12), rgba(201, 160, 110, 0.03));
+  color: var(--accent-emerald);
+}
+
+.loop-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 220px;
+  height: 220px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.06);
+  animation: rotate-slow 30s linear infinite;
+}
+
+@keyframes rotate-slow { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+.agent-features {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.agent-feature {
+  padding: 20px 24px;
+  border-radius: 16px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s;
+}
+
+.agent-feature:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateX(4px);
+}
+
+.agent-feature h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.agent-feature p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.feature-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-icon .icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* ===== HORIZONTAL SCROLL SECTIONS ===== */
+.horizontal-section {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.h-scroll-wrapper {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  height: 85vh;
+  margin-top: 20px;
+}
+
+.h-scroll-wrapper::-webkit-scrollbar { display: none; }
+
+.h-card {
+  flex: 0 0 min(450px, 85vw);
+  scroll-snap-align: start;
+  margin-right: 24px;
+  padding: 32px;
+  border-radius: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+
+.h-card:first-child { margin-left: clamp(20px, 5vw, 80px); }
+
+.h-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-4px);
+}
+
+.h-card-number {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 900;
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.3;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.h-card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.h-card-desc {
+  font-size: 0.98rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  flex: 1;
+}
+
+.h-card-tag {
+  display: inline-flex;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  letter-spacing: 1px;
+  margin-top: 16px;
+  align-self: flex-start;
+}
+
+.tag-cyan { background: rgba(255, 224, 194, 0.1); color: var(--accent-cyan); border: 1px solid rgba(255, 224, 194, 0.2); }
+.tag-purple { background: rgba(212, 165, 116, 0.1); color: var(--accent-purple); border: 1px solid rgba(212, 165, 116, 0.2); }
+.tag-rose { background: rgba(229, 77, 46, 0.1); color: var(--accent-rose); border: 1px solid rgba(229, 77, 46, 0.2); }
+.tag-emerald { background: rgba(201, 160, 110, 0.1); color: var(--accent-emerald); border: 1px solid rgba(201, 160, 110, 0.2); }
+.tag-orange { background: rgba(232, 168, 124, 0.1); color: var(--accent-orange); border: 1px solid rgba(232, 168, 124, 0.2); }
+.tag-blue { background: rgba(176, 137, 104, 0.1); color: var(--accent-blue); border: 1px solid rgba(176, 137, 104, 0.2); }
+
+.scroll-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 12px;
+}
+
+.scroll-hint-arrow {
+  display: inline-block;
+  animation: bounce-right 1.5s ease infinite;
+}
+
+@keyframes bounce-right {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
+
+/* ===== BENTO GRID ===== */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(200px, auto);
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.bento-item {
+  border-radius: 20px;
+  padding: 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+
+.bento-item:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.bento-item.span-2 { grid-column: span 2; }
+.bento-item.span-row-2 { grid-row: span 2; }
+
+.bento-item .bento-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.bento-item .bento-icon .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.bento-item h3 {
+  font-size: 1.22rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.bento-item p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ===== VIDEO GRID ===== */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.video-card {
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  transition: all 0.4s;
+  display: flex;
+  flex-direction: column;
+}
+
+.video-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.video-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: none;
+  padding: 0;
+  background: #0a0a0a;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.video-frame.external-resource {
+  padding: 28px;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: flex-end;
+  cursor: pointer;
+}
+
+.video-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.82;
+  transition: transform 0.45s ease, opacity 0.45s ease;
+}
+
+.video-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10, 10, 10, 0.12) 0%, rgba(10, 10, 10, 0.55) 100%),
+    radial-gradient(circle at center, rgba(255, 224, 194, 0.1) 0%, rgba(10, 10, 10, 0) 55%);
+}
+
+.video-card:hover .video-frame img {
+  transform: scale(1.04);
+  opacity: 0.95;
+}
+
+.video-frame.external-resource::after {
+  background:
+    linear-gradient(180deg, rgba(10, 10, 10, 0.06) 0%, rgba(10, 10, 10, 0.5) 100%),
+    radial-gradient(circle at top right, rgba(255, 224, 194, 0.16) 0%, rgba(10, 10, 10, 0) 50%);
+}
+
+.video-resource-stack {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 280px;
+}
+
+.video-resource-badge {
+  align-self: flex-start;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.video-resource-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(17, 17, 17, 0.36);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.video-resource-icon .icon {
+  width: 24px;
+  height: 24px;
+}
+
+.video-resource-title {
+  font-size: 1.26rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.video-resource-copy {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: rgba(238, 238, 238, 0.82);
+}
+
+.video-play-button {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(17, 17, 17, 0.7);
+  border: 1px solid rgba(255, 224, 194, 0.24);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.36);
+  z-index: 1;
+  transition: transform 0.35s ease, background 0.35s ease, border-color 0.35s ease;
+}
+
+.video-play-button .icon {
+  width: 26px;
+  height: 26px;
+  margin-left: 4px;
+  color: var(--accent-cyan);
+}
+
+.video-card:hover .video-play-button {
+  transform: translate(-50%, -50%) scale(1.05);
+  background: rgba(17, 17, 17, 0.82);
+  border-color: rgba(255, 224, 194, 0.36);
+}
+
+.video-card iframe {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16/9;
+  border: none;
+  display: block;
+}
+
+.video-card-info {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.video-card-info h4 {
+  font-size: 1.02rem;
+  font-weight: 600;
+}
+
+.video-card-info p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.video-link {
+  color: var(--accent-cyan);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.video-link:hover { opacity: 1; }
+
+.video-playback-note {
+  margin-top: 12px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+/* ===== PAPER CARDS ===== */
+.papers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.paper-card {
+  padding: 24px;
+  border-radius: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.paper-card:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(255, 224, 194, 0.03);
+  transform: translateY(-2px);
+}
+
+.paper-card .paper-venue {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-purple);
+  margin-bottom: 8px;
+}
+
+.paper-card h4 {
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.paper-card .paper-authors {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.paper-card .paper-abstract {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ===== GITHUB CARDS ===== */
+.github-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.github-card {
+  padding: 24px;
+  border-radius: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.github-card:hover {
+  border-color: var(--accent-emerald);
+  background: rgba(201, 160, 110, 0.03);
+  transform: translateY(-2px);
+}
+
+.github-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.github-card-header svg {
+  width: 20px;
+  height: 20px;
+  color: var(--text-secondary);
+}
+
+.github-card-header span {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--accent-emerald);
+}
+
+.github-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.github-card-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.github-tag {
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+}
+
+/* ===== PODCAST SECTION ===== */
+.podcast-embed {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.podcast-player {
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  padding: 24px;
+}
+
+.podcast-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.podcast-info h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.podcast-info p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.podcast-topics {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.podcast-topic {
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  font-size: 0.92rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s;
+}
+
+.podcast-topic:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.podcast-topic-num {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent-orange);
+  min-width: 24px;
+}
+
+.podcast-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.podcast-card {
+  padding: 28px;
+  border-radius: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.podcast-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.podcast-card-head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.podcast-card-badge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.podcast-card-badge .icon {
+  width: 14px;
+  height: 14px;
+}
+
+.podcast-card h3 {
+  font-size: 1.16rem;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.podcast-card p {
+  font-size: 0.94rem;
+  color: var(--text-secondary);
+  line-height: 1.72;
+  flex: 1;
+}
+
+.podcast-player-embed {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.podcast-player-embed iframe {
+  width: 100%;
+  height: 152px;
+  border: none;
+  display: block;
+}
+
+.podcast-audio {
+  padding: 10px 12px;
+}
+
+.podcast-audio audio {
+  width: 100%;
+  display: block;
+}
+
+.podcast-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.podcast-card-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 0.84rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.podcast-card-links a:hover {
+  border-color: rgba(255, 224, 194, 0.22);
+  color: var(--accent-cyan);
+}
+
+.podcast-card-links a .icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* ===== TIMELINE ===== */
+.timeline {
+  position: relative;
+  margin-top: 60px;
+  padding-left: 40px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-purple), var(--accent-rose), transparent);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 48px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -44px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 20px rgba(255, 224, 194, 0.4);
+}
+
+.timeline-year {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent-cyan);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.timeline-item h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.timeline-item p {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+/* ===== STATS BAR ===== */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin: 60px 0;
+  padding: 40px;
+  border-radius: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 900;
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ===== QUOTE BLOCK ===== */
+.quote-block {
+  padding: 40px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255, 224, 194, 0.04), rgba(212, 165, 116, 0.04));
+  border: 1px solid var(--glass-border);
+  margin: 40px 0;
+  position: relative;
+}
+
+.quote-block::before {
+  content: '"';
+  font-family: var(--font-display);
+  font-size: 8rem;
+  color: var(--accent-cyan);
+  opacity: 0.1;
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  line-height: 1;
+}
+
+.quote-block blockquote {
+  font-size: 1.3rem;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--text-primary);
+  max-width: 800px;
+}
+
+.quote-block cite {
+  display: block;
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: normal;
+}
+
+/* ===== CODE BLOCK ===== */
+.code-block {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
+  margin: 24px 0;
+}
+
+.code-header {
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.code-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.code-dot.red { background: #ff5f57; }
+.code-dot.yellow { background: #febc2e; }
+.code-dot.green { background: #28c840; }
+
+.code-header span {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-left: 8px;
+}
+
+.code-block pre {
+  padding: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  overflow-x: auto;
+}
+
+.code-block .keyword { color: var(--accent-purple); }
+.code-block .function { color: var(--accent-cyan); }
+.code-block .string { color: var(--accent-emerald); }
+.code-block .comment { color: var(--text-muted); font-style: italic; }
+.code-block .class { color: var(--accent-orange); }
+
+/* ===== FOOTER ===== */
+.footer {
+  padding: 60px clamp(20px, 5vw, 80px);
+  border-top: 1px solid var(--glass-border);
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+  padding: 8px 16px;
+  border-radius: 100px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+}
+
+.footer-links a:hover {
+  color: var(--accent-cyan);
+  border-color: rgba(255, 224, 194, 0.3);
+}
+
+.footer-links a svg { width: 16px; height: 16px; }
+
+.footer p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 16px;
+}
+
+/* ===== INTERSECTION OBSERVER ANIMATIONS ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ===== DIVIDER ===== */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+  margin: 0;
+}
+
+/* ===== TOOL CARD (for framework section) ===== */
+.tools-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.tool-card {
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  text-align: center;
+  transition: all 0.3s;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.tool-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-2px);
+}
+
+.tool-card .tool-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 6px;
+}
+
+.tool-card .tool-icon .icon {
+  width: 24px;
+  height: 24px;
+}
+
+.tool-card h4 { font-size: 0.98rem; font-weight: 600; }
+.tool-card p { font-size: 0.86rem; color: var(--text-muted); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .agents-explain { grid-template-columns: 1fr; gap: 40px; }
+  .bento-grid { grid-template-columns: 1fr; }
+  .bento-item.span-2 { grid-column: span 1; }
+  .podcast-embed { grid-template-columns: 1fr; }
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .floating-nav { display: none; }
+  .top-bar { padding: 0 20px; }
+  .top-bar-links { display: none; }
+  .hero-card { flex-direction: column; min-height: 100vh; }
+  .hero-right { min-height: 350px; }
+}
+
+@media (max-width: 600px) {
+  .hero-title { font-size: 2.5rem; }
+  .hero-meta { flex-direction: column; gap: 12px; }
+  .hero-card { border-radius: 0; }
+  .hero-cta-group { flex-direction: column; align-items: flex-start; }
+  .stats-bar { grid-template-columns: 1fr; gap: 16px; padding: 24px; }
+  .video-grid { grid-template-columns: 1fr; }
+  .papers-grid { grid-template-columns: 1fr; }
+  .github-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== GLOW EFFECTS ===== */
+.glow-cyan { box-shadow: 0 0 60px rgba(255, 224, 194, 0.08); }
+.glow-purple { box-shadow: 0 0 60px rgba(212, 165, 116, 0.08); }
+
+/* ===== PARTICLE CANVAS ===== */
+#particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+/* ===== ARCHITECTURE FLOW ===== */
+.arch-flow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.arch-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  font-size: 0.92rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+
+.arch-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arch-icon .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.arch-box:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(255, 224, 194, 0.05);
+}
+
+.arch-arrow {
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  font-size: 1rem;
+  line-height: 1;
+  opacity: 0.8;
+}
+
+/* Use cases icons grid */
+.use-case-icons {
+  display: flex;
+  gap: 24px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.use-case-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s;
+  cursor: default;
+}
+
+.use-case-icon .icon {
+  width: 26px;
+  height: 26px;
+}
+
+.use-case-icon:hover {
+  transform: scale(1.1) rotate(-5deg);
+  border-color: rgba(255, 224, 194, 0.15);
+}
+
+.resource-heading,
+.future-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.future-title {
+  font-size: 1.08rem;
+  margin-bottom: 10px;
+}
+
+.future-title-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.future-title-icon .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.podcast-open {
+  font-size: 0.9rem !important;
+}
+
+/* Additional landscape decoration */
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  opacity: 0.4;
+}
+</style>
+</head>
+<body>
+
+<!-- Particle Canvas -->
+<canvas id="particles"></canvas>
+
+<svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+  <defs>
+    <symbol id="icon-brain" viewBox="0 0 24 24">
+      <path d="M12 18V5"/>
+      <path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/>
+      <path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/>
+      <path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/>
+      <path d="M18 18a4 4 0 0 0 2-7.464"/>
+      <path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/>
+      <path d="M6 18a4 4 0 0 1-2-7.464"/>
+      <path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/>
+    </symbol>
+    <symbol id="icon-wrench" viewBox="0 0 24 24">
+      <path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-3-3 2.4-2.4z"/>
+    </symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24">
+      <path d="M3 12a9 9 0 0 1 15.3-6.3L21 8"/>
+      <path d="M21 3v5h-5"/>
+      <path d="M21 12a9 9 0 0 1-15.3 6.3L3 16"/>
+      <path d="M8 16H3v5"/>
+    </symbol>
+    <symbol id="icon-book-open" viewBox="0 0 24 24">
+      <path d="M12 7v14"/>
+      <path d="M3 6.5A2.5 2.5 0 0 1 5.5 4H12v16H5.5A2.5 2.5 0 0 0 3 22z"/>
+      <path d="M21 6.5A2.5 2.5 0 0 0 18.5 4H12v16h6.5A2.5 2.5 0 0 1 21 22z"/>
+    </symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M5 20a7 7 0 0 1 14 0"/>
+    </symbol>
+    <symbol id="icon-clipboard-list" viewBox="0 0 24 24">
+      <rect x="7" y="4" width="10" height="4" rx="1"/>
+      <path d="M9 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-3"/>
+      <path d="M9 12h6"/>
+      <path d="M9 16h4"/>
+    </symbol>
+    <symbol id="icon-eye" viewBox="0 0 24 24">
+      <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/>
+      <circle cx="12" cy="12" r="3"/>
+    </symbol>
+    <symbol id="icon-check-circle" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="m9 12 2 2 4-4"/>
+    </symbol>
+    <symbol id="icon-flask" viewBox="0 0 24 24">
+      <path d="M10 3h4"/>
+      <path d="M10 3v5l-5.5 9.5A2 2 0 0 0 6.2 20h11.6a2 2 0 0 0 1.7-2.5L14 8V3"/>
+      <path d="M8 14h8"/>
+    </symbol>
+    <symbol id="icon-ruler" viewBox="0 0 24 24">
+      <path d="m4 20 16-16 2 2-16 16H4z"/>
+      <path d="m14 6 4 4"/>
+      <path d="M11 9l2 2"/>
+      <path d="M8 12l2 2"/>
+    </symbol>
+    <symbol id="icon-building" viewBox="0 0 24 24">
+      <path d="M4 21V7l8-4 8 4v14"/>
+      <path d="M9 21v-4h6v4"/>
+      <path d="M8 10h.01"/>
+      <path d="M12 10h.01"/>
+      <path d="M16 10h.01"/>
+      <path d="M8 13h.01"/>
+      <path d="M12 13h.01"/>
+      <path d="M16 13h.01"/>
+    </symbol>
+    <symbol id="icon-bolt" viewBox="0 0 24 24">
+      <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/>
+    </symbol>
+    <symbol id="icon-pencil" viewBox="0 0 24 24">
+      <path d="M12 20h9"/>
+      <path d="m16.5 3.5 4 4L8 20l-5 1 1-5 12.5-12.5z"/>
+    </symbol>
+    <symbol id="icon-network" viewBox="0 0 24 24">
+      <rect x="3" y="3" width="6" height="6" rx="1"/>
+      <rect x="15" y="3" width="6" height="6" rx="1"/>
+      <rect x="9" y="15" width="6" height="6" rx="1"/>
+      <path d="M9 6h6"/>
+      <path d="M12 9v6"/>
+    </symbol>
+    <symbol id="icon-headphones" viewBox="0 0 24 24">
+      <path d="M4 12a8 8 0 0 1 16 0"/>
+      <path d="M4 12v6a2 2 0 0 0 2 2h2v-8H6a2 2 0 0 0-2 2z"/>
+      <path d="M20 12v6a2 2 0 0 1-2 2h-2v-8h2a2 2 0 0 1 2 2z"/>
+    </symbol>
+    <symbol id="icon-monitor-play" viewBox="0 0 24 24">
+      <rect x="3" y="4" width="18" height="12" rx="2"/>
+      <path d="M8 20h8"/>
+      <path d="m11 8 4 2.5-4 2.5z"/>
+    </symbol>
+    <symbol id="icon-graduation-cap" viewBox="0 0 24 24">
+      <path d="m2 9 10-5 10 5-10 5L2 9z"/>
+      <path d="M6 11v4c0 1.7 2.7 3 6 3s6-1.3 6-3v-4"/>
+    </symbol>
+    <symbol id="icon-file-text" viewBox="0 0 24 24">
+      <path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/>
+      <path d="M14 3v6h6"/>
+      <path d="M8 13h8"/>
+      <path d="M8 17h6"/>
+    </symbol>
+    <symbol id="icon-workflow" viewBox="0 0 24 24">
+      <rect x="3" y="4" width="7" height="7" rx="1"/>
+      <rect x="14" y="4" width="7" height="7" rx="1"/>
+      <rect x="9" y="14" width="7" height="7" rx="1"/>
+      <path d="M10 7h4"/>
+      <path d="M12 11v3"/>
+    </symbol>
+    <symbol id="icon-users" viewBox="0 0 24 24">
+      <path d="M16 21a4 4 0 0 0-8 0"/>
+      <circle cx="12" cy="10" r="3"/>
+      <path d="M22 21a4 4 0 0 0-3-3.87"/>
+      <path d="M2 21a4 4 0 0 1 3-3.87"/>
+      <path d="M17 6a3 3 0 0 1 0 6"/>
+      <path d="M7 6a3 3 0 0 0 0 6"/>
+    </symbol>
+    <symbol id="icon-bot" viewBox="0 0 24 24">
+      <rect x="4" y="7" width="16" height="12" rx="3"/>
+      <path d="M12 3v4"/>
+      <path d="M8 12h.01"/>
+      <path d="M16 12h.01"/>
+      <path d="M9 16h6"/>
+    </symbol>
+    <symbol id="icon-stack" viewBox="0 0 24 24">
+      <path d="m12 3 9 4.5-9 4.5-9-4.5L12 3z"/>
+      <path d="m3 12 9 4.5 9-4.5"/>
+      <path d="m3 16.5 9 4.5 9-4.5"/>
+    </symbol>
+    <symbol id="icon-compass" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="m15.5 8.5-2.5 6-6 2.5 2.5-6 6-2.5z"/>
+    </symbol>
+    <symbol id="icon-layers" viewBox="0 0 24 24">
+      <path d="m12 3 9 5-9 5-9-5 9-5z"/>
+      <path d="m3 13 9 5 9-5"/>
+      <path d="m3 18 9 5 9-5"/>
+    </symbol>
+    <symbol id="icon-city" viewBox="0 0 24 24">
+      <path d="M3 21V9l6-3v15"/>
+      <path d="M9 21V3l6 3v15"/>
+      <path d="M15 21v-9l6-3v12"/>
+      <path d="M6 12h.01"/>
+      <path d="M12 10h.01"/>
+      <path d="M18 14h.01"/>
+    </symbol>
+    <symbol id="icon-beaker" viewBox="0 0 24 24">
+      <path d="M9 3h6"/>
+      <path d="M10 3v5l-5 8a2 2 0 0 0 1.7 3h10.6A2 2 0 0 0 19 16l-5-8V3"/>
+      <path d="M8 14h8"/>
+    </symbol>
+    <symbol id="icon-accessibility" viewBox="0 0 24 24">
+      <circle cx="12" cy="4" r="2"/>
+      <path d="M7 9h10"/>
+      <path d="m12 9-2 5"/>
+      <path d="m12 9 2 5"/>
+      <path d="M10 14 7 20"/>
+      <path d="m14 14 3 6"/>
+    </symbol>
+    <symbol id="icon-code" viewBox="0 0 24 24">
+      <path d="m8 8-4 4 4 4"/>
+      <path d="m16 8 4 4-4 4"/>
+      <path d="m14 4-4 16"/>
+    </symbol>
+    <symbol id="icon-link" viewBox="0 0 24 24">
+      <path d="M10 13a5 5 0 0 1 0-7l1-1a5 5 0 0 1 7 7l-1 1"/>
+      <path d="M14 11a5 5 0 0 1 0 7l-1 1a5 5 0 0 1-7-7l1-1"/>
+    </symbol>
+    <symbol id="icon-traffic" viewBox="0 0 24 24">
+      <rect x="8" y="3" width="8" height="14" rx="2"/>
+      <path d="M12 17v4"/>
+      <circle cx="12" cy="6.5" r="1"/>
+      <circle cx="12" cy="10" r="1"/>
+      <circle cx="12" cy="13.5" r="1"/>
+    </symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24">
+      <path d="M12 3 5 6v6c0 4.5 2.7 7.8 7 9 4.3-1.2 7-4.5 7-9V6l-7-3z"/>
+      <path d="m9.5 12 2 2 3-4"/>
+    </symbol>
+    <symbol id="icon-mic" viewBox="0 0 24 24">
+      <rect x="9" y="3" width="6" height="11" rx="3"/>
+      <path d="M19 10a7 7 0 0 1-14 0"/>
+      <path d="M12 17v4"/>
+      <path d="M8 21h8"/>
+    </symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="m10 8 6 4-6 4z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- Top Bar -->
+<header class="top-bar">
+<div class="top-bar-logo">AI Agents × Civil Eng.</div>
+  <nav class="top-bar-links">
+    <a href="#hero">Home</a>
+    <a href="#what-agents">Agents 101</a>
+    <a href="#applications">Applications</a>
+    <a href="#deep-dives">Deep Dives</a>
+    <a href="#videos">Media</a>
+    <a href="#papers">Research</a>
+    <a href="#tools">Tools</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- Floating Nav Dots -->
+<nav class="floating-nav">
+  <button class="nav-dot active" data-label="Home" onclick="document.querySelector('#hero').scrollIntoView({behavior:'smooth'})"></button>
+  <button class="nav-dot" data-label="What are Agents" onclick="document.querySelector('#what-agents').scrollIntoView({behavior:'smooth'})"></button>
+  <button class="nav-dot" data-label="Applications" onclick="document.querySelector('#applications').scrollIntoView({behavior:'smooth'})"></button>
+  <button class="nav-dot" data-label="Deep Dives" onclick="document.querySelector('#deep-dives').scrollIntoView({behavior:'smooth'})"></button>
+  <button class="nav-dot" data-label="Videos" onclick="document.querySelector('#videos').scrollIntoView({behavior:'smooth'})"></button>
+  <button class="nav-dot" data-label="Podcast" onclick="document.querySelector('#podcast').scrollIntoView({behavior:'smooth'})"></button>
+  <button class="nav-dot" data-label="Papers" onclick="document.querySelector('#papers').scrollIntoView({behavior:'smooth'})"></button>
+  <button class="nav-dot" data-label="GitHub" onclick="document.querySelector('#tools').scrollIntoView({behavior:'smooth'})"></button>
+  <button class="nav-dot" data-label="Future" onclick="document.querySelector('#future').scrollIntoView({behavior:'smooth'})"></button>
+  <button class="nav-dot" data-label="Contact" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})"></button>
+</nav>
+
+<!-- ============================================ -->
+<!-- HERO SECTION -->
+<!-- ============================================ -->
+<section id="hero" class="section">
+  <div class="hero-card">
+    <!-- Spotlight SVG (Aceternity-style) -->
+    <svg
+      class="hero-spotlight"
+      style="top: -40px; left: 0;"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 3787 2842"
+      fill="none"
+    >
+      <g filter="url(#hero-spotlight-filter)">
+        <ellipse
+          cx="1924.71" cy="273.501" rx="1924.71" ry="273.501"
+          transform="matrix(-0.822377 -0.568943 -0.568943 0.822377 3631.88 2291.09)"
+          fill="white" fill-opacity="0.21"
+        />
+      </g>
+      <defs>
+        <filter id="hero-spotlight-filter" x="0.86" y="0.84" width="3785.16" height="2840.26" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+          <feGaussianBlur stdDeviation="151" result="effect1_foregroundBlur"/>
+        </filter>
+      </defs>
+    </svg>
+
+    <!-- Left Content -->
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        AI in Transportation Lab &mdash; Texas State University
+      </div>
+      <h1 class="hero-title">
+        <span class="gradient-text italic">Agentic AI</span><br>
+        in Civil Engineering
+      </h1>
+      <p class="hero-desc">
+        From autonomous structural analysis to intelligent construction management &mdash; 
+        exploring how LLM-powered agents are transforming every facet of civil engineering.
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+          Dr. Amir Rafe
+        </div>
+        <div class="hero-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
+          Postdoctoral Researcher
+        </div>
+        <div class="hero-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
+          Spring 2026
+        </div>
+      </div>
+      <div class="hero-cta-group">
+        <a href="#what-agents" class="btn btn-primary">
+          Begin Exploration
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </a>
+        <a href="https://pozapas.github.io/" target="_blank" class="btn btn-ghost">
+          About the Instructor
+        </a>
+      </div>
+    </div>
+
+    <!-- Right Content: Interactive 3D Spline Robot -->
+    <div class="hero-right">
+      <div style="position:absolute;inset:0;bottom:-60px;overflow:visible;">
+        <spline-viewer
+          url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+          style="width:100%; height:calc(100% + 60px);"
+        ></spline-viewer>
+      </div>
+      <!-- Gradient overlays to blend edges -->
+      <div style="position:absolute;bottom:0;left:0;width:100%;height:100px;background:linear-gradient(to top,rgba(17,17,17,0.96),transparent);z-index:9999;pointer-events:none;"></div>
+      <div style="position:absolute;top:0;left:0;width:140px;height:100%;background:linear-gradient(to right,rgba(17,17,17,0.96),transparent);z-index:9999;pointer-events:none;"></div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>Scroll to explore</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- Spline Viewer Web Component -->
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
+
+<!-- ============================================ -->
+<!-- WHAT ARE AI AGENTS? -->
+<!-- ============================================ -->
+<section id="what-agents" class="section">
+  <div class="section-label reveal">Module 01</div>
+  <h2 class="section-title reveal">What Are <span style="color: var(--accent-cyan)">AI Agents</span>?</h2>
+  <p class="section-subtitle reveal">
+    Autonomous systems that perceive their environment, reason about goals, take actions, 
+    and learn from outcomes &mdash; moving far beyond simple prompt-response AI.
+  </p>
+
+  <div class="agents-explain">
+    <div class="agent-diagram reveal-left">
+      <div class="agent-loop">
+        <div class="loop-ring"></div>
+        <div class="agent-node perceive">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0"/></svg>
+          Perceive
+        </div>
+        <div class="agent-node reason">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg>
+          Reason
+        </div>
+        <div class="agent-node act">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+          Act
+        </div>
+        <div class="agent-node learn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></svg>
+          Learn
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-features reveal-right">
+      <div class="agent-feature">
+        <h4><span class="feature-icon" style="background: rgba(255,224,194,0.1); color: var(--accent-cyan);"><svg class="icon" aria-hidden="true"><use href="#icon-brain"></use></svg></span> LLM as the Reasoning Core</h4>
+        <p>Large Language Models serve as the central "brain" &mdash; understanding natural language instructions, decomposing complex engineering tasks, and generating plans.</p>
+      </div>
+      <div class="agent-feature">
+        <h4><span class="feature-icon" style="background: rgba(212,165,116,0.1); color: var(--accent-purple);"><svg class="icon" aria-hidden="true"><use href="#icon-wrench"></use></svg></span> Tool Use & API Integration</h4>
+        <p>Agents call external tools: FEM solvers (ANSYS, SAP2000), BIM platforms (Revit), code executors, databases, and domain-specific calculators.</p>
+      </div>
+      <div class="agent-feature">
+        <h4><span class="feature-icon" style="background: rgba(229,77,46,0.1); color: var(--accent-rose);"><svg class="icon" aria-hidden="true"><use href="#icon-refresh"></use></svg></span> Autonomous Feedback Loops</h4>
+        <p>ReAct (Reason + Act) architecture: the agent reasons, acts, observes the result, and iterates &mdash; self-correcting without human intervention.</p>
+      </div>
+      <div class="agent-feature">
+        <h4><span class="feature-icon" style="background: rgba(201,160,110,0.1); color: var(--accent-emerald);"><svg class="icon" aria-hidden="true"><use href="#icon-book-open"></use></svg></span> Retrieval-Augmented Generation</h4>
+        <p>RAG systems connect agents to building codes (ACI 318, ASCE 7), technical manuals, and project documentation for grounded, accurate outputs.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Architecture Flow -->
+  <div class="reveal" style="margin-top: 60px;">
+    <p style="font-family: var(--font-mono); font-size: 0.82rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; text-align: center;">Typical Agent Architecture Pipeline</p>
+    <div class="arch-flow">
+      <div class="arch-box" style="border-color: rgba(255,224,194,0.3);"><span class="arch-icon" style="background: rgba(255,224,194,0.1); color: var(--accent-cyan);"><svg class="icon" aria-hidden="true"><use href="#icon-user"></use></svg></span>User Prompt</div>
+      <span class="arch-arrow" aria-hidden="true">&rarr;</span>
+      <div class="arch-box" style="border-color: rgba(212,165,116,0.3);"><span class="arch-icon" style="background: rgba(212,165,116,0.1); color: var(--accent-purple);"><svg class="icon" aria-hidden="true"><use href="#icon-brain"></use></svg></span>LLM Planner</div>
+      <span class="arch-arrow" aria-hidden="true">&rarr;</span>
+      <div class="arch-box" style="border-color: rgba(232,168,124,0.3);"><span class="arch-icon" style="background: rgba(232,168,124,0.1); color: var(--accent-orange);"><svg class="icon" aria-hidden="true"><use href="#icon-clipboard-list"></use></svg></span>Task Decomposition</div>
+      <span class="arch-arrow" aria-hidden="true">&rarr;</span>
+      <div class="arch-box" style="border-color: rgba(229,77,46,0.3);"><span class="arch-icon" style="background: rgba(229,77,46,0.1); color: var(--accent-rose);"><svg class="icon" aria-hidden="true"><use href="#icon-wrench"></use></svg></span>Tool Execution</div>
+      <span class="arch-arrow" aria-hidden="true">&rarr;</span>
+      <div class="arch-box" style="border-color: rgba(201,160,110,0.3);"><span class="arch-icon" style="background: rgba(201,160,110,0.1); color: var(--accent-emerald);"><svg class="icon" aria-hidden="true"><use href="#icon-eye"></use></svg></span>Observation</div>
+      <span class="arch-arrow" aria-hidden="true">&rarr;</span>
+      <div class="arch-box" style="border-color: rgba(176,137,104,0.3);"><span class="arch-icon" style="background: rgba(176,137,104,0.1); color: var(--accent-blue);"><svg class="icon" aria-hidden="true"><use href="#icon-check-circle"></use></svg></span>Result / Iterate</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================ -->
+<!-- KEY STATS -->
+<!-- ============================================ -->
+<div class="section" style="min-height: auto; padding-top: 40px; padding-bottom: 40px;">
+  <div class="stats-bar reveal">
+    <div class="stat-item">
+      <div class="stat-number">384+</div>
+      <div class="stat-label">Papers on arXiv</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">90%+</div>
+      <div class="stat-label">Agent Accuracy on SAP2000</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">10×</div>
+      <div class="stat-label">Faster FEM Setup</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">2026</div>
+      <div class="stat-label">Year of the Agent</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- APPLICATIONS &mdash; HORIZONTAL SCROLL -->
+<!-- ============================================ -->
+<section id="applications" class="horizontal-section section">
+  <div style="padding: 0 clamp(20px, 5vw, 80px);">
+    <div class="section-label reveal">Module 02</div>
+    <h2 class="section-title reveal">Application <span style="color: var(--accent-purple)">Domains</span></h2>
+    <p class="section-subtitle reveal">
+      AI agents are infiltrating every sub-discipline of civil engineering. Scroll horizontally to explore each domain.
+    </p>
+    <div class="scroll-hint reveal">
+      Scroll right to explore <span class="scroll-hint-arrow">&rarr;&rarr;&rarr;</span>
+    </div>
+  </div>
+
+  <div class="h-scroll-wrapper">
+    <div class="h-card">
+      <div class="h-card-number">01</div>
+      <h3 class="h-card-title">Structural Health Monitoring</h3>
+      <p class="h-card-desc">
+        AI agents process real-time sensor data from bridges, buildings, and dams. They autonomously detect anomalies, diagnose damage patterns, 
+        and trigger maintenance alerts. Multi-agent systems coordinate across sensor networks to provide holistic structural assessments.
+        <br><br>
+        <strong>Key Methods:</strong> Vibration-based damage detection, computer vision for crack identification, digital twin synchronization, 
+        predictive maintenance scheduling using reinforcement learning.
+      </p>
+      <span class="h-card-tag tag-cyan">SHM</span>
+    </div>
+
+    <div class="h-card">
+      <div class="h-card-number">02</div>
+      <h3 class="h-card-title">BIM & Digital Twins</h3>
+      <p class="h-card-desc">
+        LLM agents interact with Building Information Models through natural language. Engineers ask questions like "Show me all beams with 
+        utilization &gt;80%" and the agent queries IFC files, generates visualizations, and suggests design modifications.
+        <br><br>
+        <strong>Key Papers:</strong> BIM-LLM agents using LLaMA for automated code compliance checking, 
+        multi-agent BIM coordination for clash detection.
+      </p>
+      <span class="h-card-tag tag-purple">BIM / DIGITAL TWIN</span>
+    </div>
+
+    <div class="h-card">
+      <div class="h-card-number">03</div>
+      <h3 class="h-card-title">Autonomous FEM Analysis</h3>
+      <p class="h-card-desc">
+        The ALL-FEM framework (2026) demonstrates agentic LLMs that autonomously set up, run, and interpret 
+        Finite Element Method simulations. These agents outperform non-agentic GPT-5 on complex structural analysis tasks.
+        <br><br>
+        <strong>Breakthrough:</strong> From natural language problem description &rarr; mesh generation &rarr; boundary conditions &rarr; solver execution &rarr; result interpretation, 
+        all without human intervention.
+      </p>
+      <span class="h-card-tag tag-rose">FEM / SIMULATION</span>
+    </div>
+
+    <div class="h-card">
+      <div class="h-card-number">04</div>
+      <h3 class="h-card-title">Drawing & Design Automation</h3>
+      <p class="h-card-desc">
+        DrafterBench (2025) &mdash; the first civil-engineering-specific benchmark for LLM agents on drawing revision tasks. 
+        Agents parse CAD/DXF files, understand structural drawing conventions, and automatically revise designs per engineering requirements.
+        <br><br>
+        <strong>Applications:</strong> Automated plan generation, structural detail drawing, reinforcement layout optimization, 
+        drawing-to-code conversion.
+      </p>
+      <span class="h-card-tag tag-orange">CAD / DESIGN</span>
+    </div>
+
+    <div class="h-card">
+      <div class="h-card-number">05</div>
+      <h3 class="h-card-title">Infrastructure Inspection</h3>
+      <p class="h-card-desc">
+        DefectBench (2026) establishes the first benchmark for Large Multimodal Models in building structural inspection. 
+        Vision-language agents analyze images of cracks, spalling, corrosion, and deformation to assess damage severity.
+        <br><br>
+        <strong>Agents:</strong> Drone-mounted cameras + LMM agents for bridge deck inspection, 
+        tunnel lining assessment, and post-earthquake rapid evaluation.
+      </p>
+      <span class="h-card-tag tag-emerald">INSPECTION</span>
+    </div>
+
+    <div class="h-card">
+      <div class="h-card-number">06</div>
+      <h3 class="h-card-title">Traffic & Transportation</h3>
+      <p class="h-card-desc">
+        Multi-agent systems for adaptive signal control, autonomous vehicle coordination, and traffic flow prediction. 
+        LLM agents integrate with SUMO and VISSIM simulators for real-time traffic management.
+        <br><br>
+        <strong>Research:</strong> Causal AI for understanding traffic dynamics, reinforcement learning agents for intersection optimization, 
+        pedestrian behavior modeling with generative agents.
+      </p>
+      <span class="h-card-tag tag-blue">TRAFFIC / TRANSPORT</span>
+    </div>
+
+    <div class="h-card">
+      <div class="h-card-number">07</div>
+      <h3 class="h-card-title">Construction Management</h3>
+      <p class="h-card-desc">
+        AI agents coordinate construction scheduling, resource allocation, and safety monitoring. 
+        They process progress reports, weather data, and supply chain information to optimize project timelines.
+        <br><br>
+        <strong>Use Cases:</strong> Automated progress tracking via computer vision, risk assessment agents, 
+        multi-agent coordination for large-scale projects, automated RFI generation.
+      </p>
+      <span class="h-card-tag tag-cyan">CONSTRUCTION</span>
+    </div>
+
+    <div class="h-card">
+      <div class="h-card-number">08</div>
+      <h3 class="h-card-title">Geotechnical & Environmental</h3>
+      <p class="h-card-desc">
+        Agents analyze soil data, groundwater models, and environmental impact assessments. 
+        The PEACE framework (2025) demonstrates MLLMs understanding geological maps for subsurface analysis.
+        <br><br>
+        <strong>Applications:</strong> Slope stability analysis, foundation design optimization, environmental monitoring, 
+        flood prediction with physics-informed neural networks.
+      </p>
+      <span class="h-card-tag tag-purple">GEOTECH / ENV</span>
+    </div>
+
+    <div class="h-card">
+      <div class="h-card-number">09</div>
+      <h3 class="h-card-title">Evacuation & Safety</h3>
+      <p class="h-card-desc">
+        AI-driven evacuation planning combines LLMs with pathfinding algorithms for disability-inclusive routing. 
+        The EvacuAIDi framework integrates causal reasoning with behavioral models for probabilistic evacuation guidance.
+        <br><br>
+        <strong>Research by Dr. Rafe:</strong> RAG-enhanced occupant evacuation simulation, 
+        causal AI for understanding crowd dynamics, VR-based leadership studies in mass gatherings.
+      </p>
+      <span class="h-card-tag tag-rose">SAFETY / EVACUATION</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================ -->
+<!-- DEEP DIVES &mdash; BENTO GRID -->
+<!-- ============================================ -->
+<section id="deep-dives" class="section">
+  <div class="section-label reveal">Module 03</div>
+  <h2 class="section-title reveal">Deep Dives: <span style="color: var(--accent-rose)">Breakthroughs</span></h2>
+  <p class="section-subtitle reveal">
+    Landmark papers and frameworks that define the state-of-the-art in agentic AI for civil engineering.
+  </p>
+
+  <div class="bento-grid reveal">
+    <!-- ALL-FEM -->
+    <div class="bento-item span-2 glow-cyan" style="background: linear-gradient(135deg, rgba(255,224,194,0.05), var(--bg-card));">
+      <div class="bento-icon" style="background: rgba(255,224,194,0.1); color: var(--accent-cyan);"><svg class="icon" aria-hidden="true"><use href="#icon-flask"></use></svg></div>
+      <h3>ALL-FEM: Agentic LLMs for Finite Element Methods</h3>
+      <p style="margin-top: 8px;">
+        <span style="color: var(--accent-cyan); font-family: var(--font-mono); font-size: 0.82rem;">arXiv:2603.21011 &middot; 2026</span><br><br>
+        A groundbreaking framework where fine-tuned LLM agents autonomously generate, execute, and interpret finite element simulations. 
+        The agentic approach beats non-agentic GPT-5 on complex FE tasks spanning fluids, solids, and multiphysics. 
+        Demonstrates that tool-use + iterative reasoning is essential for engineering simulation.
+      </p>
+      <div class="code-block" style="margin-top: 16px;">
+        <div class="code-header">
+          <div class="code-dot red"></div>
+          <div class="code-dot yellow"></div>
+          <div class="code-dot green"></div>
+          <span>agent_fem.py</span>
+        </div>
+        <pre><span class="comment"># ALL-FEM Agent Loop (simplified)</span>
+<span class="keyword">class</span> <span class="class">FEMAgent</span>:
+    <span class="keyword">def</span> <span class="function">solve</span>(self, problem_description: str):
+        plan = self.llm.<span class="function">decompose</span>(problem_description)
+        mesh = self.tools.<span class="function">generate_mesh</span>(plan.geometry)
+        bcs  = self.llm.<span class="function">infer_boundary_conditions</span>(plan)
+        result = self.solver.<span class="function">run</span>(mesh, bcs, plan.physics)
+        <span class="keyword">if</span> <span class="keyword">not</span> self.<span class="function">validate</span>(result):
+            <span class="keyword">return</span> self.<span class="function">solve</span>(self.llm.<span class="function">reflect_and_revise</span>(result))
+        <span class="keyword">return</span> self.llm.<span class="function">interpret</span>(result)</pre>
+      </div>
+    </div>
+
+    <!-- DrafterBench -->
+    <div class="bento-item span-row-2" style="background: linear-gradient(180deg, rgba(212,165,116,0.05), var(--bg-card));">
+      <div class="bento-icon" style="background: rgba(212,165,116,0.1); color: var(--accent-purple);"><svg class="icon" aria-hidden="true"><use href="#icon-ruler"></use></svg></div>
+      <h3>DrafterBench</h3>
+      <p style="margin-top: 8px;">
+        <span style="color: var(--accent-purple); font-family: var(--font-mono); font-size: 0.82rem;">arXiv:2507.11527 &middot; 2025</span><br><br>
+        First CE-specific benchmark for LLM agents on drawing revision tasks. Tests agents' ability to parse DXF structural drawings, 
+        understand engineering conventions, and make autonomous revisions.
+        <br><br>
+        Evaluates GPT-4, Claude, and open-source models on tasks spanning reinforcement detailing, section modifications, and code compliance.
+      </p>
+      <div style="margin-top: auto; padding-top: 16px;">
+        <a href="https://github.com/Eason-Li-AIS/DrafterBench" target="_blank" style="color: var(--accent-purple); font-size: 0.88rem; text-decoration: none; font-family: var(--font-mono);">
+          &rarr; github.com/Eason-Li-AIS/DrafterBench
+        </a>
+      </div>
+    </div>
+
+    <!-- DefectBench -->
+    <div class="bento-item" style="background: linear-gradient(135deg, rgba(229,77,46,0.05), var(--bg-card));">
+      <div class="bento-icon" style="background: rgba(229,77,46,0.1); color: var(--accent-rose);"><svg class="icon" aria-hidden="true"><use href="#icon-building"></use></svg></div>
+      <h3>DefectBench</h3>
+      <p style="margin-top: 8px;">
+        <span style="color: var(--accent-rose); font-family: var(--font-mono); font-size: 0.82rem;">arXiv:2603.20148 &middot; 2026</span><br><br>
+        Hierarchical benchmark for LMMs in structural pathology reasoning. Tests multi-level understanding: 
+        crack detection &rarr; damage classification &rarr; structural assessment.
+      </p>
+    </div>
+
+    <!-- Multi-platform structural analysis -->
+    <div class="bento-item" style="background: linear-gradient(135deg, rgba(232,168,124,0.05), var(--bg-card));">
+      <div class="bento-icon" style="background: rgba(232,168,124,0.1); color: var(--accent-orange);"><svg class="icon" aria-hidden="true"><use href="#icon-bolt"></use></svg></div>
+      <h3>Cross-Platform Structural Analysis</h3>
+      <p style="margin-top: 8px;">
+        <span style="color: var(--accent-orange); font-family: var(--font-mono); font-size: 0.82rem;">arXiv:2604.09866 &middot; 2026</span><br><br>
+        LLM agents that work across SAP2000, ETABS, OpenSees, and ABAQUS simultaneously. 
+        Achieves &gt;90% accuracy on multi-platform structural modeling tasks.
+      </p>
+    </div>
+
+    <!-- ReAct for structural drawings -->
+    <div class="bento-item" style="background: linear-gradient(135deg, rgba(201,160,110,0.05), var(--bg-card));">
+      <div class="bento-icon" style="background: rgba(201,160,110,0.1); color: var(--accent-emerald);"><svg class="icon" aria-hidden="true"><use href="#icon-pencil"></use></svg></div>
+      <h3>LLM Agent for Drawing Generation</h3>
+      <p style="margin-top: 8px;">
+        <span style="color: var(--accent-emerald); font-family: var(--font-mono); font-size: 0.82rem;">arXiv:2507.19771 &middot; 2025</span><br><br>
+        Uses ReAct prompt engineering + RAG for structural drawing generation. 
+        Agent retrieves relevant design codes and standards while iterating on AutoCAD commands.
+      </p>
+    </div>
+
+    <!-- Multi-agent computational modeling -->
+    <div class="bento-item span-2" style="background: linear-gradient(135deg, rgba(176,137,104,0.05), var(--bg-card));">
+      <div class="bento-icon" style="background: rgba(176,137,104,0.1); color: var(--accent-blue);"><svg class="icon" aria-hidden="true"><use href="#icon-network"></use></svg></div>
+      <h3>Multi-Agent Autonomous Computational Modeling</h3>
+      <p style="margin-top: 8px;">
+        <span style="color: var(--accent-blue); font-family: var(--font-mono); font-size: 0.82rem;">arXiv:2604.06788 &middot; 2026 &middot; Wilke</span><br><br>
+        A solver-agnostic framework where coordinated LLM agents go "from perception to autonomous computational modeling." 
+        Multiple specialized agents collaborate: one handles geometry extraction, another defines physics, a third manages meshing, and a coordinator orchestrates the workflow. 
+        Demonstrates emergent problem-solving capabilities when agents negotiate on modeling decisions.
+      </p>
+    </div>
+  </div>
+
+  <!-- Quote -->
+  <div class="quote-block reveal">
+    <blockquote>
+      The convergence of large language models, tool-use capabilities, and domain-specific knowledge is creating 
+      a new paradigm where AI doesn't just assist engineers &mdash; it becomes an autonomous engineering collaborator.
+    </blockquote>
+    <cite>&mdash; Emerging consensus from ASCE, IEEE, and NeurIPS 2025 workshops</cite>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================ -->
+<!-- VIDEO SECTION -->
+<!-- ============================================ -->
+<section id="videos" class="section">
+  <div class="section-label reveal">Module 04</div>
+  <h2 class="section-title reveal">Watch & <span style="color: var(--accent-orange)">Learn</span></h2>
+  <p class="section-subtitle reveal">
+    Curated videos and explainers covering AI agents, RAG, and applied construction intelligence.
+  </p>
+  <p class="video-playback-note reveal">
+    Inline YouTube playback works when this page is served over http:// or https://, such as localhost. If you open the HTML directly from disk, clicking a video will open YouTube instead to avoid Error 153.
+  </p>
+
+  <div class="video-grid reveal">
+    <div class="video-card">
+      <button class="video-frame" type="button" data-youtube-id="F8NKVhkZZWI" data-title="What are AI Agents?" aria-label="Play What are AI Agents?">
+        <img src="https://i.ytimg.com/vi/F8NKVhkZZWI/hqdefault.jpg" alt="Preview for What are AI Agents?">
+        <span class="video-play-button" aria-hidden="true"><svg class="icon"><use href="#icon-play"></use></svg></span>
+      </button>
+      <div class="video-card-info">
+        <h4>What are AI Agents?</h4>
+        <p>IBM Technology &mdash; Understanding the fundamentals of AI agent architectures</p>
+        <a class="video-link" href="https://www.youtube.com/watch?v=F8NKVhkZZWI" target="_blank" rel="noreferrer">Open on YouTube</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <button class="video-frame" type="button" data-youtube-id="sal78ACtGTc" data-title="Building AI Agents" aria-label="Play Building AI Agents">
+        <img src="https://i.ytimg.com/vi/sal78ACtGTc/hqdefault.jpg" alt="Preview for Building AI Agents">
+        <span class="video-play-button" aria-hidden="true"><svg class="icon"><use href="#icon-play"></use></svg></span>
+      </button>
+      <div class="video-card-info">
+        <h4>Building AI Agents with LangChain</h4>
+        <p>How tool-calling agents work &mdash; ReAct, function calling, and chains</p>
+        <a class="video-link" href="https://www.youtube.com/watch?v=sal78ACtGTc" target="_blank" rel="noreferrer">Open on YouTube</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <button class="video-frame" type="button" data-youtube-id="zjkBMFhNj_g" data-title="Andrew Ng on AI Agents" aria-label="Play Andrew Ng on AI Agents">
+        <img src="https://i.ytimg.com/vi/zjkBMFhNj_g/hqdefault.jpg" alt="Preview for Andrew Ng on AI Agents">
+        <span class="video-play-button" aria-hidden="true"><svg class="icon"><use href="#icon-play"></use></svg></span>
+      </button>
+      <div class="video-card-info">
+        <h4>Andrew Ng: Agentic AI Workflows</h4>
+        <p>The future of AI is agentic &mdash; reflection, tool use, planning, multi-agent collaboration</p>
+        <a class="video-link" href="https://www.youtube.com/watch?v=zjkBMFhNj_g" target="_blank" rel="noreferrer">Open on YouTube</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <button class="video-frame" type="button" data-youtube-id="aBHc2GsPU5E" data-title="What If We Automated Construction?" aria-label="Play What If We Automated Construction?">
+        <img src="https://i.ytimg.com/vi/aBHc2GsPU5E/hqdefault.jpg" alt="Preview for What If We Automated Construction?">
+        <span class="video-play-button" aria-hidden="true"><svg class="icon"><use href="#icon-play"></use></svg></span>
+      </button>
+      <div class="video-card-info">
+        <h4>AI Transforming Construction Industry</h4>
+        <p>The B1M's automation overview is a better in-page fit here: predictive design, robotics, autonomous equipment, and the broader shift in construction delivery.</p>
+        <a class="video-link" href="https://www.youtube.com/watch?v=aBHc2GsPU5E" target="_blank" rel="noreferrer">Open on YouTube</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <button class="video-frame" type="button" data-youtube-id="T-D1OfcDW1M" data-title="What is Retrieval-Augmented Generation (RAG)?" aria-label="Play What is Retrieval-Augmented Generation (RAG)?">
+        <img src="https://i.ytimg.com/vi/T-D1OfcDW1M/hqdefault.jpg" alt="Preview for What is Retrieval-Augmented Generation (RAG)?">
+        <span class="video-play-button" aria-hidden="true"><svg class="icon"><use href="#icon-play"></use></svg></span>
+      </button>
+      <div class="video-card-info">
+        <h4>RAG: Retrieval-Augmented Generation</h4>
+        <p>This replacement keeps playback in-site and explains how retrieval grounds LLM outputs with fresher, source-linked context.</p>
+        <a class="video-link" href="https://www.youtube.com/watch?v=T-D1OfcDW1M" target="_blank" rel="noreferrer">Open on YouTube</a>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <button class="video-frame" type="button" data-youtube-id="TRjq7t2Ms5I" data-title="Multi-Agent Systems" aria-label="Play Multi-Agent Systems">
+        <img src="https://i.ytimg.com/vi/TRjq7t2Ms5I/hqdefault.jpg" alt="Preview for Multi-Agent Systems">
+        <span class="video-play-button" aria-hidden="true"><svg class="icon"><use href="#icon-play"></use></svg></span>
+      </button>
+      <div class="video-card-info">
+        <h4>Multi-Agent AI Systems</h4>
+        <p>How multiple AI agents collaborate on complex tasks &mdash; the future of automation</p>
+        <a class="video-link" href="https://www.youtube.com/watch?v=TRjq7t2Ms5I" target="_blank" rel="noreferrer">Open on YouTube</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================ -->
+<!-- PODCAST SECTION -->
+<!-- ============================================ -->
+<section id="podcast" class="section">
+  <div class="section-label reveal">Module 05</div>
+  <h2 class="section-title reveal">Listen: <span style="color: var(--accent-orange)">Recommended Episodes</span></h2>
+  <p class="section-subtitle reveal">
+    Relevant podcast episodes on AI agents, practical AEC automation, digital twins, and construction-focused AI adoption.
+  </p>
+
+  <div class="podcast-grid reveal">
+    <article class="podcast-card">
+      <div class="podcast-card-head">
+        <div class="podcast-card-badge"><svg class="icon" aria-hidden="true"><use href="#icon-headphones"></use></svg>Bridging the Gap &middot; Nov 2025</div>
+        <h3>Connected Workflows &amp; Practical AI</h3>
+      </div>
+      <p>Best fit for civil/site design in this deck: Jason Douglas explains how AI becomes useful when it connects Forma, Revit, Civil 3D, ACC, and Dynamo-based automation.</p>
+      <div class="podcast-player-embed">
+        <iframe src="https://www.podbean.com/player-v2/?i=yi9w7-19adb2e-pb&from=pb6admin&pbad=0&share=1&download=1&rtl=0&fonts=Arial&skin=f6f6f6&font-color=auto&logo_link=none&btn-skin=3267a3" loading="lazy" title="Connected Workflows and Practical AI podcast player" allow="autoplay"></iframe>
+      </div>
+      <div class="podcast-card-links">
+        <a href="https://bridgingthegappod.com/episode/connected-workflows-practical-ai/" target="_blank" rel="noreferrer"><svg class="icon" aria-hidden="true"><use href="#icon-link"></use></svg>Open Episode</a>
+      </div>
+    </article>
+
+    <article class="podcast-card">
+      <div class="podcast-card-head">
+        <div class="podcast-card-badge"><svg class="icon" aria-hidden="true"><use href="#icon-headphones"></use></svg>Bridging the Gap &middot; Jan 2025</div>
+        <h3>How AI Is Shaping the Future of Construction</h3>
+      </div>
+      <p>Focused on real construction adoption: Trent Miskelly from Document Crunch covers workflow change, trust, and where AI is genuinely unlocking efficiency in project delivery.</p>
+      <div class="podcast-player-embed">
+        <iframe src="https://www.podbean.com/player-v2/?i=utkd3-17d69f8-pb&from=pb6admin&pbad=0&share=1&download=1&rtl=0&fonts=Arial&skin=f6f6f6&font-color=auto&logo_link=none&btn-skin=3267a3" loading="lazy" title="How AI Is Shaping the Future of Construction podcast player" allow="autoplay"></iframe>
+      </div>
+      <div class="podcast-card-links">
+        <a href="https://bridgingthegappod.com/episode/how-ai-is-shaping-the-future-of-the-construction/" target="_blank" rel="noreferrer"><svg class="icon" aria-hidden="true"><use href="#icon-link"></use></svg>Open Episode</a>
+      </div>
+    </article>
+
+    <article class="podcast-card">
+      <div class="podcast-card-head">
+        <div class="podcast-card-badge"><svg class="icon" aria-hidden="true"><use href="#icon-mic"></use></svg>AEC Business &middot; Oct 2025</div>
+        <h3>How Agentic AI Is Transforming Procurement</h3>
+      </div>
+      <p>Most directly aligned with the agentic AI angle: it distinguishes generic GenAI from true AI agents, including autonomous negotiation and sourcing workflows.</p>
+      <div class="podcast-player-embed podcast-audio">
+        <audio controls preload="none" src="https://media.blubrry.com/aecbusiness/aec-business.s3.amazonaws.com/Keith-McFarlaine-interview.mp3"></audio>
+      </div>
+      <div class="podcast-card-links">
+        <a href="https://aec-business.com/how-agentic-ai-is-transforming-procurement/" target="_blank" rel="noreferrer"><svg class="icon" aria-hidden="true"><use href="#icon-link"></use></svg>Open Episode</a>
+        <a href="https://media.blubrry.com/aecbusiness/aec-business.s3.amazonaws.com/Keith-McFarlaine-interview.mp3" target="_blank" rel="noreferrer"><svg class="icon" aria-hidden="true"><use href="#icon-play"></use></svg>Direct Audio</a>
+      </div>
+    </article>
+
+    <article class="podcast-card">
+      <div class="podcast-card-head">
+        <div class="podcast-card-badge"><svg class="icon" aria-hidden="true"><use href="#icon-mic"></use></svg>AEC Business &middot; Oct 2025</div>
+        <h3>Twinmaster: ChatGPT for Architects, in 3D</h3>
+      </div>
+      <p>A strong design-side episode for this topic: an AI copilot plus digital twin platform with specialized agents for energy, cost, constructability, and compliance.</p>
+      <div class="podcast-player-embed podcast-audio">
+        <audio controls preload="none" src="https://media.blubrry.com/aecbusiness/aec-business.s3.amazonaws.com/Twinmaster-interview.mp3"></audio>
+      </div>
+      <div class="podcast-card-links">
+        <a href="https://aec-business.com/twinmaster-chatgpt-for-architects-in-3d/" target="_blank" rel="noreferrer"><svg class="icon" aria-hidden="true"><use href="#icon-link"></use></svg>Open Episode</a>
+        <a href="https://media.blubrry.com/aecbusiness/aec-business.s3.amazonaws.com/Twinmaster-interview.mp3" target="_blank" rel="noreferrer"><svg class="icon" aria-hidden="true"><use href="#icon-play"></use></svg>Direct Audio</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- Additional Audio/Learning Resources -->
+  <div style="margin-top: 48px;">
+    <h3 class="reveal resource-heading" style="font-size: 1.3rem; margin-bottom: 20px;"><span class="future-title-icon" style="background: rgba(232,168,124,0.12); color: var(--accent-orange);"><svg class="icon" aria-hidden="true"><use href="#icon-headphones"></use></svg></span>More Audio & Learning Resources</h3>
+    <div class="tools-showcase reveal">
+      <a href="https://www.youtube.com/@AmirRafe" target="_blank" class="tool-card">
+        <div class="tool-icon" style="color: var(--accent-cyan);"><svg class="icon" aria-hidden="true"><use href="#icon-monitor-play"></use></svg></div>
+        <h4>Dr. Rafe's YouTube</h4>
+        <p>Research talks & tutorials</p>
+      </a>
+      <a href="https://www.deeplearning.ai/" target="_blank" class="tool-card">
+        <div class="tool-icon" style="color: var(--accent-purple);"><svg class="icon" aria-hidden="true"><use href="#icon-graduation-cap"></use></svg></div>
+        <h4>DeepLearning.AI</h4>
+        <p>Andrew Ng's AI agent courses</p>
+      </a>
+      <a href="https://huggingface.co/papers" target="_blank" class="tool-card">
+        <div class="tool-icon" style="color: var(--accent-rose);"><svg class="icon" aria-hidden="true"><use href="#icon-book-open"></use></svg></div>
+        <h4>HuggingFace Papers</h4>
+        <p>Daily AI research papers</p>
+      </a>
+      <a href="https://aitlab.vercel.app/" target="_blank" class="tool-card">
+        <div class="tool-icon" style="color: var(--accent-orange);"><svg class="icon" aria-hidden="true"><use href="#icon-flask"></use></svg></div>
+        <h4>AI in Transportation Lab</h4>
+        <p>Texas State University</p>
+      </a>
+      <a href="https://arxiv.org/list/cs.AI/recent" target="_blank" class="tool-card">
+        <div class="tool-icon" style="color: var(--accent-emerald);"><svg class="icon" aria-hidden="true"><use href="#icon-file-text"></use></svg></div>
+        <h4>arXiv cs.AI</h4>
+        <p>Latest AI research</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================ -->
+<!-- RESEARCH PAPERS -->
+<!-- ============================================ -->
+<section id="papers" class="section">
+  <div class="section-label reveal">Module 06</div>
+  <h2 class="section-title reveal">Research <span style="color: var(--accent-cyan)">Papers</span></h2>
+  <p class="section-subtitle reveal">
+    Foundational and cutting-edge papers on AI agents in civil engineering. Click any card to read the full paper.
+  </p>
+
+  <div class="papers-grid reveal">
+    <a href="https://arxiv.org/abs/2603.21011" target="_blank" class="paper-card">
+      <div class="paper-venue">arXiv 2026 &middot; cs.CE</div>
+      <h4>ALL-FEM: Agentic Large Language Models Fine-tuned for Finite Element Methods</h4>
+      <div class="paper-authors">Deotale, Srinivasan, Tian, Zhang, Vlachos, Gomez</div>
+      <p class="paper-abstract">Finite element analysis guides the design of nearly all manufactured objects. This paper presents agentic LLMs that autonomously generate, execute, and interpret FE simulations across fluids, solids, and multiphysics systems.</p>
+    </a>
+
+    <a href="https://arxiv.org/abs/2507.11527" target="_blank" class="paper-card">
+      <div class="paper-venue">arXiv 2025 &middot; cs.AI, cs.CE</div>
+      <h4>DrafterBench: Benchmarking LLMs for Tasks Automation in Civil Engineering</h4>
+      <div class="paper-authors">Li, Dong, Shao</div>
+      <p class="paper-abstract">First CE-specific LLM agent benchmark evaluating automation of drawing revision tasks. Tests agents on parsing DXF files and making engineering design revisions.</p>
+    </a>
+
+    <a href="https://arxiv.org/abs/2603.20148" target="_blank" class="paper-card">
+      <div class="paper-venue">arXiv 2026 &middot; cs.CV</div>
+      <h4>Can Large Multimodal Models Inspect Buildings? A Hierarchical Benchmark for Structural Pathology Reasoning</h4>
+      <div class="paper-authors">Zhong, Gao, Liu, Yang, Wang, Zhang, Zheng</div>
+      <p class="paper-abstract">Introduces a human-in-the-loop annotation framework and hierarchical benchmark for evaluating LMMs on building defect inspection and structural pathology reasoning.</p>
+    </a>
+
+    <a href="https://arxiv.org/abs/2604.09866" target="_blank" class="paper-card">
+      <div class="paper-venue">arXiv 2026 &middot; cs.SE, cs.AI</div>
+      <h4>Automating Structural Analysis Across Multiple Software Platforms Using LLMs</h4>
+      <div class="paper-authors">Geng, Liu, Franklin, Cao, Frangopol, Cheng</div>
+      <p class="paper-abstract">LLM agents automate structural analysis workflows across SAP2000, ETABS, OpenSees, and ABAQUS, achieving &gt;90% accuracy on multi-platform modeling tasks.</p>
+    </a>
+
+    <a href="https://arxiv.org/abs/2507.19771" target="_blank" class="paper-card">
+      <div class="paper-venue">arXiv 2025 &middot; cs.LG, cs.AI</div>
+      <h4>LLM Agent for Structural Drawing Generation Using ReAct and RAG</h4>
+      <div class="paper-authors">Zhang, Iturburu, Villamizar, Liu, Salmeron, Dyke, Ramirez</div>
+      <p class="paper-abstract">Combines ReAct prompt engineering with Retrieval-Augmented Generation for autonomous structural drawing generation from natural language specifications.</p>
+    </a>
+
+    <a href="https://arxiv.org/abs/2604.06788" target="_blank" class="paper-card">
+      <div class="paper-venue">arXiv 2026 &middot; cs.CE, cs.MA</div>
+      <h4>From Perception to Autonomous Computational Modeling: A Multi-Agent Approach</h4>
+      <div class="paper-authors">Wilke</div>
+      <p class="paper-abstract">Solver-agnostic framework where coordinated LLM agents autonomously go from perceiving a physical system to generating computational models.</p>
+    </a>
+
+    <a href="https://doi.org/10.1061/9780784486191.034" target="_blank" class="paper-card">
+      <div class="paper-venue">ICTD 2025</div>
+      <h4>Enhancing Occupant Evacuation Simulation Using LLMs and RAG</h4>
+      <div class="paper-authors">Rafe, Lawrence, Lovreglio, Spearpoint, Singleton</div>
+      <p class="paper-abstract">Integrates LLMs with retrieval-augmented generation to enhance evacuation simulation accuracy, incorporating building codes and behavioral data for realistic scenarios.</p>
+    </a>
+
+    <a href="https://doi.org/10.1145/3787104" target="_blank" class="paper-card">
+      <div class="paper-venue">ACM Computing Surveys 2025</div>
+      <h4>Bridging the Black Box: A Survey on Mechanistic Interpretability in AI</h4>
+      <div class="paper-authors">Somvanshi, Islam, Rafe, Tusti, Chakraborty, et al.</div>
+      <p class="paper-abstract">Comprehensive survey on mechanistic interpretability &mdash; understanding the internal workings of AI systems, critical for deploying agents in safety-critical engineering applications.</p>
+    </a>
+
+    <a href="http://dx.doi.org/10.2139/ssrn.6045495" target="_blank" class="paper-card">
+      <div class="paper-venue">SSRN 2025</div>
+      <h4>Causal AI and Computational Epistemology &mdash; A Survey</h4>
+      <div class="paper-authors">Rafe & Das</div>
+      <p class="paper-abstract">Explores the intersection of causal AI and computational epistemology &mdash; how AI systems can reason about causation, a critical capability for engineering agents.</p>
+    </a>
+
+    <a href="https://arxiv.org/abs/2501.06184" target="_blank" class="paper-card">
+      <div class="paper-venue">arXiv 2025 &middot; cs.CV, cs.CE</div>
+      <h4>PEACE: Empowering Geologic Map Understanding with MLLMs</h4>
+      <div class="paper-authors">Huang, Gao, Xu, Zhao, Song, Gui, et al.</div>
+      <p class="paper-abstract">Multi-agent framework for understanding geological maps using multimodal LLMs, with applications in disaster detection, resource exploration, and civil engineering.</p>
+    </a>
+
+    <a href="https://arxiv.org/abs/2603.22528" target="_blank" class="paper-card">
+      <div class="paper-venue">arXiv 2026 &middot; cs.IR</div>
+      <h4>GraphRAG for Engineering Diagrams: ChatP&ID Enables LLM Interaction with P&IDs</h4>
+      <div class="paper-authors">Alimin & Schweidtmann</div>
+      <p class="paper-abstract">Combines LLMs with knowledge graphs and RAG for interacting with Process & Instrumentation Diagrams &mdash; a paradigm transferable to civil engineering schematics.</p>
+    </a>
+
+    <a href="https://arxiv.org/abs/2603.24629" target="_blank" class="paper-card">
+      <div class="paper-venue">arXiv 2026 &middot; cs.SE, cs.MA</div>
+      <h4>Sketch2Simulation: Automating Flowsheet Generation via Multi-Agent LLMs</h4>
+      <div class="paper-authors">Bahamdan, Pajak, Hedengren, del Rio Chanona</div>
+      <p class="paper-abstract">Multi-agent LLM system that converts hand-drawn process sketches into executable simulation models &mdash; bridging the gap between conceptual design and computation.</p>
+    </a>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================ -->
+<!-- GITHUB TOOLS -->
+<!-- ============================================ -->
+<section id="tools" class="section">
+  <div class="section-label reveal">Module 07</div>
+  <h2 class="section-title reveal">Open-Source <span style="color: var(--accent-emerald)">Tools & Repos</span></h2>
+  <p class="section-subtitle reveal">
+    GitHub repositories powering the agentic AI revolution in civil engineering.
+  </p>
+
+  <div class="github-grid reveal">
+    <a href="https://github.com/Eason-Li-AIS/DrafterBench" target="_blank" class="github-card">
+      <div class="github-card-header">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>Eason-Li-AIS/DrafterBench</span>
+      </div>
+      <p>First benchmark for LLM agent automation in civil engineering drawing tasks. &#9733; 58</p>
+      <div class="github-card-tags">
+        <span class="github-tag">Python</span>
+        <span class="github-tag">LLM Agents</span>
+        <span class="github-tag">Civil Eng</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/mac999/BIM_LLM_code_agent" target="_blank" class="github-card">
+      <div class="github-card-header">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>mac999/BIM_LLM_code_agent</span>
+      </div>
+      <p>BIM-integrated LLM agent using LLaMA for automated building information modeling tasks. &#9733; 25</p>
+      <div class="github-card-tags">
+        <span class="github-tag">Python</span>
+        <span class="github-tag">BIM</span>
+        <span class="github-tag">LLaMA</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/pozapas/EvacuAIDi" target="_blank" class="github-card" style="border-color: rgba(255,224,194,0.3); background: rgba(255,224,194,0.02);">
+      <div class="github-card-header">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>pozapas/EvacuAIDi &#9733;</span>
+      </div>
+      <p>AI-driven evacuation framework combining LLMs, A* pathfinding, and causal reasoning for disability-inclusive evacuation guidance. By Dr. Rafe.</p>
+      <div class="github-card-tags">
+        <span class="github-tag">Python</span>
+        <span class="github-tag">LLM</span>
+        <span class="github-tag">Evacuation</span>
+        <span class="github-tag">A*</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/pozapas/Crowd-Analyzer" target="_blank" class="github-card" style="border-color: rgba(255,224,194,0.3); background: rgba(255,224,194,0.02);">
+      <div class="github-card-header">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>pozapas/Crowd-Analyzer &#9733;</span>
+      </div>
+      <p>Crowd mobility analysis with YOLO detection, Kalman tracking, and density/speed estimation. By Dr. Rafe.</p>
+      <div class="github-card-tags">
+        <span class="github-tag">Python</span>
+        <span class="github-tag">YOLO</span>
+        <span class="github-tag">Computer Vision</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/pozapas/awesome-causal-ai" target="_blank" class="github-card" style="border-color: rgba(255,224,194,0.3); background: rgba(255,224,194,0.02);">
+      <div class="github-card-header">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>pozapas/awesome-causal-ai &#9733;</span>
+      </div>
+      <p>100+ curated repos on causal inference, causal ML, causal RL, and causal discovery. By Dr. Rafe.</p>
+      <div class="github-card-tags">
+        <span class="github-tag">Awesome List</span>
+        <span class="github-tag">Causal AI</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/langchain-ai/langchain" target="_blank" class="github-card">
+      <div class="github-card-header">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>langchain-ai/langchain</span>
+      </div>
+      <p>The most popular framework for building LLM-powered agent applications with tools, chains, and RAG. &#9733; 100k+</p>
+      <div class="github-card-tags">
+        <span class="github-tag">Python</span>
+        <span class="github-tag">Agents</span>
+        <span class="github-tag">RAG</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/crewAIInc/crewAI" target="_blank" class="github-card">
+      <div class="github-card-header">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>crewAIInc/crewAI</span>
+      </div>
+      <p>Multi-agent orchestration framework. Deploy teams of specialized AI agents with role-based collaboration. &#9733; 25k+</p>
+      <div class="github-card-tags">
+        <span class="github-tag">Python</span>
+        <span class="github-tag">Multi-Agent</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/microsoft/autogen" target="_blank" class="github-card">
+      <div class="github-card-header">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>microsoft/autogen</span>
+      </div>
+      <p>Microsoft's framework for building multi-agent conversational AI systems with human-in-the-loop capabilities. &#9733; 40k+</p>
+      <div class="github-card-tags">
+        <span class="github-tag">Python</span>
+        <span class="github-tag">Microsoft</span>
+        <span class="github-tag">Multi-Agent</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/pozapas/awesome-crowdynamics" target="_blank" class="github-card" style="border-color: rgba(255,224,194,0.3); background: rgba(255,224,194,0.02);">
+      <div class="github-card-header">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>pozapas/awesome-crowdynamics &#9733;</span>
+      </div>
+      <p>Curated tools and resources for crowd dynamics, pedestrian flow, and evacuation strategies. By Dr. Rafe.</p>
+      <div class="github-card-tags">
+        <span class="github-tag">Awesome List</span>
+        <span class="github-tag">Crowd Dynamics</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Agent Frameworks Showcase -->
+  <div style="margin-top: 60px;">
+    <h3 class="reveal" style="font-size: 1.2rem; margin-bottom: 8px;">Key Agent Frameworks & Libraries</h3>
+    <p class="reveal" style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 20px;">The open-source ecosystem powering AI agent development</p>
+    <div class="tools-showcase reveal">
+      <a href="https://python.langchain.com/" target="_blank" class="tool-card">
+        <div class="tool-icon" style="color: var(--accent-cyan);"><svg class="icon" aria-hidden="true"><use href="#icon-workflow"></use></svg></div>
+        <h4>LangChain</h4>
+        <p>Agent orchestration</p>
+      </a>
+      <a href="https://docs.crewai.com/" target="_blank" class="tool-card">
+        <div class="tool-icon" style="color: var(--accent-purple);"><svg class="icon" aria-hidden="true"><use href="#icon-users"></use></svg></div>
+        <h4>CrewAI</h4>
+        <p>Multi-agent teams</p>
+      </a>
+      <a href="https://microsoft.github.io/autogen/" target="_blank" class="tool-card">
+        <div class="tool-icon" style="color: var(--accent-rose);"><svg class="icon" aria-hidden="true"><use href="#icon-bot"></use></svg></div>
+        <h4>AutoGen</h4>
+        <p>Conversational agents</p>
+      </a>
+      <a href="https://www.llamaindex.ai/" target="_blank" class="tool-card">
+        <div class="tool-icon" style="color: var(--accent-orange);"><svg class="icon" aria-hidden="true"><use href="#icon-stack"></use></svg></div>
+        <h4>LlamaIndex</h4>
+        <p>RAG framework</p>
+      </a>
+      <a href="https://dspy-docs.vercel.app/" target="_blank" class="tool-card">
+        <div class="tool-icon" style="color: var(--accent-emerald);"><svg class="icon" aria-hidden="true"><use href="#icon-compass"></use></svg></div>
+        <h4>DSPy</h4>
+        <p>Declarative LM programming</p>
+      </a>
+      <a href="https://huggingface.co/transformers" target="_blank" class="tool-card">
+        <div class="tool-icon" style="color: var(--accent-blue);"><svg class="icon" aria-hidden="true"><use href="#icon-layers"></use></svg></div>
+        <h4>Transformers</h4>
+        <p>Model backbone</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================ -->
+<!-- EVOLUTION TIMELINE -->
+<!-- ============================================ -->
+<section id="future" class="section">
+  <div class="section-label reveal">Module 08</div>
+  <h2 class="section-title reveal">The <span style="color: var(--accent-purple)">Evolution</span></h2>
+  <p class="section-subtitle reveal">
+    How AI agents in civil engineering have evolved &mdash; from rule-based expert systems to autonomous LLM-powered collaborators.
+  </p>
+
+  <div class="timeline reveal">
+    <div class="timeline-item">
+      <div class="timeline-year">1980s&ndash;2000s</div>
+      <h3>Rule-Based Expert Systems</h3>
+      <p>Early AI in civil engineering: knowledge-based systems for structural design, expert systems for diagnosis. Limited by hand-coded rules and brittle logic.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2010s</div>
+      <h3>Machine Learning Era</h3>
+      <p>Deep learning for structural health monitoring, computer vision for crack detection, CNNs for damage classification. Powerful but narrow &mdash; each model solves one task.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2022&ndash;2023</div>
+      <h3>LLMs Enter Engineering</h3>
+      <p>ChatGPT and GPT-4 demonstrate surprising capability on engineering problems. Researchers begin testing LLMs on code generation, technical Q&A, and building code interpretation.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2024</div>
+      <h3>Agent Architectures Emerge</h3>
+      <p>ReAct, function calling, and tool-use capabilities enable LLMs to interact with engineering software. First multi-agent systems for BIM coordination. RAG connects LLMs to building codes.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2025</div>
+      <h3>Domain-Specific Benchmarks</h3>
+      <p>DrafterBench, structural analysis benchmarks, and inspection frameworks establish rigorous evaluation standards. LLM agents achieve &gt;90% accuracy on multi-platform structural tasks.</p>
+    </div>
+    <div class="timeline-item" style="padding-bottom: 0;">
+      <div class="timeline-year">2026 &mdash; Now</div>
+      <h3>Autonomous Engineering Agents</h3>
+      <p>ALL-FEM achieves fully autonomous FEM simulation. Multi-agent systems coordinate across the entire design-build lifecycle. The era of the AI engineering collaborator has begun.</p>
+    </div>
+  </div>
+
+  <!-- Vision for the Future -->
+  <div class="quote-block reveal" style="margin-top: 60px;">
+    <blockquote>
+      The goal is not to replace engineers, but to amplify them &mdash; creating AI collaborators that handle routine 
+      computation while humans focus on creativity, judgment, and the irreducibly human aspects of building 
+      the world we live in.
+    </blockquote>
+    <cite>&mdash; Vision for Agentic AI in Civil Engineering, 2026</cite>
+  </div>
+
+  <!-- What's Next -->
+  <div style="margin-top: 48px;">
+    <h3 class="reveal" style="font-size: 1.3rem; margin-bottom: 24px;">What's Next? The Frontier</h3>
+    <div class="bento-grid reveal" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+      <div class="bento-item" style="background: linear-gradient(135deg, rgba(255,224,194,0.05), var(--bg-card));">
+        <h3 class="future-title"><span class="future-title-icon" style="background: rgba(255,224,194,0.1); color: var(--accent-cyan);"><svg class="icon" aria-hidden="true"><use href="#icon-city"></use></svg></span>City-Scale Digital Twins</h3>
+        <p>Multi-agent systems managing entire urban infrastructure networks &mdash; bridges, roads, utilities &mdash; in real time.</p>
+      </div>
+      <div class="bento-item" style="background: linear-gradient(135deg, rgba(212,165,116,0.05), var(--bg-card));">
+        <h3 class="future-title"><span class="future-title-icon" style="background: rgba(212,165,116,0.1); color: var(--accent-purple);"><svg class="icon" aria-hidden="true"><use href="#icon-refresh"></use></svg></span>Self-Healing Infrastructure</h3>
+        <p>Agents that detect damage, design repairs, and coordinate autonomous construction robots for maintenance.</p>
+      </div>
+      <div class="bento-item" style="background: linear-gradient(135deg, rgba(229,77,46,0.05), var(--bg-card));">
+        <h3 class="future-title"><span class="future-title-icon" style="background: rgba(229,77,46,0.1); color: var(--accent-rose);"><svg class="icon" aria-hidden="true"><use href="#icon-beaker"></use></svg></span>Physics-Informed AI Agents</h3>
+        <p>Combining neural networks with physical laws &mdash; agents that respect conservation equations and material constitutive models.</p>
+      </div>
+      <div class="bento-item" style="background: linear-gradient(135deg, rgba(201,160,110,0.05), var(--bg-card));">
+        <h3 class="future-title"><span class="future-title-icon" style="background: rgba(201,160,110,0.1); color: var(--accent-emerald);"><svg class="icon" aria-hidden="true"><use href="#icon-accessibility"></use></svg></span>Inclusive Design Agents</h3>
+        <p>AI that ensures accessibility from day one &mdash; disability-inclusive evacuation, universal design verification, and equity-aware planning.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================================ -->
+<!-- CONTACT / ABOUT -->
+<!-- ============================================ -->
+<section id="contact" class="section" style="text-align: center;">
+  <div class="section-label reveal">Instructor</div>
+  <h2 class="section-title reveal" style="margin-bottom: 16px;">
+    Dr. <span style="color: var(--accent-cyan)">Amir Rafe</span>
+  </h2>
+  <p class="section-subtitle reveal" style="margin: 0 auto 32px; text-align: center;">
+    Postdoctoral Researcher at Texas State University, 
+    <a href="https://ait-lab.vercel.app/" target="_blank" style="color: var(--accent-cyan); text-decoration: none;">AI in Transportation Lab</a>.<br>
+    Research in causal AI, computational epistemology, complexity, and safety.
+  </p>
+
+  <div class="reveal" style="max-width: 700px; margin: 0 auto 40px; text-align: left;">
+    <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+      My work focuses on how intelligent systems build and apply knowledge in dynamic, safety-critical environments &mdash; 
+      with emphasis on pedestrian dynamics, evacuation science, and causal reasoning. I integrate AI, human behavior modeling, 
+      causal inference, and simulation to design decision-support tools that are robust, explainable, and inclusive.
+    </p>
+  </div>
+
+  <div class="use-case-icons reveal" style="justify-content: center; margin-bottom: 40px;">
+    <div class="use-case-icon" title="Python"><svg class="icon" aria-hidden="true"><use href="#icon-code"></use></svg></div>
+    <div class="use-case-icon" title="AI & ML"><svg class="icon" aria-hidden="true"><use href="#icon-bot"></use></svg></div>
+    <div class="use-case-icon" title="Causal AI"><svg class="icon" aria-hidden="true"><use href="#icon-link"></use></svg></div>
+    <div class="use-case-icon" title="Simulation"><svg class="icon" aria-hidden="true"><use href="#icon-stack"></use></svg></div>
+    <div class="use-case-icon" title="Transportation"><svg class="icon" aria-hidden="true"><use href="#icon-traffic"></use></svg></div>
+    <div class="use-case-icon" title="Safety"><svg class="icon" aria-hidden="true"><use href="#icon-shield"></use></svg></div>
+    <div class="use-case-icon" title="Podcast"><svg class="icon" aria-hidden="true"><use href="#icon-mic"></use></svg></div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- FOOTER -->
+<!-- ============================================ -->
+<footer class="footer">
+  <div class="footer-links">
+    <a href="mailto:amir.rafe@txstate.edu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+      Email
+    </a>
+    <a href="https://pozapas.github.io/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+      Website
+    </a>
+    <a href="https://github.com/pozapas" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/amir-rafe-08770854/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+    <a href="https://scholar.google.com/citations?hl=en&user=IUVLrp9PgFEC" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M16 12h2"/><path d="M16 8h2"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/><path d="M6 12h2"/><path d="M6 8h2"/></svg>
+      Scholar
+    </a>
+  </div>
+  <p>
+    AI in Transportation Lab &middot; Texas State University &middot; Spring 2026<br>
+    <span style="font-size: 0.8rem; opacity: 0.5;">Built with passion for the intersection of AI and civil engineering</span>
+  </p>
+</footer>
+
+<!-- ============================================ -->
+<!-- JAVASCRIPT -->
+<!-- ============================================ -->
+<script>
+// ===== PARTICLE SYSTEM =====
+(function() {
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let w, h;
+  
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  
+  resize();
+  window.addEventListener('resize', resize);
+  
+  class Particle {
+    constructor() {
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.vx = (Math.random() - 0.5) * 0.3;
+      this.vy = (Math.random() - 0.5) * 0.3;
+      this.r = Math.random() * 1.5 + 0.5;
+      this.alpha = Math.random() * 0.3 + 0.05;
+    }
+    
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      if (this.x < 0 || this.x > w) this.vx *= -1;
+      if (this.y < 0 || this.y > h) this.vy *= -1;
+    }
+    
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 224, 194, ${this.alpha})`;
+      ctx.fill();
+    }
+  }
+  
+  for (let i = 0; i < 60; i++) {
+    particles.push(new Particle());
+  }
+  
+  function animate() {
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    
+    // Draw connections
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 150) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(255, 224, 194, ${0.03 * (1 - dist / 150)})`;
+          ctx.stroke();
+        }
+      }
+    }
+    
+    requestAnimationFrame(animate);
+  }
+  
+  animate();
+})();
+
+// ===== INTERSECTION OBSERVER FOR REVEAL ANIMATIONS =====
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+  observer.observe(el);
+});
+
+// ===== FLOATING NAV ACTIVE STATE =====
+const sections = document.querySelectorAll('section[id]');
+const navDots = document.querySelectorAll('.nav-dot');
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = Array.from(sections).indexOf(entry.target);
+      navDots.forEach(dot => dot.classList.remove('active'));
+      if (navDots[idx]) navDots[idx].classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+
+sections.forEach(section => sectionObserver.observe(section));
+
+// ===== TOP BAR HIDE ON SCROLL =====
+let lastScroll = 0;
+const topBar = document.querySelector('.top-bar');
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.scrollY;
+  if (currentScroll > lastScroll && currentScroll > 100) {
+    topBar.style.transform = 'translateY(-100%)';
+  } else {
+    topBar.style.transform = 'translateY(0)';
+  }
+  lastScroll = currentScroll;
+}, { passive: true });
+
+// ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// ===== HORIZONTAL SCROLL HINT =====
+const hScrollWrappers = document.querySelectorAll('.h-scroll-wrapper');
+hScrollWrappers.forEach(wrapper => {
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+  
+  wrapper.addEventListener('mousedown', (e) => {
+    isDown = true;
+    startX = e.pageX - wrapper.offsetLeft;
+    scrollLeft = wrapper.scrollLeft;
+    wrapper.style.cursor = 'grabbing';
+  });
+  
+  wrapper.addEventListener('mouseleave', () => {
+    isDown = false;
+    wrapper.style.cursor = 'grab';
+  });
+  
+  wrapper.addEventListener('mouseup', () => {
+    isDown = false;
+    wrapper.style.cursor = 'grab';
+  });
+  
+  wrapper.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - wrapper.offsetLeft;
+    const walk = (x - startX) * 2;
+    wrapper.scrollLeft = scrollLeft - walk;
+  });
+  
+  wrapper.style.cursor = 'grab';
+});
+
+// ===== STAGGER ANIMATION FOR GRID ITEMS =====
+const staggerObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const children = entry.target.children;
+      Array.from(children).forEach((child, i) => {
+        child.style.opacity = '0';
+        child.style.transform = 'translateY(20px)';
+        child.style.transition = `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${i * 0.08}s`;
+        setTimeout(() => {
+          child.style.opacity = '1';
+          child.style.transform = 'translateY(0)';
+        }, 50);
+      });
+      staggerObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.bento-grid, .video-grid, .papers-grid, .github-grid, .tools-showcase').forEach(grid => {
+  staggerObserver.observe(grid);
+});
+
+// ===== YOUTUBE CLICK-TO-LOAD =====
+const canEmbedYouTube = window.location.protocol === 'http:' || window.location.protocol === 'https:';
+
+document.querySelectorAll('.video-frame[data-youtube-id]').forEach(frame => {
+  frame.addEventListener('click', () => {
+    const videoId = frame.dataset.youtubeId;
+    const title = frame.dataset.title || 'YouTube video';
+
+    if (!canEmbedYouTube) {
+      window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank', 'noopener');
+      return;
+    }
+
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+    iframe.title = title;
+    iframe.loading = 'lazy';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.allowFullscreen = true;
+    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+    frame.replaceWith(iframe);
+  });
+});
+</script>
+
+</body>
+</html>
+
