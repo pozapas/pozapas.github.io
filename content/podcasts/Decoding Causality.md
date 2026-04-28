@@ -123,3 +123,13 @@ In this season finale, we explore the fascinating intersection of artificial int
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/4XrnLDGvJZBN2TAza6VrCu?si=nP7QWvzBSiGwhKwS0jjIHQ" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 {{< /rawhtml >}}
+
+<br>
+<br>
+
+### Episode 11: Closing the Loop - What We Learned About Causality
+This episode reflects on the journey through causal reasoning, connecting the ladder of causation, counterfactual thinking, mediation, bias, and AI's limits into one closing perspective. It revisits why causal questions matter for science, decision-making, and intelligent systems, and how asking "why" changes the way we interpret evidence.
+
+{{< rawhtml >}}
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/6s4vONEdxmI3eEUYWS8VYc" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+{{< /rawhtml >}}

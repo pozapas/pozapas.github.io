@@ -162,10 +162,18 @@ params:
     enable: true
     title: "Publications"
     items:
+      - date: "2026"
+        content: |
+          - Somvanshi, S., Islam, M. M., **Rafe, A.**, Tusti, A. G., Chakraborty, A., Baitullah, A., Chowdhury, T. I., Alnawmasi, N., Dutta, A., & Das, S. (2026). Bridging the Black Box: A Survey on Mechanistic Interpretability in AI. ACM Computing Surveys. https://doi.org/10.1145/3787104
+
+          - Barua, S., Starewich, M. J., Chowdhury, T. I., **Rafe, A.**, & Das, S. (2026). Decoding Pedestrian Severity at Crosswalks using Hybrid Clustering and Random Parameter Models. Research Square. https://doi.org/10.21203/rs.3.rs-9003568/v1
+
+          - **Rafe, A.**, Baitullah, A., & Das, S. (2026). Latent Profiles of AI Risk Perception and Their Differential Association with Community Driving Safety Concerns: A Person-Centered Analysis. arXiv. https://doi.org/10.48550/arXiv.2604.04849
+
+          - **Rafe, A.**, & Das, S. (2026). Community Driving-Safety Deterioration as a Push Factor for Public Endorsement of AI Driving Capability. arXiv. https://doi.org/10.48550/arXiv.2604.04775
+
       - date: "2025"
         content: |
-          - Somvanshi, S., Islam, M. M., **Rafe, A.**, Tusti, A. G., Chakraborty, A., Baitullah, A., Chowdhury, T. I., Alnawmasi, N., Dutta, A., & Das, S. (2025). Bridging the Black Box: A Survey on Mechanistic Interpretability in AI. ACM Computing Surveys. https://doi.org/10.1145/3787104
-          
           - **Rafe, A.**, & Das, S. (2025). Causal AI and Computational Epistemology - A Survey. http://dx.doi.org/10.2139/ssrn.6045495
 
           - Chhetri, G., Brotee, S., Ansari, M. W., Bellamkonda, V. S., **Rafe, A.**, Alnawmasi, N., Dutta, A., & Das, S. (2025). Machine Unlearning in the Era of Foundation Models: Taxonomy, Methods, and Guarantees. http://dx.doi.org/10.2139/ssrn.5968054
@@ -214,6 +222,70 @@ params:
     enable: true
     title: "Tools"
     items:
+      - title: Agentic AI in Civil Engineering
+        content: An interactive learning page on agentic AI for civil engineering, covering AI agents, civil infrastructure applications, deep dives, media, podcasts, and practical tools for transportation and built-environment workflows.
+        image: /images/projects/aicivil.jpg
+        featured:
+          name: View Page
+          link: /aicivil.html
+        badges:
+          - "Agentic AI"
+          - "Civil Engineering"
+          - "Interactive Page"
+        links:
+          - icon: fas fa-globe
+            url: /aicivil.html
+
+      - title: FARS 2024 Dashboard
+        content: An interactive spatial analysis dashboard for exploring 2024 Fatality Analysis Reporting System data across crash locations, temporal patterns, contributing factors, and multi-ring fatality breakdowns.
+        image: /images/projects/fars2024.jpg
+        featured:
+          name: View Dashboard
+          link: /fars2024/
+        badges:
+          - "FARS"
+          - "Traffic Safety"
+          - "Spatial Dashboard"
+        links:
+          - icon: fas fa-chart-area
+            url: /fars2024/
+
+      - title: Traffic Safety VLM
+        content: A research-grade Streamlit app for multimodal traffic safety analysis from live streams and recorded video, combining structured vision-language model outputs with lightweight computer vision metrics and dashboard-ready exports.
+        image: /images/projects/traffic-safety-vlm.jpg
+        badges:
+          - "Vision-Language Models"
+          - "Traffic Safety"
+          - "Streamlit"
+          - "Computer Vision"
+        links:
+          - icon: fab fa-github
+            url: https://github.com/pozapas/traffic-safety-vlm
+
+      - title: NeuroEvac
+        content: A Streamlit dashboard for multi-modal EEG analysis in VR evacuation studies, supporting signal preprocessing, spectral and topographic analysis, anomaly detection, video-EEG correlation, and AI-generated reports.
+        image: /images/projects/neuroevac.jpg
+        badges:
+          - "EEG"
+          - "Evacuation"
+          - "VR"
+          - "AI Insights"
+        links:
+          - icon: fab fa-github
+            url: https://github.com/pozapas/neuroevac
+
+      - title: Pew W152 Dashboard
+        content: An interactive Streamlit dashboard for Pew Research Center Wave 152 survey analytics, covering AI perceptions, driving safety attitudes, weighted cross-tabulations, chi-square tests, and effect-size summaries.
+        image: /images/projects/pew-w152-dashboard.jpg
+        badges:
+          - "Survey Analytics"
+          - "AI Perception"
+          - "Driving Safety"
+          - "Streamlit"
+        links:
+          - icon: fab fa-github
+            url: https://github.com/pozapas/pew-w152-dashboard
+
       - title: Crowd-Analyzer
         content: Crowd Analyzer is a Python application designed to analyze pedestrian and crowd mobility patterns using computer vision and machine learning techniques. It incorporates YOLO for object detection, Kalman filters for tracking, and various methods for density and speed estimation.
         image: /images/projects/crowd.jpg
