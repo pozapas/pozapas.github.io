@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Scooter Crash Causal Explorer</title>
+  <meta name="description" content="Interactive causal event graph explorer for e-scooter crash narratives — multi-granularity visualization of crash factors, causal pathways, and co-occurrence patterns.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+<!-- ═══ Header ═══ -->
+<header class="header">
+  <div class="header-left">
+    <div class="logo-mark">CE</div>
+    <h1>E-Scooter Crash Causal Explorer</h1>
+  </div>
+  <div class="header-stats" id="headerStats"></div>
+</header>
+
+<!-- ═══ Tabs ═══ -->
+<nav class="tab-bar">
+  <button class="tab-btn active" data-tab="graph"><span class="tab-icon">&#9672;</span> Causal Network</button>
+  <button class="tab-btn" data-tab="pathways"><span class="tab-icon">&#8594;</span> Pathways</button>
+  <button class="tab-btn" data-tab="heatmap"><span class="tab-icon">&#9638;</span> Co-occurrence</button>
+  <button class="tab-btn" data-tab="crashes"><span class="tab-icon">&#9776;</span> Crash Browser</button>
+</nav>
+
+<!-- ═══ TAB 1: Causal Network (FULL SCREEN graph) ═══ -->
+<div class="tab-content active" data-tab="graph">
+  <div class="graph-canvas" id="graphCanvas">
+    <div class="float-controls">
+      <button class="float-btn" onclick="zoomIn()" title="Zoom In">+</button>
+      <button class="float-btn" onclick="zoomOut()" title="Zoom Out">&minus;</button>
+      <button class="float-btn" onclick="resetZoom()" title="Reset View">R</button>
+    </div>
+    <div class="filter-row" id="filterBar"></div>
+    <svg id="graphSvg"></svg>
+    <div class="float-legend" id="legend"></div>
+  </div>
+  <!-- Slide-in detail panel -->
+  <div class="detail-panel" id="graphDetailPanel">
+    <div class="dp-header">
+      <span>Node Details</span>
+      <button class="dp-close" onclick="closePanel('graphDetailPanel')">&times;</button>
+    </div>
+    <div class="dp-body" id="nodeDetails"></div>
+  </div>
+</div>
+
+<!-- ═══ TAB 2: Causal Pathways ═══ -->
+<div class="tab-content" data-tab="pathways">
+  <div class="full-tab" style="display:flex;gap:0;">
+    <div style="flex:1;overflow-y:auto;padding:32px 40px;">
+      <div class="section-header">
+        <h2>Causal Pathways</h2>
+        <p>Most common sequences of contributing factors leading to specific outcomes, ranked by frequency across all 525 unique crashes.</p>
+      </div>
+      <div class="pw-grid" id="pathwaysList"></div>
+    </div>
+    <div class="detail-panel" id="pathwayDetailPanel" style="position:relative;transform:none;box-shadow:none;border-left:1px solid var(--border-subtle);">
+      <div class="dp-header"><span>Pathway Details</span><button class="dp-close" onclick="document.getElementById('pathwayDetailPanel').querySelector('.dp-body').innerHTML='<p style=color:var(--text-4);font-size:13px>Click a pathway to see examples.</p>'">&times;</button></div>
+      <div class="dp-body" id="pathwayDetails"><p style="color:var(--text-4);font-size:13px;">Click a pathway to see example crash narratives.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB 3: Co-occurrence Heatmap ═══ -->
+<div class="tab-content" data-tab="heatmap">
+  <div class="full-tab" style="display:flex;gap:0;">
+    <div style="flex:1;overflow:auto;padding:32px 40px;">
+      <div class="section-header">
+        <h2>Factor Co-occurrence</h2>
+        <p>How frequently two crash factors appear together in the same incident. Brighter cells = stronger co-occurrence.</p>
+      </div>
+      <div class="hm-wrap" id="heatmapContainer"></div>
+    </div>
+    <div class="detail-panel" id="heatmapDetailPanel" style="position:relative;transform:none;box-shadow:none;border-left:1px solid var(--border-subtle);">
+      <div class="dp-header"><span>Co-occurrence</span></div>
+      <div class="dp-body" id="heatmapDetails"><p style="color:var(--text-4);font-size:13px;">Hover over heatmap cells to see details.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB 4: Crash Browser ═══ -->
+<div class="tab-content" data-tab="crashes">
+  <div class="crash-layout">
+    <div class="crash-list-col">
+      <div class="section-header" style="margin-bottom:16px;">
+        <h2>Crash Browser</h2>
+        <p>Search and explore individual crash narratives with extracted causal factors.</p>
+      </div>
+      <input type="text" class="search-input" id="crashSearch" placeholder="Search narratives... (e.g. 'red light', 'scooter fell', 'intersection')">
+      <div id="crashCount" style="font-size:12px;color:var(--text-4);margin-bottom:12px;"></div>
+      <div class="crash-grid" id="crashList"></div>
+    </div>
+    <div class="crash-detail-col" id="crashDetailCol">
+      <div style="font-size:13px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:16px;">Crash Details</div>
+      <div id="crashDetails"><p style="color:var(--text-4);font-size:13px;">Click a crash card to read the full narrative and see extracted causal factors.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Tooltip -->
+<div class="tooltip" id="tooltip"></div>
+
+<!-- Modal -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
