@@ -371,8 +371,9 @@ function buildCrashList(filter = '') {
   document.getElementById('crashCount').textContent = `${recs.length} crashes`;
   let h = '';
   recs.slice(0, 80).forEach(c => {
+    const actorLabel = c.actors.map(a => a.type ? `${a.id} (${a.type})` : a.id).join(' vs ');
     h += `<div class="card" onclick="showCrashDetail('${c.crash_id}')">
-      <div class="card-title">${c.crash_id} <span style="font-weight:400;color:var(--text-4);font-size:11px;">${c.actors.map(a => a.type).join(' vs ')}</span></div>
+      <div class="card-title">${c.crash_id} <span style="font-weight:400;color:var(--text-4);font-size:11px;">${actorLabel}</span></div>
       <div class="card-sub">${c.narrative.substring(0, 160)}...</div>
       <div style="margin-top:5px;">${c.factors.slice(0, 5).map(f => `<span class="badge ${BADGE_CLS[f.category]}">${f.factor.replace(/_/g, ' ')}</span>`).join('')}</div>
     </div>`;
@@ -386,7 +387,7 @@ function showCrashDetail(id) {
   let h = `<div style="font-size:18px;font-weight:800;color:var(--cyan);margin-bottom:14px;">${c.crash_id}</div>
     <div class="narr-text">${c.narrative}</div>
     <div style="font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:0.5px;margin:18px 0 8px;">Actors</div>`;
-  c.actors.forEach(a => { h += `<div class="card"><div class="card-title">${a.id} &mdash; ${a.type}</div>${a.direction ? `<div class="card-sub">Direction: ${a.direction}</div>` : ''}</div>`; });
+  c.actors.forEach(a => { h += `<div class="card"><div class="card-title">${a.id}${a.type ? ' &mdash; ' + a.type : ''}</div>${a.direction ? `<div class="card-sub">Direction: ${a.direction}</div>` : ''}</div>`; });
   h += '<div style="font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:0.5px;margin:18px 0 8px;">Extracted Factors</div><div style="margin-bottom:12px;">';
   c.factors.forEach(f => { h += `<span class="badge ${BADGE_CLS[f.category]}">${f.factor.replace(/_/g, ' ')}</span>`; });
   h += '</div>';
