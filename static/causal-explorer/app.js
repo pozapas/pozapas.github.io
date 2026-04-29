@@ -344,7 +344,7 @@ function buildHeatmap() {
             <div class="card-sub">Appears together in <strong style="color:var(--cyan)">${v}</strong> crashes</div></div>`;
         })
         .on('mouseout', function () { d3.select(this).attr('stroke', 'none'); });
-      if (v >= 5) {
+      if (v >= 1) {
         g.append('text').attr('x', j * cs + cs / 2 - 1).attr('y', i * cs + cs / 2 + 1)
           .attr('text-anchor', 'middle').attr('dominant-baseline', 'middle')
           .attr('fill', v > mx * 0.6 ? '#000' : '#fff').attr('font-size', '10px').attr('font-weight', '600')
