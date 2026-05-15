@@ -166,11 +166,21 @@ params:
         content: |
           - Somvanshi, S., Islam, M. M., **Rafe, A.**, Tusti, A. G., Chakraborty, A., Baitullah, A., Chowdhury, T. I., Alnawmasi, N., Dutta, A., & Das, S. (2026). Bridging the Black Box: A Survey on Mechanistic Interpretability in AI. ACM Computing Surveys. https://doi.org/10.1145/3787104
 
-          - Barua, S., Starewich, M. J., Chowdhury, T. I., **Rafe, A.**, & Das, S. (2026). Decoding Pedestrian Severity at Crosswalks using Hybrid Clustering and Random Parameter Models. Research Square. https://doi.org/10.21203/rs.3.rs-9003568/v1
+          - Barua, S., Starewich, M. J., Chowdhury, T. I., **Rafe, A.**, & Das, S. (2026). Decoding Pedestrian Severity at Crosswalks using Hybrid Clustering and Random Parameter Models. Submitted to Scientific Reports. Available at https://doi.org/10.21203/rs.3.rs-9003568/v1
 
-          - **Rafe, A.**, Baitullah, A., & Das, S. (2026). Latent Profiles of AI Risk Perception and Their Differential Association with Community Driving Safety Concerns: A Person-Centered Analysis. arXiv. https://doi.org/10.48550/arXiv.2604.04849
+          - **Rafe, A.**, Baitullah, A., & Das, S. (2026). Latent Profiles of AI Risk Perception and Their Differential Association with Community Driving Safety Concerns: A Person-Centered Analysis. Submitted to Transportation Research Part F: Traffic Psychology and Behaviour. Available at https://doi.org/10.48550/arXiv.2604.04849
 
-          - **Rafe, A.**, & Das, S. (2026). Community Driving-Safety Deterioration as a Push Factor for Public Endorsement of AI Driving Capability. arXiv. https://doi.org/10.48550/arXiv.2604.04775
+          - **Rafe, A.**, & Das, S. (2026). Community Driving-Safety Deterioration as a Push Factor for Public Endorsement of AI Driving Capability. Submitted to Accident Analysis & Prevention. Available at https://doi.org/10.48550/arXiv.2604.04775
+
+          - **Rafe, A.**, & Das, S. (2026). Heterogeneous Ordinal Structure Learning with Bayesian Nonparametric Complexity Discovery. Submitted to NeurIPS 2026. Available at https://doi.org/10.48550/arXiv.2605.04191
+
+          - **Rafe, A.**, & Das, S. (2026). Coupled-NeuralHP: Directional Temporal Coupling Between AI Innovation Exposure and Public Response. Submitted to NeurIPS 2026. Available at https://doi.org/10.48550/arXiv.2605.04194
+
+          - **Rafe, A.**, & Das, S. (2026). Socio-Conformal Calibration in Complex Survey Data: Marginal Validity Is Not Enough for Subgroup Reliability. Submitted to NeurIPS 2026. Available at https://doi.org/10.48550/arXiv.2605.05562
+
+          - **Rafe, A.**, & Das, S. (2026). From Aha Tokens to Convergent Insight: An Externalist Audit for Emergent LLM Self-Correction. Submitted to ACM AI Letters.
+
+          - **Rafe, A.**, & Das, S. (2026). The Double-Edged Algorithm: A Causal-Epistemic Framework for Generative AI and Researcher Creativity. Submitted to Technological Forecasting and Social Change.
 
       - date: "2025"
         content: |
