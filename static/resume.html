@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume &mdash; Amir Rafe</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; background: #111; font-family: 'Outfit', sans-serif; }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      background: #191919;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    header a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.03em;
+    }
+    header a:hover { color: #fff; }
+    header a.download {
+      background: #2a2a2a;
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid #3a3a3a;
+      transition: background 0.2s;
+    }
+    header a.download:hover { background: #3a3a3a; }
+    iframe {
+      display: block;
+      width: 100%;
+      height: calc(100vh - 49px);
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">&larr; Back to site</a>
+    <a class="download" href="/Amir_Rafe_CV.pdf" download>Download PDF</a>
+  </header>
+  <iframe src="/Amir_Rafe_CV.pdf" title="Amir Rafe Resume"></iframe>
+</body>
+</html>
