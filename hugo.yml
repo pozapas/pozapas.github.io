@@ -86,8 +86,8 @@ params:
     button:
       enable: true
       name: "Resume"
-      url: "/resume"
-      download: true
+      url: "/Amir_Rafe_CV.pdf"
+      download: false
       newPage: true
     socialLinks:
       fontAwesomeIcons:
