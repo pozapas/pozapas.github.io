@@ -86,7 +86,7 @@ params:
     button:
       enable: true
       name: "Resume"
-      url: "https://drive.google.com/file/d/1l6MVBsCKc3dAm9fOULJUemrtbA155BHx/view?usp=sharing"
+      url: "/Amir_Rafe_CV.pdf"
       download: true
       newPage: true
     socialLinks:
