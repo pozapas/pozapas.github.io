@@ -86,7 +86,7 @@ params:
     button:
       enable: true
       name: "Resume"
-      url: "/resume.html"
+      url: "/resume"
       download: true
       newPage: true
     socialLinks:
