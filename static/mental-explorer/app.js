@@ -348,10 +348,21 @@ function resetZoom() {
   d3.select('#graphSvg').transition().duration(400).call(zoomBehavior.transform, d3.zoomIdentity);
 }
 
+function safetyText(record) {
+  return record.safety_summary?.text || record.public_safe_text || record.redacted_narrative || '';
+}
+
+function redactedNarrative(record) {
+  return record.redacted_narrative || record.public_safe_text || '';
+}
+
 function recordSearchText(record) {
   return [
     record.crash_id,
     record.narrative,
+    record.safety_summary?.headline,
+    record.safety_summary?.text,
+    record.redacted_narrative,
     record.public_safe_text,
     record.story?.label,
     record.story?.id,
@@ -377,7 +388,7 @@ function buildMentalModel() {
     <button class="record-card ${selectedCrashId === record.crash_id ? 'active' : ''}" onclick="showMentalDetails('${record.crash_id}')">
       <span class="record-id">${escapeHtml(record.crash_id)}</span>
       <span class="record-story">${escapeHtml(record.story.label)}</span>
-      <span class="record-text">${escapeHtml(record.public_safe_text.slice(0, 150))}</span>
+      <span class="record-text">${escapeHtml(safetyText(record).slice(0, 170))}</span>
     </button>
   `).join('') || emptyState('No matching records.');
 }
@@ -498,7 +509,7 @@ function showStoryDetail(storyId) {
     ${story.representative_crashes.map(item => `
       <button class="record-card" onclick="showCrashDetail('${item.crash_id}'); switchTab('crashes')">
         <span class="record-id">${escapeHtml(item.crash_id)}</span>
-        <span class="record-text">${escapeHtml(item.public_safe_text)}</span>
+        <span class="record-text">${escapeHtml(item.safety_summary || item.public_safe_text)}</span>
       </button>
     `).join('')}
   `;
@@ -555,6 +566,7 @@ function buildReviewQueue() {
     return [
       item.crash_id,
       item.story_label,
+      item.safety_summary,
       item.public_safe_text,
       ...item.flags.map(f => `${f.code} ${f.label}`)
     ].join(' ').toLowerCase().includes(query);
@@ -565,7 +577,7 @@ function buildReviewQueue() {
       <span class="record-id">${escapeHtml(item.crash_id)} / score ${safeValue(item.review_score)}</span>
       <span class="record-story">${escapeHtml(item.story_label)}</span>
       <span class="badge-row">${item.flags.map(f => badge(titleCase(f.code), f.priority === 'critical' ? 'status-contradicts_cris' : 'status-narrative_only')).join('')}</span>
-      <span class="record-text">${escapeHtml(item.public_safe_text)}</span>
+      <span class="record-text">${escapeHtml(item.safety_summary || item.public_safe_text)}</span>
     </button>
   `).join('') || emptyState('No matching review candidates.');
   if (items[0] && !byId('reviewDetails').innerHTML) showReviewDetail(items[0].crash_id);
@@ -868,7 +880,7 @@ function buildCrashList() {
     <button class="crash-card ${selectedCrashId === record.crash_id ? 'active' : ''}" onclick="showCrashDetail('${record.crash_id}')">
       <span class="record-id">${escapeHtml(record.crash_id)}</span>
       <span class="record-story">${escapeHtml(record.story.label)}</span>
-      <span class="record-text">${escapeHtml(record.public_safe_text.slice(0, 170))}</span>
+      <span class="record-text">${escapeHtml(safetyText(record).slice(0, 190))}</span>
       <span class="badge-row">${record.factors.slice(0, 4).map(factorBadge).join('')}</span>
     </button>
   `).join('') || emptyState('No matching crash records.');
@@ -898,6 +910,8 @@ function renderCrashDetail(record) {
     </div>
     <div class="badge-row">${badge(privacyLabel, 'status-unknown')}</div>
     <div class="badge-row">${record.review_flags.map(f => badge(f.label, `flag-${f.code}`)).join('')}</div>
+    <div class="section-kicker">Causal safety summary</div>
+    ${renderSafetySummary(record)}
     <div class="section-kicker">CRIS context</div>
     <div class="context-grid">${renderContext(record.cris_context)}</div>
     <div class="section-kicker">Actors</div>
@@ -913,9 +927,32 @@ function renderCrashDetail(record) {
     <div class="badge-row">${record.factors.map(factorBadge).join('') || badge('no accepted narrative factors', 'status-unknown')}</div>
     <div class="section-kicker">Claims and evidence</div>
     ${renderClaims(record.claims.slice(0, 18))}
-    <div class="section-kicker">Public-safe summary</div>
-    <div class="narr-text">${escapeHtml(record.public_safe_text)}</div>
+    <div class="section-kicker">Redacted narrative</div>
+    <div class="narr-text">${escapeHtml(redactedNarrative(record))}</div>
     ${rawNarrativeSection}
+  `;
+}
+
+function renderSafetySummary(record) {
+  const summary = record.safety_summary || {};
+  const chain = summary.chain || [];
+  return `
+    <div class="safety-summary">
+      <div class="summary-head">
+        <strong>${escapeHtml(summary.headline || record.story.label)}</strong>
+        ${badge(`clarity ${Math.round((summary.clarity_score || 0) * 100)}`, summary.is_explicit ? 'status-confirmed_by_cris' : 'status-narrative_only')}
+      </div>
+      <div class="summary-text">${escapeHtml(summary.text || safetyText(record))}</div>
+      <div class="summary-chain">
+        ${chain.map(step => `
+          <div class="summary-step">
+            <span>${escapeHtml(titleCase(step.stage))}</span>
+            <strong>${escapeHtml(step.text)}</strong>
+          </div>
+        `).join('')}
+      </div>
+      ${summary.evidence_span ? `<div class="claim-evidence">${escapeHtml(summary.evidence_span)}</div>` : ''}
+    </div>
   `;
 }
 
@@ -940,7 +977,7 @@ function miniCrashCard(record) {
     <button class="record-card" onclick="showCrashDetail('${record.crash_id}'); switchTab('crashes')">
       <span class="record-id">${escapeHtml(record.crash_id)}</span>
       <span class="record-story">${escapeHtml(record.story.label)}</span>
-      <span class="record-text">${escapeHtml(record.public_safe_text.slice(0, 170))}</span>
+      <span class="record-text">${escapeHtml(safetyText(record).slice(0, 170))}</span>
     </button>
   `;
 }
