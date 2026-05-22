@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRIS-Validated E-Scooter Mental-Model Explorer</title>
+  <meta name="description" content="Static explorer for CRIS-validated e-scooter crash narratives, mental models, validation status, and story archetypes.">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <div class="logo-mark">MM</div>
+      <div>
+        <h1>CRIS-Validated E-Scooter Mental-Model Explorer</h1>
+        <div class="header-subtitle">narrative evidence + structured crash validation</div>
+      </div>
+    </div>
+    <div class="header-stats" id="headerStats"></div>
+  </header>
+
+  <nav class="tab-bar">
+    <button class="tab-btn active" data-tab="graph">Network</button>
+    <button class="tab-btn" data-tab="mental">Mental Model</button>
+    <button class="tab-btn" data-tab="stories">Stories</button>
+    <button class="tab-btn" data-tab="validation">CRIS Validation</button>
+    <button class="tab-btn" data-tab="review">Review Queue</button>
+    <button class="tab-btn" data-tab="heatmap">Co-occurrence</button>
+    <button class="tab-btn" data-tab="crashes">Crash Browser</button>
+  </nav>
+
+  <main>
+    <section class="tab-content active" data-tab="graph">
+      <div class="graph-canvas" id="graphCanvas">
+        <div class="float-controls">
+          <button class="float-btn" onclick="zoomIn()" title="Zoom in">+</button>
+          <button class="float-btn" onclick="zoomOut()" title="Zoom out">-</button>
+          <button class="float-btn" onclick="resetZoom()" title="Reset view">R</button>
+        </div>
+        <div class="filter-row" id="filterBar"></div>
+        <svg id="graphSvg"></svg>
+        <div class="float-legend" id="legend"></div>
+      </div>
+      <aside class="detail-panel" id="graphDetailPanel">
+        <div class="dp-header">
+          <span>Validated Factor</span>
+          <button class="dp-close" onclick="closePanel('graphDetailPanel')">x</button>
+        </div>
+        <div class="dp-body" id="nodeDetails"></div>
+      </aside>
+    </section>
+
+    <section class="tab-content" data-tab="mental">
+      <div class="split-layout">
+        <aside class="list-pane">
+          <div class="section-header">
+            <h2>Mental Model</h2>
+            <p>Unit-level before, during, and after crash interpretation.</p>
+          </div>
+          <input type="text" class="search-input" id="mentalSearch" placeholder="Search crash id, narrative, factor, or story">
+          <div class="mini-count" id="mentalCount"></div>
+          <div class="record-list" id="mentalList"></div>
+        </aside>
+        <section class="detail-pane" id="mentalDetails"></section>
+      </div>
+    </section>
+
+    <section class="tab-content" data-tab="stories">
+      <div class="split-layout">
+        <section class="wide-pane">
+          <div class="section-header">
+            <h2>Story Archetypes</h2>
+            <p>Supervisor-facing crash stories with CRIS condition prevalence.</p>
+          </div>
+          <div class="story-grid" id="storyGrid"></div>
+        </section>
+        <aside class="side-pane" id="storyDetails"></aside>
+      </div>
+    </section>
+
+    <section class="tab-content" data-tab="validation">
+      <div class="split-layout">
+        <section class="wide-pane">
+          <div class="section-header">
+            <h2>CRIS Validation</h2>
+            <p>Confirmed, narrative-only, contradictory, and suppressed claims.</p>
+          </div>
+          <div class="dashboard-grid" id="validationDashboard"></div>
+          <div class="section-header compact">
+            <h2>Contradictions</h2>
+          </div>
+          <div class="record-list" id="contradictionList"></div>
+        </section>
+        <aside class="side-pane" id="suppressedList"></aside>
+      </div>
+    </section>
+
+    <section class="tab-content" data-tab="review">
+      <div class="split-layout">
+        <aside class="list-pane">
+          <div class="section-header">
+            <h2>Review Queue</h2>
+            <p>Monday/Tuesday expert review candidates.</p>
+          </div>
+          <input type="text" class="search-input" id="reviewSearch" placeholder="Search review flags or crash id">
+          <div class="mini-count" id="reviewCount"></div>
+          <div class="record-list" id="reviewList"></div>
+        </aside>
+        <section class="detail-pane" id="reviewDetails"></section>
+      </div>
+    </section>
+
+    <section class="tab-content" data-tab="heatmap">
+      <div class="cooc-layout">
+        <section class="cooc-main scroll">
+          <div class="section-header">
+            <h2>Validated Factor Co-occurrence</h2>
+            <p>Pairs computed from accepted mental-model and narrative-added factors.</p>
+          </div>
+          <div class="cooc-summary" id="coocSummary"></div>
+          <div class="cooc-controls">
+            <label>
+              Order
+              <select id="coocOrder">
+                <option value="association">Association strength</option>
+                <option value="frequency">Factor frequency</option>
+                <option value="category">Factor category</option>
+              </select>
+            </label>
+            <label>
+              Matrix size
+              <select id="coocFactorLimit">
+                <option value="16">Top 16</option>
+                <option value="22" selected>Top 22</option>
+                <option value="29">All factors</option>
+              </select>
+            </label>
+          </div>
+          <div class="hm-wrap" id="heatmapContainer"></div>
+        </section>
+        <aside class="cooc-side">
+          <div id="heatmapDetails"></div>
+          <div class="section-kicker">Strongest pairs</div>
+          <div class="cooc-pair-list" id="coocTopPairs"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="tab-content" data-tab="crashes">
+      <div class="crash-layout">
+        <aside class="crash-list-col">
+          <div class="section-header">
+            <h2>Crash Browser</h2>
+            <p>CRIS-backed records with public-safe summaries and validation evidence.</p>
+          </div>
+          <div class="filter-strip" id="activeStoryFilter"></div>
+          <input type="text" class="search-input" id="crashSearch" placeholder="Search narratives, IDs, story labels, or factors">
+          <div class="mini-count" id="crashCount"></div>
+          <div class="crash-grid" id="crashList"></div>
+        </aside>
+        <section class="crash-detail-col" id="crashDetails"></section>
+      </div>
+    </section>
+  </main>
+
+  <div class="tooltip" id="tooltip"></div>
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal-box" id="modalBox"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
