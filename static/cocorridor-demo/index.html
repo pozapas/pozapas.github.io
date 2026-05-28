@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoCorridor-AI: Connected Corridor Digital Twin Dashboard</title>
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Mapbox GL JS Styles and Script -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+
+    <!-- Google Maps JS API using User provided key -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJmdCGErRW0C1Zo7Wr2LodSp9z6twov7k"></script>
+
+    <link rel="stylesheet" href="style.css?v=5">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="app-header">
+        <div class="header-logo">
+            <span class="logo-accent">Co</span>Corridor-AI
+            <span class="badge">EDC-8 Digital Twin</span>
+        </div>
+        <div class="header-center-title">
+            I-35 Collaborative Connected Corridor Operations Dashboard
+        </div>
+        <div class="header-branding">
+            <div class="branding-text">
+                <span class="university">Texas State University</span>
+                <span class="dept">AIT Lab</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="app-content">
+        
+        <!-- DIGITAL TWIN INTERACTIVE DASHBOARD VIEW (Full Screen) -->
+        <section id="view-dashboard" class="view-section active-view" style="display: flex; opacity: 1;">
+            <div class="dashboard-grid">
+                
+                <!-- Left Sidebar: Controls & Telemetry -->
+                <div class="dash-panel left-panel">
+                    <div class="panel-header">
+                        <h3>Scenario Orchestrator</h3>
+                        <p>Trigger simulations to demonstrate real-time response</p>
+                    </div>
+                    
+                    <div class="scenario-buttons">
+                        <button id="scenario-default" class="scenario-btn active-scenario" onclick="triggerScenario('default')">
+                            <span class="status-indicator-dot normal"></span>
+                            Normal Operations
+                        </button>
+                        <button id="scenario-flood" class="scenario-btn" onclick="triggerScenario('flood')">
+                            <span class="status-indicator-dot warning"></span>
+                            Scenario A: Flash Flood (Buda)
+                        </button>
+                        <button id="scenario-incident" class="scenario-btn" onclick="triggerScenario('incident')">
+                            <span class="status-indicator-dot alert"></span>
+                            Scenario B: I-35 Incident (San Marcos)
+                        </button>
+                        <button id="scenario-workzone" class="scenario-btn" onclick="triggerScenario('workzone')">
+                            <span class="status-indicator-dot info"></span>
+                            Scenario C: Work Zone (Kyle)
+                        </button>
+                        <button id="scenario-cascade" class="scenario-btn" onclick="triggerScenario('cascade')">
+                            <span class="status-indicator-dot cascade"></span>
+                            Scenario D: Multi-Hazard Cascade
+                        </button>
+                    </div>
+
+                    <!-- Manual Phase & Camera Controls -->
+                    <div class="scenario-controls-extra">
+                        <button id="next-phase-btn" class="phase-control-btn" style="display:none;" onclick="advanceCascadePhase()">
+                            ▶ Phase 2: Collision
+                        </button>
+                        <button id="fly-to-btn" class="phase-control-btn fly-btn" onclick="flyToScenarioView(activeScenario)">
+                            📍 Fly to View
+                        </button>
+                    </div>
+
+                    <div class="panel-divider"></div>
+
+                    <div class="panel-header">
+                        <h3>Corridor Telemetry</h3>
+                        <p>Aggregated real-time corridor metrics</p>
+                    </div>
+
+                    <div class="telemetry-grid">
+                        <div class="telemetry-card">
+                            <span class="tel-label">Average Speed</span>
+                            <span class="tel-val" id="tel-speed">68 mph</span>
+                            <canvas id="speed-sparkline" class="sparkline-canvas" width="240" height="36"></canvas>
+                            <span class="tel-trend pos" id="tel-speed-trend">&bull; Optimal</span>
+                        </div>
+                        <div class="telemetry-card">
+                            <span class="tel-label">Flow Rate</span>
+                            <span class="tel-val" id="tel-volume">3,850 veh/hr</span>
+                            <canvas id="volume-sparkline" class="sparkline-canvas" width="240" height="36"></canvas>
+                            <span class="tel-trend pos" id="tel-volume-trend">&bull; Stable</span>
+                        </div>
+                        <div class="telemetry-card">
+                            <span class="tel-label">Active Work Zones</span>
+                            <span class="tel-val" id="tel-zones">0 zones</span>
+                            <span class="tel-trend" id="tel-zones-status">No closures</span>
+                        </div>
+                        <div class="telemetry-card">
+                            <span class="tel-label">Crash Risk Score</span>
+                            <div style="display: flex; align-items: baseline; justify-content: space-between; margin: 2px 0;">
+                                <span class="tel-val" id="tel-risk">Very Low</span>
+                                <span class="tel-trend pos" id="tel-risk-trend">Normal</span>
+                            </div>
+                            <div class="risk-bar-container">
+                                <div class="risk-bar" id="risk-bar" style="width: 5%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-divider"></div>
+
+                    <div class="panel-header">
+                        <h3>EDC-8 Response checklist</h3>
+                        <p>Active multi-agency intervention steps</p>
+                    </div>
+
+                    <div class="response-checklist" id="response-checklist">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+
+                <!-- Center Panel: Interactive Digital Twin Map -->
+                <div class="dash-panel center-panel">
+                    <div class="panel-header map-header">
+                        <div class="header-title-wrap">
+                            <h3>I-35 Connected Corridor 3D Digital Twin Map</h3>
+                            <p id="map-status-desc">Active Segment: Buda (Exit 220) to Selma (Exit 174)</p>
+                        </div>
+                        <div class="map-legend">
+                            <span class="legend-item"><span class="legend-dot green"></span>Normal</span>
+                            <span class="legend-item"><span class="legend-dot orange"></span>Congested</span>
+                            <span class="legend-item"><span class="legend-dot blue"></span>Rain/Flood</span>
+                            <span class="legend-item"><span class="legend-dot red"></span>Incident</span>
+                        </div>
+                    </div>
+                    
+                    <div class="map-container">
+                        <!-- REAL MAP CONTAINER USING MAPBOX GL JS -->
+                        <div id="corridor-map-container" style="width: 100%; height: 100%;"></div>
+
+                        <!-- Canvas for full-map rain animation overlay -->
+                        <canvas id="weather-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5;"></canvas>
+
+                        <!-- Floating Dynamic Map Legend Card -->
+                        <div id="map-legend-card" class="map-legend-floating"></div>
+
+                        <!-- On-Screen Scenario Caption Overlay -->
+                        <div id="scenario-caption" class="scenario-caption-overlay" style="display: none;">
+                            <div class="caption-icon" id="caption-icon"></div>
+                            <div class="caption-text" id="caption-text"></div>
+                        </div>
+
+                        <!-- Dynamic Flooding Warning Box on map -->
+                        <div id="flood-alert-panel" class="map-overlay-panel alert-panel" style="display: none;">
+                            <div class="panel-alert-icon">⚠️</div>
+                            <div class="panel-alert-content">
+                                <strong>Corridor Flash Flood Warning</strong>
+                                <p>I-35 Frontage Road at Buda Underpass (Exit 220). Predictive Risk Index is critical (84%). Automated alerts pushed to TxDOT & Google Maps.</p>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Incident Warning Box on map -->
+                        <div id="incident-alert-panel" class="map-overlay-panel alert-panel" style="display: none;">
+                            <div class="panel-alert-icon">💥</div>
+                            <div class="panel-alert-content">
+                                <strong>Secondary Crash Prevention Active</strong>
+                                <p>Multi-vehicle incident near Exit 205 (San Marcos). Dynamic route diversions pushed to travelers. Signal Timing Plan 12 engaged in adjacent cities.</p>
+                            </div>
+                        </div>
+
+                        <!-- Twitter (X) Alert Popup Overlay on map -->
+                        <div id="twitter-alert-popup" class="twitter-popup" style="display: none;">
+                            <div class="tweet-header">
+                                <div class="tweet-profile-area">
+                                    <div class="tweet-avatar">AIT</div>
+                                    <div class="tweet-author-info">
+                                        <span class="tweet-name">AIT Lab @ Texas State University <span class="tweet-verify-badge">✓</span></span>
+                                        <span class="tweet-handle">@AITLab_TXST</span>
+                                    </div>
+                                </div>
+                                <div class="tweet-logo">𝕏</div>
+                            </div>
+                            <div class="tweet-body" id="tweet-text">
+                                CoCorridor-AI Broker: I-35 Innovation Corridor flowing normally. Enjoy your drive!
+                            </div>
+                            <div class="tweet-footer-metrics">
+                                <span class="metric-group"><strong>12</strong> Retweets</span>
+                                <span class="metric-group"><strong>6</strong> Quote Posts</span>
+                                <span class="metric-group"><strong>148</strong> Likes</span>
+                            </div>
+                            <div class="tweet-actions">
+                                <span class="action-btn" title="Reply">💬</span>
+                                <span class="action-btn" title="Retweet">🔁</span>
+                                <span class="action-btn" title="Like">❤️</span>
+                                <span class="action-btn" title="Share">📤</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scenario Event Timeline Strip -->
+                    <div id="scenario-timeline" class="scenario-timeline">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+
+                <!-- Right Sidebar: Camera Feed & Logs -->
+                <div class="dash-panel right-panel">
+                    <!-- CCTV Camera Feed section with Edge vs Google Panorama tabs -->
+                    <div class="camera-feed-container">
+                        <div class="panel-header border-b" style="padding: 10px 16px;">
+                            <h3 id="panel-feed-title">Edge Node: San Marcos</h3>
+                            <div class="feed-tabs">
+                                <button id="tab-edge" class="feed-tab-btn active" onclick="switchFeedTab('edge')">YOLO26 Edge</button>
+                                <button id="tab-google" class="feed-tab-btn" onclick="switchFeedTab('google')">Google Immersive</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Screen container holding canvas or Google panorama -->
+                        <div class="video-mock-frame">
+                            <!-- Tab A: YOLO26 Canvas simulation -->
+                            <canvas id="canvas-video-feed" width="520" height="330"></canvas>
+                            
+                            <!-- Tab B: Google Street View (initially hidden) -->
+                            <div id="google-street-view" style="width: 100%; height: 100%; display: none;"></div>
+
+                            <div class="hud-overlay" id="hud-overlay-text">
+                                <span class="hud-label" id="hud-camera-label">CAM-I35-SM205</span>
+                                <span class="hud-timestamp" id="hud-time">12:54:39</span>
+                                <span class="hud-metrics">Near-Miss Count: <strong id="near-miss-cnt" class="text-gold">0</strong></span>
+                            </div>
+                            <div id="hud-near-miss-alarm" class="hud-alarm" style="display: none;">
+                                CRITICAL CONFLICT DETECTED
+                            </div>
+                        </div>
+                        <div class="camera-meta" id="camera-feed-meta">
+                            <span>Near-Miss Analytics (YOLO26 Edge Node): tracking conflicts between vehicles & pedestrians on frontage intersection.</span>
+                        </div>
+                    </div>
+
+                    <!-- Cloud Data Broker Logs (WZDx & Signal Controller standard commands) -->
+                    <div class="data-broker-logs">
+                        <div class="panel-header border-b">
+                            <h3>Cloud Data Broker Stream</h3>
+                            <span class="data-format">Format: WZDx JSON / NTCIP XML</span>
+                        </div>
+                        <div class="log-stream-container" id="log-stream">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Corridor Health Status Bar -->
+    <footer id="corridor-status-bar" class="corridor-status-bar">
+        <div class="status-bar-left">
+            <span class="system-pulse"></span>
+            <span class="system-label">SYSTEM ONLINE</span>
+            <span class="status-divider">|</span>
+            <span class="corridor-health" id="corridor-health">Corridor Health: <strong class="health-grade grade-a" id="health-grade">A</strong></span>
+        </div>
+        <div class="status-bar-center">
+            <div class="ticker-container">
+                <div class="ticker-scroll" id="ticker-scroll">
+                    <span class="ticker-item">I-35 Connected Corridor — All systems nominal — 5 cities connected — Real-time EDC-8 Digital Twin Active</span>
+                </div>
+            </div>
+        </div>
+        <div class="status-bar-right">
+            <span class="active-agencies" id="active-agencies">Active Agencies: <strong>5</strong></span>
+            <span class="status-divider">|</span>
+            <span class="system-clock" id="system-clock">--:--:--</span>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <!-- App Script -->
+    <script src="app.js?v=12"></script>
+</body>
+</html>
