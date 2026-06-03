@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crash Causal Explorer Lab</title>
+  <meta name="description" content="Dual-dataset causal explorer for e-scooter and pedestrian crash narratives with deidentified narrative review.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <button class="mark" id="openIntroBtn" title="Open dataset selector" aria-label="Open dataset selector">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div>
+          <h1>Crash Causal Explorer Lab</h1>
+          <p id="headerSubtitle">Select a dataset to begin.</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <div class="header-stats" id="headerStats"></div>
+        <div class="dataset-switcher" id="datasetSwitcher"></div>
+        <button class="icon-btn" id="commandBtn" title="Open command palette" aria-label="Open command palette">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg>
+        </button>
+        <button class="icon-btn" id="introTopBtn" title="Dataset selector" aria-label="Dataset selector">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4z"></path><path d="M8 9h8M8 13h8M8 17h5"></path></svg>
+        </button>
+      </div>
+    </header>
+
+    <nav class="view-tabs" id="viewTabs" aria-label="Explorer views"></nav>
+
+    <main class="workspace">
+      <aside class="filter-rail" id="filterRail"></aside>
+      <section class="view-host" id="viewHost">
+        <div class="loading-panel">
+          <div class="loader"></div>
+          <p>Loading workbench.</p>
+        </div>
+      </section>
+      <aside class="inspector" id="inspector">
+        <div class="inspector-head">
+          <div>
+            <span class="eyebrow">Inspector</span>
+            <h2 id="inspectorTitle">No selection</h2>
+          </div>
+          <button class="icon-btn" id="closeInspectorBtn" title="Close inspector" aria-label="Close inspector">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+          </button>
+        </div>
+        <div class="inspector-body" id="inspectorBody">
+          <p class="muted">Select a node, pathway, matrix cell, or crash record.</p>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <div class="intro-backdrop visible" id="introBackdrop" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+    <section class="intro-modal">
+      <div class="intro-visual">
+        <canvas id="introEntropyCanvas" class="intro-map" style="display: block; width: 520px; height: 520px;" aria-hidden="true"></canvas>
+      </div>
+      <div class="intro-copy">
+        <span class="eyebrow">Research Workbench</span>
+        <h2 id="introTitle">Choose the crash population to explore</h2>
+        <p>
+          This lab turns CRIS crash records and investigator narratives into causal factors,
+          pathway summaries, co-occurrence patterns, and deidentified case evidence.
+        </p>
+        <div class="privacy-strip">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 3 8.7 7 10 4-1.3 7-5.4 7-10V6l-7-3z"></path><path d="M9 12l2 2 4-5"></path></svg>
+          <span>Displayed narratives are deidentified before export into this app.</span>
+        </div>
+        <div class="dataset-cards" id="introDatasetCards"></div>
+        <div class="intro-actions">
+          <button class="secondary-btn" id="closeIntroBtn">Continue</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="palette-backdrop" id="paletteBackdrop">
+    <section class="palette">
+      <input id="paletteInput" type="text" placeholder="Search factors, cities, stories, or crash IDs">
+      <div id="paletteResults" class="palette-results"></div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
