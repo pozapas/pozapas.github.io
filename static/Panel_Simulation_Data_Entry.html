@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRD-D-26-02006 Revision Data Entry</title>
+<style>
+  :root{
+    --blue:#00549F; --red:#B00020; --orange:#BF5700; --ink:#1c2733; --mut:#5c6b7a;
+    --bg:#f4f6f9; --card:#ffffff; --line:#dde4ec; --fill:#fffbe6; --fillline:#e6d98a;
+    --ok:#1a7f4e;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:14.5px;line-height:1.45}
+  header{background:var(--blue);color:#fff;padding:16px 26px;position:sticky;top:0;z-index:50;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+  header h1{margin:0;font-size:18px;font-weight:600}
+  header p{margin:3px 0 0;font-size:12.5px;opacity:.85}
+  .layout{display:flex;max-width:1240px;margin:0 auto}
+  nav{width:230px;flex:0 0 230px;padding:18px 0 40px 14px;position:sticky;top:64px;align-self:flex-start;max-height:calc(100vh - 64px);overflow-y:auto}
+  nav a{display:block;padding:7px 12px;margin:2px 8px 2px 0;border-radius:7px;color:var(--ink);text-decoration:none;font-size:13px}
+  nav a:hover{background:#e7edf5}
+  nav a .done{color:var(--ok);font-weight:700;margin-right:4px}
+  main{flex:1;padding:20px 26px 90px;min-width:0}
+  section.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 24px 24px;margin-bottom:26px;box-shadow:0 1px 3px rgba(20,40,70,.05)}
+  section.card h2{margin:0 0 4px;font-size:16.5px;color:var(--blue)}
+  section.card .why{font-size:12.5px;color:var(--mut);margin:0 0 16px}
+  h3{font-size:14px;margin:20px 0 8px;color:#2c3e50}
+  label.f{display:block;font-size:12.5px;color:var(--mut);margin:10px 0 3px;font-weight:600}
+  input[type=text],input[type=number],select,textarea{
+    width:100%;padding:7px 10px;border:1px solid var(--fillline);border-radius:7px;background:var(--fill);
+    font-family:inherit;font-size:13.5px;color:var(--ink)
+  }
+  textarea{min-height:70px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:2px solid #9dc0e8;background:#fffef2}
+  .row{display:flex;gap:14px;flex-wrap:wrap}
+  .row>div{flex:1;min-width:170px}
+  table.grid{border-collapse:collapse;width:100%;margin:6px 0}
+  table.grid th,table.grid td{border:1px solid var(--line);padding:5px 7px;font-size:13px;text-align:center}
+  table.grid th{background:#eef2f7;font-weight:600}
+  table.grid td:first-child{text-align:left;background:#fafcfe;font-weight:600;white-space:nowrap}
+  table.grid input,table.grid select{padding:4px 6px;font-size:13px;text-align:center;min-width:60px}
+  table.grid input.wide{min-width:130px;text-align:left}
+  .stat{display:inline-block;background:#eef6ee;border:1px solid #cfe4cf;color:var(--ok);border-radius:6px;
+        padding:3px 10px;margin:4px 6px 0 0;font-size:12.5px;font-weight:600}
+  button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:13.5px;font-weight:600}
+  button.add{background:#e7edf5;color:var(--blue);padding:6px 12px;margin-top:6px}
+  button.del{background:none;color:#b33;font-size:15px;padding:2px 7px}
+  .exportbar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--blue);
+             padding:11px 26px;display:flex;gap:12px;align-items:center;z-index:60;flex-wrap:wrap}
+  .exportbar .grow{flex:1}
+  #btnXls{background:var(--ok);color:#fff}
+  #btnJson{background:var(--blue);color:#fff}
+  #btnLoad{background:#e7edf5;color:var(--ink)}
+  #btnClear{background:#fdecec;color:#b33}
+  .savemsg{font-size:12px;color:var(--mut)}
+  .hint{font-size:12px;color:var(--mut);margin:2px 0 6px}
+  .tag{display:inline-block;font-size:11px;font-weight:700;border-radius:5px;padding:1px 7px;margin-left:8px;vertical-align:middle}
+  .tag.must{background:#fdecec;color:var(--red)}
+  .tag.should{background:#fff3e6;color:var(--orange)}
+  .tag.desk{background:#e8f0fb;color:var(--blue)}
+  .locked{background:#eef2f7;border:1px solid var(--line);border-radius:7px;padding:8px 12px;font-size:13px;color:var(--mut)}
+</style>
+</head>
+<body>
+<header>
+  <h1>TRD-D-26-02006 &middot; Revision Data Entry</h1>
+  <p>Fill what you have (partial saves are fine). Everything autosaves in this browser. When done, click <b>Export</b> at the bottom: it creates one Excel file for you to check and one JSON file for the revision agent.</p>
+</header>
+
+<div class="layout">
+<nav id="nav"></nav>
+<main id="main">
+
+<!-- ================= S1 EVACUATIONZ ================= -->
+<section class="card" id="s1" data-title="1. Evacuationz validation">
+  <h2>1. Evacuationz end-to-end validation <span class="tag must">MUST</span></h2>
+  <p class="why">Feeds W3 (answers R1.3, R2.10): executability, framework vs expert comparison, sensitivity.</p>
+
+  <h3>Import log</h3>
+  <div class="row">
+    <div>
+      <label class="f">Import outcome</label>
+      <select name="ev.importOutcome">
+        <option value=""></option>
+        <option>Imported and ran with zero edits</option>
+        <option>Imported after minor edits (list below)</option>
+        <option>Required schema adjustments (list below)</option>
+      </select>
+    </div>
+    <div><label class="f">Evacuationz version</label><input type="text" name="ev.version" placeholder="e.g., 2.x"></div>
+    <div><label class="f">Iterations per scenario</label><input type="number" name="ev.iters" placeholder="e.g., 100"></div>
+  </div>
+  <label class="f">Errors / edits log (one per line; leave empty if zero edits)</label>
+  <textarea name="ev.importLog" placeholder="e.g., unit attribute renamed ft2 -> sqft on 3 nodes"></textarea>
+
+  <h3>Scenario A: framework-generated inputs, total evacuation time (TET)</h3>
+  <p class="hint">Paste one TET value per line (seconds), or comma-separated. Stats compute automatically.</p>
+  <textarea name="ev.tetA" data-stats="statA" placeholder="182.4&#10;190.1&#10;..."></textarea>
+  <div id="statA"></div>
+
+  <h3>Scenario B: expert-manual baseline inputs, TET</h3>
+  <textarea name="ev.tetB" data-stats="statB" placeholder="One value per line (seconds)"></textarea>
+  <div id="statB"></div>
+
+  <h3>Per-exit usage</h3>
+  <div data-dyn="exits" data-cols='[
+    {"k":"exit","label":"Exit ID / name","type":"text","wide":1},
+    {"k":"a","label":"Scenario A count (or %)","type":"text"},
+    {"k":"b","label":"Scenario B count (or %)","type":"text"}]'></div>
+
+  <label class="f">Bottleneck / congestion locations, Scenario A</label>
+  <textarea name="ev.bottleA" placeholder="e.g., Stair S2 landing, floors 3-2, t=60-140 s"></textarea>
+  <label class="f">Bottleneck / congestion locations, Scenario B</label>
+  <textarea name="ev.bottleB"></textarea>
+
+  <h3>Sensitivity (one-at-a-time)</h3>
+  <p class="hint">Enter the parameter values used for low / base / high, and the resulting mean TET for each run.</p>
+  <table class="grid">
+    <tr><th>Parameter</th><th>Low value</th><th>Base value</th><th>High value</th><th>TET low (s)</th><th>TET base (s)</th><th>TET high (s)</th></tr>
+    <tr><td>Pre-evacuation delay</td>
+      <td><input type="text" name="ev.sens.delay.lowV"></td><td><input type="text" name="ev.sens.delay.baseV"></td><td><input type="text" name="ev.sens.delay.highV"></td>
+      <td><input type="text" name="ev.sens.delay.lowT"></td><td><input type="text" name="ev.sens.delay.baseT"></td><td><input type="text" name="ev.sens.delay.highT"></td></tr>
+    <tr><td>Walking speed</td>
+      <td><input type="text" name="ev.sens.speed.lowV"></td><td><input type="text" name="ev.sens.speed.baseV"></td><td><input type="text" name="ev.sens.speed.highV"></td>
+      <td><input type="text" name="ev.sens.speed.lowT"></td><td><input type="text" name="ev.sens.speed.baseT"></td><td><input type="text" name="ev.sens.speed.highT"></td></tr>
+  </table>
+  <label class="f">Notes on the expert baseline (Scenario B): which defaults you used and from where</label>
+  <textarea name="ev.baselineNotes" placeholder="e.g., SFPE Handbook Table 64.7 walking speeds; NFPA 101 occupant loads; log-normal delay per CIBSE E"></textarea>
+</section>
+
+<!-- ================= S2 CAUSAL ABLATION ================= -->
+<section class="card" id="s2" data-title="2. Causal ablation">
+  <h2>2. Causal ablation (with vs without causal block) <span class="tag must">MUST</span></h2>
+  <p class="why">Feeds W2 (answers R1.2, R2.1, part of R2.9). Winning model, identical prompts, expert blind ratings.</p>
+  <div class="row">
+    <div><label class="f">Model used</label><input type="text" name="ab.model" value="Claude Opus 4.6 (thinking mode)"></div>
+    <div><label class="f">Number of items (parameter inferences) rated</label><input type="number" name="ab.nItems"></div>
+    <div><label class="f">Number of raters</label><input type="number" name="ab.nRaters" value="5"></div>
+  </div>
+  <h3>Ratings</h3>
+  <p class="hint">Paste from your rating spreadsheet, tab- or comma-separated, one row per rating:<br>
+  <b>rater , item , condition (with / without) , technical accuracy (1-5) , standards compliance (1-5) , causal coherence (1-5)</b></p>
+  <textarea name="ab.ratings" data-stats="statAb" style="min-height:120px" placeholder="E1, walking_speed, with, 5, 4, 5&#10;E1, walking_speed, without, 4, 4, 3"></textarea>
+  <div id="statAb"></div>
+  <label class="f">Blinding / procedure notes</label>
+  <textarea name="ab.notes" placeholder="e.g., outputs labeled A/B randomly per item; raters unaware of condition"></textarea>
+</section>
+
+<!-- ================= S3 GRAPHRAG CONTROLLED ================= -->
+<section class="card" id="s3" data-title="3. Controlled GraphRAG">
+  <h2>3. Controlled same-graph comparison + baselines <span class="tag should">SHOULD</span></h2>
+  <p class="why">Feeds W8 (answers R2.5, R2.9). All systems queried on the SAME (Claude-built) graph; plus vector-RAG and no-RAG baselines.</p>
+  <div class="row">
+    <div><label class="f">Questions per category (n)</label><input type="text" name="gr.n" placeholder="e.g., 15 per category"></div>
+    <div><label class="f">Model used for the vector-RAG / no-RAG baselines</label><input type="text" name="gr.baseModel" value="Claude Opus 4.6"></div>
+  </div>
+  <h3>F1 score per system and question category</h3>
+  <table class="grid">
+    <tr><th>System (same graph)</th><th>Tabular lookup</th><th>Clause retrieval</th><th>Units / signs</th><th>Calculation</th></tr>
+    <tr><td>Claude Opus 4.6</td><td><input name="gr.claude.tab"></td><td><input name="gr.claude.txt"></td><td><input name="gr.claude.unit"></td><td><input name="gr.claude.calc"></td></tr>
+    <tr><td>GPT-5.4</td><td><input name="gr.gpt.tab"></td><td><input name="gr.gpt.txt"></td><td><input name="gr.gpt.unit"></td><td><input name="gr.gpt.calc"></td></tr>
+    <tr><td>Gemini 3 Pro</td><td><input name="gr.gemini.tab"></td><td><input name="gr.gemini.txt"></td><td><input name="gr.gemini.unit"></td><td><input name="gr.gemini.calc"></td></tr>
+    <tr><td>Gemma 3 (4B) fine-tuned</td><td><input name="gr.gemma.tab"></td><td><input name="gr.gemma.txt"></td><td><input name="gr.gemma.unit"></td><td><input name="gr.gemma.calc"></td></tr>
+    <tr><td>Vector RAG (no graph)</td><td><input name="gr.vec.tab"></td><td><input name="gr.vec.txt"></td><td><input name="gr.vec.unit"></td><td><input name="gr.vec.calc"></td></tr>
+    <tr><td>No-RAG (model alone)</td><td><input name="gr.norag.tab"></td><td><input name="gr.norag.txt"></td><td><input name="gr.norag.unit"></td><td><input name="gr.norag.calc"></td></tr>
+  </table>
+  <label class="f">Embedding model used for the vector-RAG baseline + any notes</label>
+  <textarea name="gr.notes"></textarea>
+</section>
+
+<!-- ================= S4 STABILITY ================= -->
+<section class="card" id="s4" data-title="4. Stability (n=30)">
+  <h2>4. Stability expansion <span class="tag must">MUST</span></h2>
+  <p class="why">Feeds W4 (answers R1.5, R2.7). Enter stable-response counts; 95% CI (Wilson) computes automatically.</p>
+  <table class="grid">
+    <tr><th>Model &times; source</th><th>Trials (n)</th><th>Stable responses</th><th>Proportion + 95% CI</th></tr>
+    <tr><td>Claude Opus 4.6 - SFPE</td><td><input type="number" name="st.c.sfpe.n" value="30" data-ci="1"></td><td><input type="number" name="st.c.sfpe.k" data-ci="1"></td><td class="ci" id="ci_c_sfpe">-</td></tr>
+    <tr><td>Claude Opus 4.6 - BS 9999</td><td><input type="number" name="st.c.bs.n" value="30" data-ci="1"></td><td><input type="number" name="st.c.bs.k" data-ci="1"></td><td class="ci" id="ci_c_bs">-</td></tr>
+    <tr><td>Claude Opus 4.6 - NFPA 101</td><td><input type="number" name="st.c.nfpa.n" value="30" data-ci="1"></td><td><input type="number" name="st.c.nfpa.k" data-ci="1"></td><td class="ci" id="ci_c_nfpa">-</td></tr>
+    <tr><td>Gemma 3 FT - SFPE</td><td><input type="number" name="st.g.sfpe.n" value="30" data-ci="1"></td><td><input type="number" name="st.g.sfpe.k" data-ci="1"></td><td class="ci" id="ci_g_sfpe">-</td></tr>
+    <tr><td>Gemma 3 FT - BS 9999</td><td><input type="number" name="st.g.bs.n" value="30" data-ci="1"></td><td><input type="number" name="st.g.bs.k" data-ci="1"></td><td class="ci" id="ci_g_bs">-</td></tr>
+    <tr><td>Gemma 3 FT - NFPA 101</td><td><input type="number" name="st.g.nfpa.n" value="30" data-ci="1"></td><td><input type="number" name="st.g.nfpa.k" data-ci="1"></td><td class="ci" id="ci_g_nfpa">-</td></tr>
+  </table>
+  <label class="f">Definition of a "stable" response used (exact criterion)</label>
+  <textarea name="st.criterion" placeholder="e.g., numerically identical value and identical cited clause across repeats"></textarea>
+</section>
+
+<!-- ================= S5 MULTI-HOP ================= -->
+<section class="card" id="s5" data-title="5. Multi-hop prompts">
+  <h2>5. Multi-hop reasoning, expanded set + ground truth <span class="tag should">SHOULD</span></h2>
+  <p class="why">Feeds W4 (answers R1.4, R2.7). One row per prompt. Ground-truth source is REQUIRED per prompt (goes into a new appendix table). For each model: c = correct, i = incorrect, leave blank = not run.</p>
+  <div data-dyn="mh" data-cols='[
+    {"k":"id","label":"#","type":"text"},
+    {"k":"prompt","label":"Prompt (short form)","type":"text","wide":1},
+    {"k":"gt","label":"Ground-truth source (doc / table / page)","type":"text","wide":1},
+    {"k":"claude","label":"Claude","type":"text"},
+    {"k":"deepseek","label":"DeepSeek R1","type":"text"},
+    {"k":"gpt","label":"GPT-5.4","type":"text"},
+    {"k":"qwq","label":"QWQ 32B","type":"text"},
+    {"k":"sonar","label":"Sonar RP","type":"text"}]'></div>
+  <label class="f">Notes (e.g., which models ran the full expanded set)</label>
+  <textarea name="mh.notes"></textarea>
+</section>
+
+<!-- ================= S6 MOS RELIABILITY ================= -->
+<section class="card" id="s6" data-title="6. MOS per-expert data">
+  <h2>6. MOS per-expert ratings (for ICC / Krippendorff) <span class="tag must">MUST</span></h2>
+  <p class="why">Feeds W7 (answers R1.8, R2.8). Raw per-expert per-item ratings from the ORIGINAL Table 8 evaluation. The agent computes ICC(2,k) / alpha from this.</p>
+  <p class="hint">Paste one row per rated item, tab- or comma-separated:<br>
+  <b>model , dimension (accuracy / compliance / coherence) , item , E1 , E2 , E3 , E4 , E5</b></p>
+  <textarea name="mos.raw" style="min-height:140px" placeholder="Claude, accuracy, walking_speed, 5, 5, 4, 5, 5&#10;Claude, compliance, walking_speed, 4, 5, 5, 4, 4"></textarea>
+  <label class="f">If your data layout differs, describe it here so the agent parses it correctly</label>
+  <textarea name="mos.layoutNote"></textarea>
+</section>
+
+<!-- ================= S7 CONFIGS ================= -->
+<section class="card" id="s7" data-title="7. Configurations">
+  <h2>7. Fine-tuning + graph-construction configuration <span class="tag desk">DESK</span></h2>
+  <p class="why">Feeds W5 (answers R1.6, R2.4). Pure reporting; copy from your training scripts / logs.</p>
+  <h3>Fine-tuning (Gemma 3 4B)</h3>
+  <div class="row">
+    <div><label class="f">Learning rate</label><input type="text" name="ft.lr" placeholder="e.g., 2e-5"></div>
+    <div><label class="f">LR schedule</label><input type="text" name="ft.sched" placeholder="e.g., cosine decay, warmup 100"></div>
+    <div><label class="f">Batch size</label><input type="text" name="ft.batch"></div>
+    <div><label class="f">Gradient accumulation</label><input type="text" name="ft.gacc"></div>
+  </div>
+  <div class="row">
+    <div><label class="f">Epochs / total steps</label><input type="text" name="ft.epochs"></div>
+    <div><label class="f">Optimizer</label><input type="text" name="ft.opt" placeholder="e.g., AdamW"></div>
+    <div><label class="f">Random seed</label><input type="text" name="ft.seed"></div>
+    <div><label class="f">Precision</label><input type="text" name="ft.prec" value="bfloat16"></div>
+  </div>
+  <div class="row">
+    <div><label class="f">Checkpoint selection rule</label><input type="text" name="ft.ckpt" placeholder="e.g., lowest val loss"></div>
+    <div><label class="f">Stopping criterion</label><input type="text" name="ft.stop"></div>
+    <div><label class="f">Library versions</label><input type="text" name="ft.libs" placeholder="transformers x.y, torch x.y"></div>
+  </div>
+  <h3>Graph construction (Neo4j GraphRAG)</h3>
+  <div class="row">
+    <div><label class="f">Chunk size</label><input type="text" name="gb.chunk"></div>
+    <div><label class="f">Chunk overlap</label><input type="text" name="gb.overlap"></div>
+    <div><label class="f">Embedding model + dimension</label><input type="text" name="gb.embed" placeholder="e.g., text-embedding-3-small, 1536"></div>
+  </div>
+  <div class="row">
+    <div><label class="f">Graph-construction / community-detection algorithm</label><input type="text" name="gb.algo"></div>
+    <div><label class="f">neo4j-graphrag-python version</label><input type="text" name="gb.ver"></div>
+    <div><label class="f">LLM used to build graphs</label><input type="text" name="gb.llm" value="per-model (comparison); Claude Opus 4.6 (final)"></div>
+  </div>
+  <h3>Dataset split</h3>
+  <div class="row">
+    <div><label class="f">Train size</label><input type="text" name="sp.train"></div>
+    <div><label class="f">Validation size</label><input type="text" name="sp.val"></div>
+    <div><label class="f">Test size</label><input type="text" name="sp.test"></div>
+  </div>
+  <label class="f">Split policy (how pairs were assigned; document/chapter handling). Write exactly what is true.</label>
+  <textarea name="sp.policy"></textarea>
+  <h3>Absolute scores, base vs fine-tuned (per category)</h3>
+  <div data-dyn="abs" data-cols='[
+    {"k":"cat","label":"Category","type":"text","wide":1},
+    {"k":"baseF1","label":"Base BERT-F1","type":"text"},
+    {"k":"ftF1","label":"FT BERT-F1","type":"text"},
+    {"k":"baseRL","label":"Base ROUGE-L","type":"text"},
+    {"k":"ftRL","label":"FT ROUGE-L","type":"text"},
+    {"k":"baseBLEU","label":"Base BLEU","type":"text"},
+    {"k":"ftBLEU","label":"FT BLEU","type":"text"}]'></div>
+</section>
+
+<!-- ================= S8 DATASET QC ================= -->
+<section class="card" id="s8" data-title="8. Dataset QC + audit">
+  <h2>8. Dataset construction + QC audit <span class="tag desk">DESK</span></h2>
+  <p class="why">Feeds W6 (answers R1.7, R2.2, R2.3).</p>
+  <div class="row">
+    <div><label class="f">Seed set size (expert-written D0)</label><input type="number" name="qc.seed"></div>
+    <div><label class="f">LLM-generated count (D_LLM)</label><input type="number" name="qc.llm"></div>
+    <div><label class="f">Active-learning refined count (D_AL)</label><input type="number" name="qc.al"></div>
+    <div><label class="f">Final total</label><input type="number" name="qc.total" placeholder="~24000"></div>
+  </div>
+  <label class="f">Filtering + deduplication procedure (concrete rules)</label>
+  <textarea name="qc.filter"></textarea>
+  <h3>Human-verification audit</h3>
+  <div class="row">
+    <div><label class="f">Audit sample size</label><input type="number" name="qc.auditN" data-ci="1" placeholder="100-200"></div>
+    <div><label class="f">Pairs with factual/attribution errors</label><input type="number" name="qc.auditErr" data-ci="1"></div>
+    <div><label class="f">Error rate</label><div class="ci" id="ci_audit" style="padding-top:9px">-</div></div>
+  </div>
+  <label class="f">What counted as an error in the audit</label>
+  <textarea name="qc.auditDef"></textarea>
+</section>
+
+<!-- ================= S9 PANEL ================= -->
+<section class="card" id="s9" data-title="9. Expert panel + protocol">
+  <h2>9. Expert panel + MOS protocol facts <span class="tag desk">DESK</span></h2>
+  <p class="why">Feeds W7 and W1 (answers R1.8, R2.8; transportation credibility for R1.1).</p>
+  <h3>Raters (the original 5 + any transportation engineers added)</h3>
+  <div data-dyn="panel" data-cols='[
+    {"k":"id","label":"ID (E1...)","type":"text"},
+    {"k":"disc","label":"Discipline / role","type":"text","wide":1},
+    {"k":"years","label":"Years of experience","type":"text"},
+    {"k":"org","label":"Organization type (univ / consultancy / agency)","type":"text","wide":1},
+    {"k":"transport","label":"Transportation engineer? (y/n)","type":"text"}]'></div>
+  <h3>Protocol facts (write exactly what happened)</h3>
+  <div class="row">
+    <div><label class="f">Rated independently (no consensus discussion)?</label>
+      <select name="pr.independent"><option value=""></option><option>Yes</option><option>No</option></select></div>
+    <div><label class="f">Blind to model identity?</label>
+      <select name="pr.blind"><option value=""></option><option>Yes</option><option>No</option></select></div>
+    <div><label class="f">Rating order</label><input type="text" name="pr.order" placeholder="randomized / fixed"></div>
+  </div>
+  <label class="f">Calibration (instructions, anchor definitions for the 1-5 scale)</label>
+  <textarea name="pr.calibration"></textarea>
+</section>
+
+<!-- ================= S10 MISC ================= -->
+<section class="card" id="s10" data-title="10. Housekeeping">
+  <h2>10. Housekeeping + anything else</h2>
+  <p class="why">Small facts the agent needs; funding is already locked.</p>
+  <div class="locked"><b>Funding (LOCKED):</b> U.S. Department of Transportation [69A3552348308]; CTIPS [CTIPS-030]; Utah State University. The "no specific grant" section will be deleted.</div>
+  <label class="f">P/R/F1 protocol facts for the original benchmark (who adjudicated, matching rule, numeric tolerance)</label>
+  <textarea name="misc.metrics" placeholder="e.g., single expert adjudication blind to model; exact value + unit + sign required; paraphrase allowed for text answers"></textarea>
+  <label class="f">New shareable artifacts to add to Data Availability (e.g., Evacuationz files)?</label>
+  <textarea name="misc.artifacts"></textarea>
+  <label class="f">Anything else the writing agent should know</label>
+  <textarea name="misc.notes"></textarea>
+</section>
+
+</main>
+</div>
+
+<div class="exportbar">
+  <button id="btnXls">Export Excel (.xls, all sheets)</button>
+  <button id="btnJson">Export JSON (for the agent)</button>
+  <span class="grow"></span>
+  <button id="btnSave">Save progress file</button>
+  <button id="btnLoad">Load progress file</button>
+  <input type="file" id="fileLoad" accept=".json" style="display:none">
+  <button id="btnClear">Clear all</button>
+  <span class="savemsg" id="saveMsg">autosave: on</span>
+</div>
+
+<script>
+"use strict";
+const LSKEY="trd_revision_data_v1";
+
+/* ---------- dynamic tables ---------- */
+function buildDyn(container){
+  const key=container.dataset.dyn, cols=JSON.parse(container.dataset.cols);
+  const tbl=document.createElement("table"); tbl.className="grid";
+  const hr=document.createElement("tr");
+  cols.forEach(c=>{const th=document.createElement("th");th.textContent=c.label;hr.appendChild(th);});
+  hr.appendChild(document.createElement("th"));
+  tbl.appendChild(hr);
+  container.appendChild(tbl);
+  const btn=document.createElement("button"); btn.className="add"; btn.type="button"; btn.textContent="+ Add row";
+  btn.addEventListener("click",()=>{addDynRow(container,{});queueSave();});
+  container.appendChild(btn);
+}
+function addDynRow(container,values){
+  const key=container.dataset.dyn, cols=JSON.parse(container.dataset.cols);
+  const tbl=container.querySelector("table");
+  const tr=document.createElement("tr");
+  cols.forEach(c=>{
+    const td=document.createElement("td"); td.style.textAlign="left"; td.style.background="none"; td.style.fontWeight="400";
+    const inp=document.createElement("input"); inp.type="text";
+    if(c.wide) inp.className="wide";
+    inp.dataset.dynKey=key; inp.dataset.dynCol=c.k;
+    inp.value=values[c.k]||"";
+    td.appendChild(inp); tr.appendChild(td);
+  });
+  const tdDel=document.createElement("td");
+  const del=document.createElement("button"); del.className="del"; del.type="button"; del.textContent="×";
+  del.title="Delete row";
+  del.addEventListener("click",()=>{tr.remove();queueSave();});
+  tdDel.appendChild(del); tr.appendChild(tdDel);
+  tbl.appendChild(tr);
+}
+function dynData(key){
+  const container=document.querySelector('[data-dyn="'+key+'"]');
+  const cols=JSON.parse(container.dataset.cols);
+  const rows=[];
+  container.querySelectorAll("table tr").forEach((tr,i)=>{
+    if(i===0)return;
+    const row={}; let any=false;
+    tr.querySelectorAll("input").forEach(inp=>{row[inp.dataset.dynCol]=inp.value; if(inp.value.trim())any=true;});
+    if(any)rows.push(row);
+  });
+  return {cols:cols.map(c=>({k:c.k,label:c.label})),rows:rows};
+}
+
+/* ---------- stats helpers ---------- */
+function parseNums(text){
+  return (text||"").split(/[\n,;]+/).map(s=>parseFloat(s.trim())).filter(v=>!isNaN(v));
+}
+function tetStats(vals){
+  if(!vals.length)return null;
+  const n=vals.length, mean=vals.reduce((a,b)=>a+b,0)/n;
+  const sd=n>1?Math.sqrt(vals.reduce((a,b)=>a+(b-mean)*(b-mean),0)/(n-1)):0;
+  const s=[...vals].sort((a,b)=>a-b);
+  const pct=p=>{const idx=(s.length-1)*p, lo=Math.floor(idx), hi=Math.ceil(idx);
+    return s[lo]+(s[hi]-s[lo])*(idx-lo);};
+  return {n,mean,sd,p5:pct(0.05),p95:pct(0.95),min:s[0],max:s[s.length-1]};
+}
+function renderTetStats(area){
+  const target=document.getElementById(area.dataset.stats); if(!target)return;
+  if(area.name==="ab.ratings"){renderAbStats(area,target);return;}
+  const st=tetStats(parseNums(area.value));
+  target.innerHTML = st ?
+    `<span class="stat">n = ${st.n}</span><span class="stat">mean = ${st.mean.toFixed(1)}</span>`+
+    `<span class="stat">SD = ${st.sd.toFixed(1)}</span><span class="stat">P5 = ${st.p5.toFixed(1)}</span>`+
+    `<span class="stat">P95 = ${st.p95.toFixed(1)}</span><span class="stat">range = ${st.min.toFixed(1)}–${st.max.toFixed(1)}</span>` : "";
+}
+function parseRatings(text){
+  const rows=[];
+  (text||"").split(/\n+/).forEach(line=>{
+    const p=line.split(/[\t,;]+/).map(s=>s.trim()).filter(s=>s!=="");
+    if(p.length>=6){
+      const r={rater:p[0],item:p[1],cond:p[2].toLowerCase(),acc:+p[3],comp:+p[4],coh:+p[5]};
+      if(!isNaN(r.acc))rows.push(r);
+    }
+  });
+  return rows;
+}
+function renderAbStats(area,target){
+  const rows=parseRatings(area.value);
+  if(!rows.length){target.innerHTML="";return;}
+  const agg={};
+  rows.forEach(r=>{
+    const c=r.cond.startsWith("with")&&!r.cond.startsWith("without")?"with":"without";
+    agg[c]=agg[c]||{n:0,acc:0,comp:0,coh:0};
+    agg[c].n++; agg[c].acc+=r.acc; agg[c].comp+=r.comp; agg[c].coh+=r.coh;
+  });
+  let html=`<span class="stat">${rows.length} ratings parsed</span>`;
+  ["with","without"].forEach(c=>{
+    if(agg[c]&&agg[c].n) html+=`<span class="stat">${c}: acc ${(agg[c].acc/agg[c].n).toFixed(2)}, comp ${(agg[c].comp/agg[c].n).toFixed(2)}, coh ${(agg[c].coh/agg[c].n).toFixed(2)} (n=${agg[c].n})</span>`;
+  });
+  target.innerHTML=html;
+}
+function wilson(k,n){
+  if(!n||isNaN(k)||isNaN(n)||n<=0)return null;
+  const p=k/n, z=1.96, z2=z*z;
+  const den=1+z2/n, center=(p+z2/(2*n))/den;
+  const half=(z*Math.sqrt(p*(1-p)/n+z2/(4*n*n)))/den;
+  return {p,lo:Math.max(0,center-half),hi:Math.min(1,center+half)};
+}
+function renderCIs(){
+  [["c","sfpe"],["c","bs"],["c","nfpa"],["g","sfpe"],["g","bs"],["g","nfpa"]].forEach(([m,s])=>{
+    const n=parseFloat(document.querySelector(`[name="st.${m}.${s}.n"]`).value);
+    const k=parseFloat(document.querySelector(`[name="st.${m}.${s}.k"]`).value);
+    const cell=document.getElementById(`ci_${m}_${s}`);
+    const w=wilson(k,n);
+    cell.textContent=w?`${(w.p*100).toFixed(0)}%  [${(w.lo*100).toFixed(0)}–${(w.hi*100).toFixed(0)}%]`:"-";
+  });
+  const aN=parseFloat(document.querySelector('[name="qc.auditN"]').value);
+  const aE=parseFloat(document.querySelector('[name="qc.auditErr"]').value);
+  const w=wilson(aE,aN);
+  document.getElementById("ci_audit").textContent=w?`${(w.p*100).toFixed(1)}%  [${(w.lo*100).toFixed(1)}–${(w.hi*100).toFixed(1)}%]`:"-";
+}
+
+/* ---------- persistence ---------- */
+let saveTimer=null;
+function queueSave(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>{
+    localStorage.setItem(LSKEY,JSON.stringify(collect()));
+    document.getElementById("saveMsg").textContent="autosaved "+new Date().toLocaleTimeString();
+    updateNav();
+  },400);
+}
+function collect(){
+  const data={_meta:{manuscript:"TRD-D-26-02006",exported:new Date().toISOString(),
+    funding_locked:"USDOT 69A3552348308; CTIPS CTIPS-030; Utah State University"},fields:{},tables:{}};
+  document.querySelectorAll("input[name],select[name],textarea[name]").forEach(el=>{data.fields[el.name]=el.value;});
+  document.querySelectorAll("[data-dyn]").forEach(c=>{data.tables[c.dataset.dyn]=dynData(c.dataset.dyn);});
+  return data;
+}
+function restore(data){
+  if(!data)return;
+  Object.entries(data.fields||{}).forEach(([k,v])=>{
+    const el=document.querySelector(`[name="${CSS.escape(k)}"]`); if(el)el.value=v;
+  });
+  Object.entries(data.tables||{}).forEach(([key,t])=>{
+    const c=document.querySelector(`[data-dyn="${key}"]`); if(!c)return;
+    c.querySelectorAll("table tr").forEach((tr,i)=>{if(i>0)tr.remove();});
+    (t.rows||[]).forEach(r=>addDynRow(c,r));
+  });
+  document.querySelectorAll("textarea[data-stats]").forEach(renderTetStats);
+  renderCIs(); updateNav();
+}
+
+/* ---------- nav + progress ---------- */
+function updateNav(){
+  const nav=document.getElementById("nav"); nav.innerHTML="";
+  document.querySelectorAll("section.card").forEach(sec=>{
+    const inputs=[...sec.querySelectorAll("input,select,textarea")];
+    const filled=inputs.filter(i=>i.value&&i.value.trim()).length;
+    const a=document.createElement("a"); a.href="#"+sec.id;
+    a.innerHTML=(filled>0?'<span class="done">●</span>':'<span style="color:#c6cfd9;margin-right:4px">○</span>')+
+      sec.dataset.title+` <span style="color:var(--mut);font-size:11px">(${filled})</span>`;
+    nav.appendChild(a);
+  });
+}
+
+/* ---------- exports ---------- */
+function download(filename,content,mime){
+  const blob=new Blob([content],{type:mime});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob); a.download=filename;
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},300);
+}
+function xmlEsc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function cell(v){
+  const num=(v!==""&&v!==null&&!isNaN(v)&&String(v).trim()!=="");
+  return `<Cell><Data ss:Type="${num?"Number":"String"}">${xmlEsc(num?parseFloat(v):v)}</Data></Cell>`;
+}
+function sheet(name,rows){
+  let x=`<Worksheet ss:Name="${xmlEsc(name)}"><Table>`;
+  rows.forEach(r=>{x+="<Row>"+r.map(cell).join("")+"</Row>";});
+  return x+"</Table></Worksheet>";
+}
+function kvRows(prefix,fields,labels){
+  const rows=[];
+  Object.entries(fields).forEach(([k,v])=>{
+    if(k.startsWith(prefix)&&String(v).trim()!=="")rows.push([labels&&labels[k]||k,v]);
+  });
+  return rows;
+}
+function buildXls(data){
+  const f=data.fields;
+  const sheets=[];
+  /* Evacuationz */
+  const evRows=[["Field","Value"],...kvRows("ev.",f)];
+  evRows.push([],["Scenario A TET values"],...parseNums(f["ev.tetA"]).map(v=>[v]));
+  evRows.push([],["Scenario B TET values"],...parseNums(f["ev.tetB"]).map(v=>[v]));
+  const ex=data.tables.exits;
+  if(ex&&ex.rows.length){evRows.push([],["Exit","Scenario A","Scenario B"],...ex.rows.map(r=>[r.exit,r.a,r.b]));}
+  sheets.push(sheet("Evacuationz",evRows));
+  /* Ablation */
+  const abRows=[["Field","Value"],...kvRows("ab.",f,null).filter(r=>r[0]!=="ab.ratings")];
+  abRows.push([],["rater","item","condition","accuracy","compliance","coherence"]);
+  parseRatings(f["ab.ratings"]).forEach(r=>abRows.push([r.rater,r.item,r.cond,r.acc,r.comp,r.coh]));
+  sheets.push(sheet("CausalAblation",abRows));
+  /* GraphRAG */
+  const grRows=[["System","Tabular","Clause","Units-signs","Calculation"]];
+  [["claude","Claude Opus 4.6"],["gpt","GPT-5.4"],["gemini","Gemini 3 Pro"],["gemma","Gemma 3 FT"],["vec","Vector RAG"],["norag","No-RAG"]]
+    .forEach(([k,lab])=>grRows.push([lab,f[`gr.${k}.tab`],f[`gr.${k}.txt`],f[`gr.${k}.unit`],f[`gr.${k}.calc`]]));
+  grRows.push([],["n per category",f["gr.n"]],["Baseline model",f["gr.baseModel"]],["Notes",f["gr.notes"]]);
+  sheets.push(sheet("GraphRAG_Controlled",grRows));
+  /* Stability */
+  const stRows=[["Condition","n","stable","proportion","CI low","CI high"]];
+  [["c","sfpe","Claude-SFPE"],["c","bs","Claude-BS9999"],["c","nfpa","Claude-NFPA101"],
+   ["g","sfpe","Gemma-SFPE"],["g","bs","Gemma-BS9999"],["g","nfpa","Gemma-NFPA101"]].forEach(([m,s,lab])=>{
+    const n=parseFloat(f[`st.${m}.${s}.n`]),k=parseFloat(f[`st.${m}.${s}.k`]),w=wilson(k,n);
+    stRows.push([lab,f[`st.${m}.${s}.n`],f[`st.${m}.${s}.k`],w?w.p.toFixed(3):"",w?w.lo.toFixed(3):"",w?w.hi.toFixed(3):""]);
+  });
+  stRows.push([],["Stability criterion",f["st.criterion"]]);
+  sheets.push(sheet("Stability",stRows));
+  /* MultiHop */
+  const mh=data.tables.mh, mhRows=[["#","Prompt","Ground truth","Claude","DeepSeek","GPT-5.4","QWQ","Sonar"]];
+  (mh?mh.rows:[]).forEach(r=>mhRows.push([r.id,r.prompt,r.gt,r.claude,r.deepseek,r.gpt,r.qwq,r.sonar]));
+  mhRows.push([],["Notes",f["mh.notes"]]);
+  sheets.push(sheet("MultiHop",mhRows));
+  /* MOS raw */
+  const mosRows=[["Raw per-expert ratings (as pasted)"],[],["model","dimension","item","E1","E2","E3","E4","E5"]];
+  (f["mos.raw"]||"").split(/\n+/).forEach(line=>{
+    const p=line.split(/[\t,;]+/).map(s=>s.trim());
+    if(p.filter(x=>x).length>=4)mosRows.push(p);
+  });
+  mosRows.push([],["Layout note",f["mos.layoutNote"]]);
+  sheets.push(sheet("MOS_Raw",mosRows));
+  /* Configs */
+  const cfRows=[["FINE-TUNING"],...kvRows("ft.",f),[],["GRAPH BUILD"],...kvRows("gb.",f),[],["SPLIT"],...kvRows("sp.",f)];
+  const abs=data.tables.abs;
+  if(abs&&abs.rows.length){
+    cfRows.push([],["Category","Base BERT-F1","FT BERT-F1","Base ROUGE-L","FT ROUGE-L","Base BLEU","FT BLEU"]);
+    abs.rows.forEach(r=>cfRows.push([r.cat,r.baseF1,r.ftF1,r.baseRL,r.ftRL,r.baseBLEU,r.ftBLEU]));
+  }
+  sheets.push(sheet("Configs",cfRows));
+  /* Dataset QC */
+  sheets.push(sheet("DatasetQC",[["Field","Value"],...kvRows("qc.",f)]));
+  /* Panel */
+  const pn=data.tables.panel, pnRows=[["ID","Discipline","Years","Org type","Transportation?"]];
+  (pn?pn.rows:[]).forEach(r=>pnRows.push([r.id,r.disc,r.years,r.org,r.transport]));
+  pnRows.push([],["PROTOCOL"],...kvRows("pr.",f));
+  sheets.push(sheet("Panel",pnRows));
+  /* Misc */
+  sheets.push(sheet("Misc",[["Field","Value"],
+    ["Funding (locked)",data._meta.funding_locked],...kvRows("misc.",f)]));
+
+  return `<?xml version="1.0"?>\n<?mso-application progid="Excel.Sheet"?>\n`+
+    `<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" `+
+    `xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">`+sheets.join("")+`</Workbook>`;
+}
+
+/* ---------- wire up ---------- */
+document.querySelectorAll("[data-dyn]").forEach(c=>{buildDyn(c);addDynRow(c,{});});
+document.addEventListener("input",e=>{
+  if(e.target.matches("textarea[data-stats]"))renderTetStats(e.target);
+  if(e.target.matches("[data-ci]"))renderCIs();
+  queueSave();
+});
+document.getElementById("btnXls").addEventListener("click",()=>{
+  download("TRD_revision_data.xls",buildXls(collect()),"application/vnd.ms-excel");
+});
+document.getElementById("btnJson").addEventListener("click",()=>{
+  download("TRD_revision_data.json",JSON.stringify(collect(),null,2),"application/json");
+});
+document.getElementById("btnSave").addEventListener("click",()=>{
+  download("TRD_progress.json",JSON.stringify(collect(),null,2),"application/json");
+});
+document.getElementById("btnLoad").addEventListener("click",()=>document.getElementById("fileLoad").click());
+document.getElementById("fileLoad").addEventListener("change",e=>{
+  const file=e.target.files[0]; if(!file)return;
+  const rd=new FileReader();
+  rd.onload=()=>{try{restore(JSON.parse(rd.result));queueSave();}catch(err){alert("Could not read that file: "+err.message);}};
+  rd.readAsText(file);
+  e.target.value="";
+});
+document.getElementById("btnClear").addEventListener("click",()=>{
+  if(confirm("Clear ALL entered data? (Export or save a progress file first if unsure.)")){
+    localStorage.removeItem(LSKEY); location.reload();
+  }
+});
+try{restore(JSON.parse(localStorage.getItem(LSKEY)));}catch(e){}
+updateNav();
+</script>
+</body>
+</html>
