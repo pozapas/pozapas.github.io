@@ -2,7 +2,6 @@
 draft: false
 title: "Future of AI"
 date: 2025-02-24
-draft: false
 author: "Amir Rafe"
 tags:
   - AI Safety

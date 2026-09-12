@@ -1,0 +1,31 @@
+{{ define "main" }}
+<main id="main-content" class="collection-page">
+  <div class="site-container narrow-container">
+    <header class="collection-header">
+      <p class="collection-kicker">Amir Rafe</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Content }}<div class="collection-intro">{{ . }}</div>{{ end }}
+    </header>
+    <div class="collection-list">
+      {{ range .Pages.ByDate.Reverse }}
+      {{ $page := . }}
+      <article class="collection-item">
+        {{ with .Params.image }}
+        <a class="collection-image" href="{{ $page.RelPermalink }}" tabindex="-1" aria-hidden="true">
+          <img src="{{ . | relURL }}" alt="" loading="lazy">
+        </a>
+        {{ end }}
+        <div>
+          <p class="collection-meta">{{ .Date.Format "January 2006" }}</p>
+          <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          {{ with .Description }}<p>{{ . }}</p>{{ else }}<p>{{ .Summary | plainify | truncate 180 }}</p>{{ end }}
+          <a class="read-link" href="{{ .RelPermalink }}">Read more <span aria-hidden="true">&#8594;</span></a>
+        </div>
+      </article>
+      {{ else }}
+      <p>No items are available.</p>
+      {{ end }}
+    </div>
+  </div>
+</main>
+{{ end }}

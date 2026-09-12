@@ -1,0 +1,20 @@
+{{ define "main" }}
+<main id="main-content" class="article-page">
+  <article class="site-container article-container article-{{ .Section }}">
+    <header class="article-header">
+      <p class="article-kicker">{{ with .Section }}{{ . }}{{ else }}Amir Rafe{{ end }}</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Description }}<p class="article-description">{{ . }}</p>{{ end }}
+      {{ if not .Date.IsZero }}<p class="article-meta">{{ .Date.Format "January 2, 2006" }}{{ with .Params.author }} · {{ . }}{{ end }}</p>{{ end }}
+    </header>
+    {{ with .Params.image }}<img class="article-lead-image" src="{{ . | relURL }}" alt="" aria-hidden="true">{{ end }}
+    <div class="article-content">
+      {{ .Content }}
+    </div>
+  </article>
+  <nav class="article-end" aria-label="Article navigation">
+    <a href="{{ "/" | relURL }}">&#8592; Home</a>
+    {{ with .CurrentSection }}{{ if ne .RelPermalink "/" }}<a href="{{ .RelPermalink }}">All {{ .Title | lower }}</a>{{ end }}{{ end }}
+  </nav>
+</main>
+{{ end }}

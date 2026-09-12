@@ -1,0 +1,45 @@
+<footer class="site-footer">
+  <div class="site-container footer-main">
+    <div class="footer-brand">
+      <img src="{{ "/piz.png" | relURL }}" alt="A slice of pepperoni pizza" width="72" height="42">
+      <p>Pozapas Land</p>
+    </div>
+
+    <div class="footer-about">
+      <h2>Research and software</h2>
+      <p>I study transportation safety, causal AI, pedestrian dynamics, and evacuation. I build tools that make research evidence easier to inspect and use.</p>
+      <nav class="footer-social" aria-label="Social profiles">
+        <a href="https://www.linkedin.com/in/amir-rafe-08770854/" aria-label="LinkedIn">{{ partial "icon.html" "linkedin" }}</a>
+        <a href="https://twitter.com/rafeamir" aria-label="Twitter">{{ partial "icon.html" "twitter" }}</a>
+        <a href="https://instagram.com/pozapas" aria-label="Instagram">{{ partial "icon.html" "instagram" }}</a>
+        <a href="https://www.youtube.com/@AmirRafe" aria-label="YouTube">{{ partial "icon.html" "youtube" }}</a>
+        <a href="mailto:amir.rafe@txstate.edu" aria-label="Email">{{ partial "icon.html" "email" }}</a>
+        <a href="https://github.com/pozapas" aria-label="GitHub">{{ partial "icon.html" "github" }}</a>
+      </nav>
+    </div>
+
+    <div class="footer-projects">
+      <h2>Current projects</h2>
+      <ul>
+        <li><strong>NCHRP 17-113 and 17-134</strong><span>Safe System and non-motorist safety research</span></li>
+        <li><strong>BTSCRP BTS-39 and BTS-42</strong><span>Impaired driving and automated enforcement</span></li>
+        <li><strong>FMCSA and AAA Foundation</strong><span>Commercial vehicle and pedestrian safety</span></li>
+      </ul>
+    </div>
+
+    <nav class="footer-links" aria-label="Footer navigation">
+      <h2>Links</h2>
+      <a href="{{ "/" | relURL }}"><span aria-hidden="true">›</span> Home</a>
+      <a href="{{ "/#tools" | relURL }}"><span aria-hidden="true">›</span> Tools</a>
+      <a href="{{ "/#papers" | relURL }}"><span aria-hidden="true">›</span> Papers</a>
+      <a href="{{ "/podcasts/" | relURL }}"><span aria-hidden="true">›</span> Podcast</a>
+      <a href="{{ "/blogs/" | relURL }}"><span aria-hidden="true">›</span> Blog</a>
+      <a href="{{ "/Amir_Rafe_CV.pdf" | relURL }}"><span aria-hidden="true">›</span> CV</a>
+    </nav>
+
+    <div class="footer-legal">
+      <span>&copy; {{ now.Year }} Amir Rafe</span>
+      <a class="footer-back-to-top" href="#main-content" aria-label="Back to top">&#8593;</a>
+    </div>
+  </div>
+</footer>

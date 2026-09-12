@@ -1,23 +1,191 @@
+{{ define "title" }}Amir Rafe | Transportation Safety and Causal AI{{ end }}
+
 {{ define "head" }}
-<meta name="description" content={{ .Site.Params.description }}>
-<link rel="stylesheet" href="{{ .Site.Params.staticPath }}/css/index.css" media="all">
-<link rel="stylesheet" href="{{ .Site.Params.staticPath }}/css/projects.css" media="all">
-
-<!-- fontawesome -->
-<script defer src="{{ .Site.Params.staticPath }}/fontawesome-6/all-6.4.2.js"></script>
-{{ end }}
-
-{{ define "title" }}
-{{ .Site.Title }}
+<meta property="profile:first_name" content="Amir">
+<meta property="profile:last_name" content="Rafe">
 {{ end }}
 
 {{ define "main" }}
-{{- partial "sections/hero/index.html" . -}}
-{{- partial "sections/about.html" . -}}
-{{- partial "sections/experience.html" . -}}
-{{- partial "sections/publications.html" . -}}
-{{- partial "sections/education.html" . -}}
-{{- partial "sections/projects.html" . -}}
-{{- partial "sections/achievements.html" . -}}
-{{- partial "sections/contact.html" . -}}
+{{ $paperTotal := len hugo.Data.publications }}
+{{ $toolTotal := add (len hugo.Data.tools.featured) (len hugo.Data.tools.open_source) }}
+<main id="main-content" class="member-page">
+  <div class="site-container">
+    <div class="profile-layout" id="about">
+      <section class="profile-primary" aria-labelledby="profile-name">
+        <header class="profile-header">
+          <div class="profile-photo-wrap">
+            <img class="profile-photo" src="{{ "/images/me1.JPG" | relURL }}" alt="Portrait of Amir Rafe" width="380" height="380">
+          </div>
+          <div class="profile-copy">
+            <h1 id="profile-name">Amir Rafe</h1>
+            <p class="profile-title">Postdoctoral Researcher, Ingram School of Engineering</p>
+            <p class="profile-affiliation">Texas State University</p>
+            <nav class="profile-links" aria-label="External profiles">
+              <a href="{{ "/Amir_Rafe_CV.pdf" | relURL }}">{{ partial "icon.html" "cv" }}<span>CV</span></a>
+              <a href="mailto:amir.rafe@txstate.edu">{{ partial "icon.html" "email" }}<span>Email</span></a>
+              <a href="https://github.com/pozapas">{{ partial "icon.html" "github" }}<span>GitHub</span></a>
+              <a href="https://www.linkedin.com/in/amir-rafe-08770854/">{{ partial "icon.html" "linkedin" }}<span>LinkedIn</span></a>
+              <a href="https://scholar.google.com/citations?hl=en&amp;user=IUVLrp9PgFEC&amp;view_op=list_works">{{ partial "icon.html" "scholar" }}<span>Google Scholar</span></a>
+              <a href="https://www.researchgate.net/profile/Amir-Rafe">{{ partial "icon.html" "researchgate" }}<span>ResearchGate</span></a>
+            </nav>
+            <div class="profile-bio">
+              <p>I am a transportation safety researcher with a Ph.D. in Civil and Environmental Engineering. My work connects crash and injury analysis, vulnerable road-user safety, causal AI, and human behavior modeling.</p>
+              <p>I build reproducible research tools that combine crash, roadway, exposure, telematics, and spatial data. I use these systems to support clear and auditable decisions in transportation safety and evacuation planning.</p>
+            </div>
+          </div>
+        </header>
+      </section>
+
+      <aside class="current-work" aria-labelledby="current-work-title">
+        <h2 id="current-work-title">Current projects</h2>
+        <ul>
+          <li><strong>FMCSA</strong><span>Telematics-informed crash risk for commercial vehicle safety</span></li>
+          <li><strong>NCHRP 17-113 &amp; 17-134</strong><span>Safe System practice, non-motorist analysis, and center-line buffers</span></li>
+          <li><strong>BTSCRP BTS-39 &amp; BTS-42</strong><span>Impaired-driving and automated enforcement guidance</span></li>
+          <li><strong>AAA Foundation</strong><span>Pre-crash conditions in pedestrian fatalities</span></li>
+        </ul>
+      </aside>
+    </div>
+
+    <nav class="section-navigation" aria-label="Sections on this page">
+      <ul>
+        <li><a href="#tools">Tools <span data-tool-nav-count>(8/{{ $toolTotal }})</span></a></li>
+        <li><a href="#papers">Papers <span data-paper-nav-count>(6/{{ $paperTotal }})</span></a></li>
+        <li><a href="#podcast">Podcast <span>(6/11)</span></a></li>
+        <li><a href="#background">Background</a></li>
+      </ul>
+    </nav>
+
+    <section class="member-section" id="tools" aria-labelledby="tools-heading">
+      <h2 class="member-section-heading" id="tools-heading">Tools <span data-tool-heading-count>(8/{{ $toolTotal }})</span></h2>
+
+      <div class="project-grid" role="list">
+        {{ range $index, $tool := hugo.Data.tools.featured }}
+        <article class="project-card" role="listitem" data-tool{{ if ge $index 8 }} hidden{{ end }}>
+          <a class="project-image-link" href="{{ $tool.url }}"{{ if hasPrefix $tool.url "http" }} target="_blank" rel="noreferrer"{{ end }}>
+            <img src="{{ $tool.image | relURL }}" alt="{{ $tool.alt }}" loading="lazy" width="1280" height="768">
+          </a>
+          <div class="project-info">
+            <h3><a href="{{ $tool.url }}"{{ if hasPrefix $tool.url "http" }} target="_blank" rel="noreferrer"{{ end }}>{{ $tool.title }}</a></h3>
+            <p>{{ $tool.type }}</p>
+          </div>
+        </article>
+        {{ end }}
+      </div>
+
+      <div class="software-section" data-software-section hidden>
+        <div class="software-heading">
+          <h3>Other software and repositories</h3>
+          <p>These projects have source links instead of generated thumbnails.</p>
+        </div>
+        <div class="software-list">
+          {{ range $index, $tool := hugo.Data.tools.open_source }}
+          <article data-tool hidden>
+            <div>
+              <h4><a href="{{ $tool.url }}" target="_blank" rel="noreferrer">{{ $tool.title }}</a></h4>
+              <p>{{ $tool.description }}</p>
+            </div>
+            <a class="small-action" href="{{ $tool.url }}" target="_blank" rel="noreferrer">Source <span aria-hidden="true">&#8599;</span></a>
+          </article>
+          {{ end }}
+        </div>
+      </div>
+      <div class="see-more-controls" data-tool-controls>
+        <button type="button" class="see-more-artifacts" data-load-more-tools>Load 8 more tools</button>
+        <button type="button" class="see-more-all" data-load-all-tools>Load all {{ $toolTotal }} tools</button>
+      </div>
+    </section>
+
+    <section class="member-section" id="papers" aria-labelledby="papers-heading">
+      <h2 class="member-section-heading" id="papers-heading">Papers <span data-paper-heading-count>(6/{{ $paperTotal }})</span></h2>
+
+      <div class="publication-list" id="publication-list">
+        {{ range $index, $paper := hugo.Data.publications }}
+        {{ $target := $paper.doi }}{{ with $paper.pdf }}{{ $target = . }}{{ end }}
+        <article class="publication-row{{ if ge $index 6 }} publication-extra{{ end }}"{{ if ge $index 6 }} hidden{{ end }} data-publication>
+          <div class="publication-thumbnail">
+            {{ with $paper.thumbnail }}
+            <a href="{{ $target }}" target="_blank" rel="noreferrer" tabindex="-1" aria-hidden="true">
+              <img src="{{ . | relURL }}" alt="" loading="lazy" width="300" height="390">
+            </a>
+            {{ else }}
+            <div class="paper-image-needed" aria-label="First-page image is not available">
+              <svg viewBox="0 0 52 66" width="42" height="54" aria-hidden="true"><path d="M8 2h25l11 11v51H8z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M33 2v12h11M15 26h22M15 34h22M15 42h16" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+              <span>Image needed</span>
+            </div>
+            {{ end }}
+          </div>
+          <div class="publication-details">
+            <h3>{{ if $target }}<a href="{{ $target }}" target="_blank" rel="noreferrer">{{ $paper.title }}</a>{{ else }}{{ $paper.title }}{{ end }}</h3>
+            <p class="publication-authors">{{ $paper.authors }}</p>
+            <p class="publication-venue"><em>{{ $paper.venue }}</em>{{ with $paper.year }}, {{ . }}{{ end }}</p>
+            <div class="publication-actions">
+              {{ with $paper.pdf }}
+              <a href="{{ . }}" target="_blank" rel="noreferrer" aria-label="Open PDF for {{ $paper.title }}">
+                <svg viewBox="0 0 20 20" width="13" height="13" aria-hidden="true"><path d="M4 1h8l4 4v14H4zM12 1v5h4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>PDF
+              </a>
+              {{ end }}
+              {{ with $paper.doi }}
+              <a href="{{ . }}" target="_blank" rel="noreferrer" aria-label="Open DOI record for {{ $paper.title }}">
+                <svg viewBox="0 0 20 20" width="13" height="13" aria-hidden="true"><path d="M7.8 12.2 12.2 7.8M6.2 15.2l-1.4 1.4a3 3 0 0 1-4.2-4.2l4.2-4.2A3 3 0 0 1 9 8M13.8 4.8l1.4-1.4a3 3 0 0 1 4.2 4.2l-4.2 4.2A3 3 0 0 1 11 12" transform="scale(.9) translate(1 1)" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>doi
+              </a>
+              {{ end }}
+              <button type="button" data-citation="{{ $paper.citation }}">
+                <svg viewBox="0 0 20 20" width="13" height="13" aria-hidden="true"><path d="M3 5h5v5H5v4H2v-4c0-3 1-4 1-5Zm9 0h5v5h-3v4h-3v-4c0-3 1-4 1-5Z" fill="currentColor"/></svg><span>Cite</span>
+              </button>
+            </div>
+          </div>
+        </article>
+        {{ end }}
+      </div>
+      <div class="see-more-controls" data-paper-controls>
+        <button type="button" class="see-more-artifacts" data-load-more-papers>Load 6 more papers</button>
+        <button type="button" class="see-more-all" data-load-all-papers>Load all {{ $paperTotal }} papers</button>
+      </div>
+      <p class="scholar-link"><a href="https://scholar.google.com/citations?hl=en&amp;user=IUVLrp9PgFEC&amp;view_op=list_works">View the full record on Google Scholar</a></p>
+    </section>
+
+    <section class="member-section" id="podcast" aria-labelledby="podcast-heading">
+      <h2 class="member-section-heading" id="podcast-heading">Podcast &amp; videos <span>(6/11)</span></h2>
+      <p class="section-introduction"><em>Decoding Causality</em> explains causal reasoning, counterfactuals, bias, scientific discovery, and the limits of current AI.</p>
+
+      <div class="media-grid">
+        {{ range hugo.Data.podcast }}
+        <article class="media-card">
+          <div class="media-player">
+            <iframe src="https://www.youtube-nocookie.com/embed/{{ .id }}" title="{{ .title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <h3><a href="https://www.youtube.com/watch?v={{ .id }}" target="_blank" rel="noreferrer">{{ .title }}</a></h3>
+          <div class="media-actions"><a href="https://www.youtube.com/watch?v={{ .id }}" target="_blank" rel="noreferrer">{{ partial "icon.html" "youtube" }}YouTube</a><span>{{ .duration }}</span></div>
+        </article>
+        {{ end }}
+      </div>
+      <div class="see-more-controls">
+        <a class="see-more-all" href="{{ "/podcasts/decoding-causality/" | relURL }}">View all 11 episodes</a>
+      </div>
+    </section>
+
+    <section class="member-section" id="background" aria-labelledby="background-heading">
+      <h2 class="member-section-heading" id="background-heading">Background</h2>
+      <div class="background-grid">
+        <div>
+          <h3>Appointments</h3>
+          <ol class="timeline-list">
+            <li><span>2025–Present</span><strong>Postdoctoral Researcher</strong><p>AI in Transportation Lab, Texas State University</p></li>
+            <li><span>2022–2025</span><strong>Graduate Research Assistant</strong><p>Singleton Transportation Lab, Utah State University</p></li>
+            <li><span>2012–2022</span><strong>Algorithm Engineer</strong><p>Transportation modeling, simulation, and software development</p></li>
+          </ol>
+        </div>
+        <div>
+          <h3>Education</h3>
+          <ol class="timeline-list">
+            <li><span>2025</span><strong>Ph.D., Civil and Environmental Engineering</strong><p>Utah State University · Transportation Engineering</p></li>
+            <li><span>2013</span><strong>M.S., Civil and Environmental Engineering</strong><p>Azad University · Transportation Engineering</p></li>
+            <li><span>2009</span><strong>B.S., Civil Engineering</strong><p>Azad University</p></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
 {{ end }}

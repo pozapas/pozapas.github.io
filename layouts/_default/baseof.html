@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="{{ .Site.Language.Locale | default "en-US" }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#1565a7">
+  <title>{{ block "title" . }}{{ if .IsHome }}{{ .Site.Title }} | Transportation Safety and Causal AI{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}Research, tools, papers, and public scholarship by Amir Rafe.{{ end }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+  <link rel="icon" href="{{ "/piz.png" | relURL }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Roboto:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ "/style.css" | relURL }}">
+  <meta property="og:site_name" content="Amir Rafe">
+  <meta property="og:title" content="{{ if .IsHome }}Amir Rafe | Transportation Safety and Causal AI{{ else }}{{ .Title }}{{ end }}">
+  <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}Research, tools, papers, and public scholarship by Amir Rafe.{{ end }}">
+  <meta property="og:type" content="{{ if .IsHome }}profile{{ else }}article{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:image" content="{{ "images/me1.JPG" | absURL }}">
+  {{ block "head" . }}{{ end }}
+</head>
+<body>
+  {{ partial "sections/header.html" . }}
+  {{ block "main" . }}{{ end }}
+  {{ partial "sections/footer/index.html" . }}
+  <script defer src="{{ "/js/portfolio.js" | relURL }}"></script>
+</body>
+</html>

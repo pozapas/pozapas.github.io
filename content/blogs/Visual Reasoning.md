@@ -2,7 +2,6 @@
 draft: false
 title: "Visual Reasoning"
 date: 2025-02-24
-draft: false
 author: "Amir Rafe"
 tags:
   - Artificial Intelligence

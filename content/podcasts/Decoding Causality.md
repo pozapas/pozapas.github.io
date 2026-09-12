@@ -2,13 +2,12 @@
 draft: false
 title: "Decoding Causality"
 date: 2024-01-20
-draft: false
 author: "Amir Rafe"
 tags:
   - Causality
   - AI
   - Science
-image: "/images/pod.jpg"
+image: "/images/podcast/decoding-causality-cover.png"
 description: "Welcome to Decoding Causality, where conversations unravel the mysteries of cause and effect."
 toc: 
 ---
