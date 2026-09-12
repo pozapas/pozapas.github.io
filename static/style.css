@@ -317,6 +317,13 @@ iframe:focus-visible {
   font-weight: 700;
 }
 
+.current-work a:hover,
+.current-work a:focus-visible,
+.footer-projects a:hover,
+.footer-projects a:focus-visible {
+  text-decoration: underline;
+}
+
 .current-work span {
   color: var(--color-text-secondary);
   font-size: 13px;
