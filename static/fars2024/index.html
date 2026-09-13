@@ -318,7 +318,9 @@ const TILES={
 };
 function makeTileLayer(id){
   const tile=TILES[id];
-  return L.tileLayer(tile.url,{subdomains:tile.subdomains,maxZoom:19,attribution:tile.attribution});
+  const options={maxZoom:19,attribution:tile.attribution};
+  if(tile.subdomains) options.subdomains=tile.subdomains;
+  return L.tileLayer(tile.url,options);
 }
 function initMap(){
   leafletMap=L.map('map',{center:[39.5,-98.5],zoom:5,minZoom:3,maxZoom:18});
