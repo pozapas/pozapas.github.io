@@ -30,7 +30,6 @@
     controlsSelector,
     moreSelector,
     allSelector,
-    countSelector,
     batchSize,
     noun,
     moreLabel,
@@ -40,7 +39,6 @@
     const controls = document.querySelector(controlsSelector);
     const moreButton = document.querySelector(moreSelector);
     const allButton = allSelector ? document.querySelector(allSelector) : null;
-    const countLabels = document.querySelectorAll(countSelector);
 
     if (!items.length || !controls || !moreButton) return;
 
@@ -49,10 +47,6 @@
     const refresh = () => {
       const visible = visibleCount();
       const remaining = items.length - visible;
-      countLabels.forEach((label) => {
-        label.textContent = `(${visible}/${items.length})`;
-      });
-
       if (remaining === 0) {
         controls.hidden = true;
         return;
@@ -99,7 +93,6 @@
     controlsSelector: "[data-tool-controls]",
     moreSelector: "[data-load-more-tools]",
     allSelector: "[data-load-all-tools]",
-    countSelector: "[data-tool-nav-count], [data-tool-heading-count]",
     batchSize: 8,
     noun: "tools",
     afterReveal: updateSoftwareSection,
@@ -110,7 +103,6 @@
     controlsSelector: "[data-paper-controls]",
     moreSelector: "[data-load-more-papers]",
     allSelector: "[data-load-all-papers]",
-    countSelector: "[data-paper-nav-count], [data-paper-heading-count]",
     batchSize: 6,
     noun: "papers",
     moreLabel: "Load more papers",
