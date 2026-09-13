@@ -1,55 +1,4 @@
-- title: "Who Bears the Risk When Generative AI Enters Transport? A Distributional Sociotechnical Audit of Algorithmic Equity, Synthetic-Data Validity, and Public Trust"
-  authors: "Amir Rafe and Subasish Das"
-  venue: "arXiv preprint"
-  year: 2026
-  doi: "https://doi.org/10.48550/arXiv.2609.11611"
-  pdf: "https://arxiv.org/pdf/2609.11611"
-  thumbnail: "/images/publications/transport-genai-sociotechnical-audit.webp"
-  citation: "Rafe, A., and Das, S. (2026). Who Bears the Risk When Generative AI Enters Transport? A Distributional Sociotechnical Audit of Algorithmic Equity, Synthetic-Data Validity, and Public Trust. arXiv:2609.11611. https://doi.org/10.48550/arXiv.2609.11611"
-
-- title: "A Distribution-Free Certification Framework for Trustworthy Crash-Severity Prediction"
-  authors: "Amir Rafe and Subasish Das"
-  venue: "arXiv preprint"
-  year: 2026
-  doi: "https://doi.org/10.48550/arXiv.2609.11592"
-  pdf: "https://arxiv.org/pdf/2609.11592"
-  thumbnail: "/images/publications/trustworthy-crash-severity-certification.webp"
-  citation: "Rafe, A., and Das, S. (2026). A Distribution-Free Certification Framework for Trustworthy Crash-Severity Prediction. arXiv:2609.11592. https://doi.org/10.48550/arXiv.2609.11592"
-
-- title: "Bridging the Black Box: A Survey on Mechanistic Interpretability in AI"
-  authors: "Shubham Somvanshi, Md Minhazul Islam, Amir Rafe, A. G. Tusti, A. Chakraborty, A. Baitullah, T. I. Chowdhury, N. Alnawmasi, A. Dutta, and Subasish Das"
-  venue: "ACM Computing Surveys"
-  year: 2025
-  doi: "https://doi.org/10.1145/3787104"
-  pdf: "https://dl.acm.org/doi/pdf/10.1145/3787104"
-  thumbnail: "/images/publications/mechanistic-interpretability-survey.webp"
-  citation: "Somvanshi, S., Islam, M. M., Rafe, A., et al. (2025). Bridging the Black Box: A Survey on Mechanistic Interpretability in AI. ACM Computing Surveys. https://doi.org/10.1145/3787104"
-
-- title: "Experimental Analysis and Disability-Aware Social Force Modeling of Heterogeneous Evacuation with Counterfactual Route Guidance"
-  authors: "Amir Rafe, Patrick A. Singleton, and Keith M. Christensen"
-  venue: "Physica A: Statistical Mechanics and its Applications, 131992"
-  year: 2026
-  doi: "https://doi.org/10.1016/j.physa.2026.131992"
-  thumbnail: "/images/publications/disability-aware-evacuation.webp"
-  citation: "Rafe, A., Singleton, P. A., and Christensen, K. M. (2026). Experimental Analysis and Disability-Aware Social Force Modeling of Heterogeneous Evacuation with Counterfactual Route Guidance. Physica A: Statistical Mechanics and its Applications, 131992. https://doi.org/10.1016/j.physa.2026.131992"
-
-- title: "Coupled-NeuralHP: Directional Temporal Coupling Between AI Innovation Exposure and Public Response"
-  authors: "Amir Rafe and Subasish Das"
-  venue: "arXiv preprint"
-  year: 2026
-  doi: "https://doi.org/10.48550/arXiv.2605.04194"
-  pdf: "https://arxiv.org/pdf/2605.04194"
-  thumbnail: "/images/publications/coupled-neuralhp.webp"
-  citation: "Rafe, A., and Das, S. (2026). Coupled-NeuralHP: Directional Temporal Coupling Between AI Innovation Exposure and Public Response. arXiv:2605.04194. https://doi.org/10.48550/arXiv.2605.04194"
-
-- title: "Socio-Conformal Calibration in Complex Survey Data: Marginal Validity Is Not Enough for Subgroup Reliability"
-  authors: "Amir Rafe and Subasish Das"
-  venue: "arXiv preprint"
-  year: 2026
-  doi: "https://doi.org/10.48550/arXiv.2605.05562"
-  pdf: "https://arxiv.org/pdf/2605.05562"
-  thumbnail: "/images/publications/socio-conformal.webp"
-  citation: "Rafe, A., and Das, S. (2026). Socio-Conformal Calibration in Complex Survey Data: Marginal Validity Is Not Enough for Subgroup Reliability. arXiv:2605.05562. https://doi.org/10.48550/arXiv.2605.05562"
+# Journal articles — newest first
 
 - title: "Do Aviation Hazard Rankings Overlook Conservation-Concern Birds in U.S. Wildlife Strikes?"
   authors: "Amir Rafe and Subasish Das"
@@ -58,6 +7,14 @@
   doi: "https://doi.org/10.1016/j.trd.2026.105602"
   thumbnail: "/images/publications/aviation-hazard-rankings.webp"
   citation: "Rafe, A., and Das, S. (2026). Do Aviation Hazard Rankings Overlook Conservation-Concern Birds in U.S. Wildlife Strikes? Transportation Research Part D: Transport and Environment, 161, 105602. https://doi.org/10.1016/j.trd.2026.105602"
+
+- title: "Experimental Analysis and Disability-Aware Social Force Modeling of Heterogeneous Evacuation with Counterfactual Route Guidance"
+  authors: "Amir Rafe, Patrick A. Singleton, and Keith M. Christensen"
+  venue: "Physica A: Statistical Mechanics and its Applications, 131992"
+  year: 2026
+  doi: "https://doi.org/10.1016/j.physa.2026.131992"
+  thumbnail: "/images/publications/disability-aware-evacuation.webp"
+  citation: "Rafe, A., Singleton, P. A., and Christensen, K. M. (2026). Experimental Analysis and Disability-Aware Social Force Modeling of Heterogeneous Evacuation with Counterfactual Route Guidance. Physica A: Statistical Mechanics and its Applications, 131992. https://doi.org/10.1016/j.physa.2026.131992"
 
 - title: "Global, Regional, and National Burden of Road Injuries 1990-2023: A Systematic Analysis for the Global Burden of Disease Study 2023"
   authors: "GBD 2023 Road Injuries Collaborators, with Amir Rafe as a named collaborator"
@@ -76,23 +33,110 @@
   thumbnail: "/images/publications/decoding-crosswalks.webp"
   citation: "Barua, S., Starewich, M., Chowdhury, T. I., Rafe, A., and Das, S. (2026). Decoding Pedestrian Severity at Crosswalks Using Hybrid Clustering and Random Parameter Models. Scientific Reports. https://doi.org/10.1038/s41598-026-56530-5"
 
-- title: "Community Driving-Safety Deterioration as a Push Factor for Public Endorsement of AI Driving Capability"
+- title: "Bridging the Black Box: A Survey on Mechanistic Interpretability in AI"
+  authors: "Shriyank Somvanshi, Md Monzurul Islam, Amir Rafe, Anannya Ghosh Tusti, Arka Chakraborty, Anika Baitullah, Tausif Islam Chowdhury, Nawaf Alnawmasi, Anandi Dutta, and Subasish Das"
+  venue: "ACM Computing Surveys, 58(8), Article 210"
+  year: 2026
+  doi: "https://doi.org/10.1145/3787104"
+  pdf: "https://dl.acm.org/doi/pdf/10.1145/3787104"
+  thumbnail: "/images/publications/mechanistic-interpretability-survey.webp"
+  citation: "Somvanshi, S., Islam, M. M., Rafe, A., et al. (2026). Bridging the Black Box: A Survey on Mechanistic Interpretability in AI. ACM Computing Surveys, 58(8), Article 210. https://doi.org/10.1145/3787104"
+
+- title: "Pedestrian Crossing Behaviors at Signalized Intersections in Utah: Factors Affecting Spatial and Temporal Violations"
+  authors: "Amir Rafe, Patrick A. Singleton, Sydney Boyer, and Megan Mekker"
+  venue: "International Journal of Transportation Science and Technology"
+  year: 2025
+  doi: "https://doi.org/10.1016/j.ijtst.2024.12.005"
+  thumbnail: "/images/publications/signalized-crossing-behavior.webp"
+  citation: "Rafe, A., Singleton, P. A., Boyer, S., and Mekker, M. (2025). Pedestrian Crossing Behaviors at Signalized Intersections in Utah: Factors Affecting Spatial and Temporal Violations. International Journal of Transportation Science and Technology. https://doi.org/10.1016/j.ijtst.2024.12.005"
+
+- title: "Exploring the Complexity of Pedestrian Dynamics: Impact of Societal Behaviors and Personal Attributes in Urban Environments"
+  authors: "Amir Rafe and Patrick A. Singleton"
+  venue: "Transportation Research Record, 2679(2), 136-160"
+  year: 2025
+  doi: "https://doi.org/10.1177/03611981241260707"
+  thumbnail: "/images/publications/pedestrian-dynamics-societal-behaviors.webp"
+  citation: "Rafe, A., and Singleton, P. A. (2025). Exploring the Complexity of Pedestrian Dynamics: Impact of Societal Behaviors and Personal Attributes in Urban Environments. Transportation Research Record, 2679(2), 136-160. https://doi.org/10.1177/03611981241260707"
+
+- title: "Imputing Time Series Pedestrian Volume Data With Consideration of Epidemiological-Environmental Variables"
+  authors: "Amir Rafe and Patrick A. Singleton"
+  venue: "Transportation Research Record, 2678(11), 281-298"
+  year: 2024
+  doi: "https://doi.org/10.1177/03611981241240758"
+  thumbnail: "/images/publications/pedestrian-volume-imputation.webp"
+  citation: "Rafe, A., and Singleton, P. A. (2024). Imputing Time Series Pedestrian Volume Data With Consideration of Epidemiological-Environmental Variables. Transportation Research Record, 2678(11), 281-298. https://doi.org/10.1177/03611981241240758"
+
+- title: "A Comparative Study Using Generalized Ordered Probit, Stacking Ensemble, and TabNet: Application to Determinants of Pedestrian Crash Severity"
+  authors: "Amir Rafe, Mohammad Ali Arman, and Patrick A. Singleton"
+  venue: "Data Science for Transportation, 6(2), 13"
+  year: 2024
+  doi: "https://doi.org/10.1007/s42421-024-00098-x"
+  thumbnail: "/images/publications/generalized-probit-stacking-tabnet.webp"
+  citation: "Rafe, A., Arman, M. A., and Singleton, P. A. (2024). A Comparative Study Using Generalized Ordered Probit, Stacking Ensemble, and TabNet: Application to Determinants of Pedestrian Crash Severity. Data Science for Transportation, 6(2), 13. https://doi.org/10.1007/s42421-024-00098-x"
+
+# International Conference on Transportation and Development papers — newest first
+
+- title: "Enhancing Occupant Evacuation Simulation Using LLMs and Retrieval-Augmented Generation"
+  authors: "Amir Rafe, Peter J. Lawrence, Riccardo Lovreglio, Michael Spearpoint, and Patrick A. Singleton"
+  venue: "International Conference on Transportation and Development (ICTD) 2025"
+  year: 2025
+  doi: "https://doi.org/10.1061/9780784486191.034"
+  thumbnail: "/images/publications/llm-rag-evacuation.webp"
+  citation: "Rafe, A., Lawrence, P. J., Lovreglio, R., Spearpoint, M., and Singleton, P. A. (2025). Enhancing Occupant Evacuation Simulation Using LLMs and Retrieval-Augmented Generation. International Conference on Transportation and Development 2025. https://doi.org/10.1061/9780784486191.034"
+
+- title: "Exploring Pedestrian Evacuation Behavior Using a Virtual Reality Environment: An Eye-Tracking Study"
+  authors: "Sajjad Mazloum, Navid Khademi, Ali Ahmadi, Kimia Afand, Amirmohammad Zabihpour, Amir Rafe, and Patrick A. Singleton"
+  venue: "International Conference on Transportation and Development (ICTD) 2025"
+  year: 2025
+  doi: "https://doi.org/10.1061/9780784486207.035"
+  thumbnail: "/images/publications/vr-eye-tracking-evacuation.webp"
+  citation: "Mazloum, S., Khademi, N., Ahmadi, A., Afand, K., Zabihpour, A., Rafe, A., and Singleton, P. A. (2025). Exploring Pedestrian Evacuation Behavior Using a Virtual Reality Environment: An Eye-Tracking Study. International Conference on Transportation and Development 2025. https://doi.org/10.1061/9780784486207.035"
+
+- title: "Exploring the Determinants of Pedestrian Crash Severity Using an AutoML Approach"
+  authors: "Amir Rafe and Patrick A. Singleton"
+  venue: "International Conference on Transportation and Development (ICTD) 2024, pp. 442-455"
+  year: 2024
+  doi: "https://doi.org/10.1061/9780784485514.039"
+  thumbnail: "/images/publications/automl-pedestrian-severity.webp"
+  citation: "Rafe, A., and Singleton, P. A. (2024). Exploring the Determinants of Pedestrian Crash Severity Using an AutoML Approach. International Conference on Transportation and Development 2024, 442-455. https://doi.org/10.1061/9780784485514.039"
+
+# arXiv and SSRN preprints — newest first
+
+- title: "Who Bears the Risk When Generative AI Enters Transport? A Distributional Sociotechnical Audit of Algorithmic Equity, Synthetic-Data Validity, and Public Trust"
   authors: "Amir Rafe and Subasish Das"
   venue: "arXiv preprint"
   year: 2026
-  doi: "https://doi.org/10.48550/arXiv.2604.04775"
-  pdf: "https://arxiv.org/pdf/2604.04775"
-  thumbnail: "/images/publications/driving-safety-push-factor.webp"
-  citation: "Rafe, A., and Das, S. (2026). Community Driving-Safety Deterioration as a Push Factor for Public Endorsement of AI Driving Capability. arXiv:2604.04775. https://doi.org/10.48550/arXiv.2604.04775"
+  doi: "https://doi.org/10.48550/arXiv.2609.11611"
+  pdf: "https://arxiv.org/pdf/2609.11611"
+  thumbnail: "/images/publications/transport-genai-sociotechnical-audit.webp"
+  citation: "Rafe, A., and Das, S. (2026). Who Bears the Risk When Generative AI Enters Transport? A Distributional Sociotechnical Audit of Algorithmic Equity, Synthetic-Data Validity, and Public Trust. arXiv:2609.11611. https://doi.org/10.48550/arXiv.2609.11611"
 
-- title: "Latent Profiles of AI Risk Perception and Their Differential Association with Community Driving Safety Concerns"
-  authors: "Amir Rafe, Ahmed Baitullah, and Subasish Das"
+- title: "A Distribution-Free Certification Framework for Trustworthy Crash-Severity Prediction"
+  authors: "Amir Rafe and Subasish Das"
   venue: "arXiv preprint"
   year: 2026
-  doi: "https://doi.org/10.48550/arXiv.2604.04849"
-  pdf: "https://arxiv.org/pdf/2604.04849"
-  thumbnail: "/images/publications/ai-risk-profiles.webp"
-  citation: "Rafe, A., Baitullah, A., and Das, S. (2026). Latent Profiles of AI Risk Perception and Their Differential Association with Community Driving Safety Concerns. arXiv:2604.04849. https://doi.org/10.48550/arXiv.2604.04849"
+  doi: "https://doi.org/10.48550/arXiv.2609.11592"
+  pdf: "https://arxiv.org/pdf/2609.11592"
+  thumbnail: "/images/publications/trustworthy-crash-severity-certification.webp"
+  citation: "Rafe, A., and Das, S. (2026). A Distribution-Free Certification Framework for Trustworthy Crash-Severity Prediction. arXiv:2609.11592. https://doi.org/10.48550/arXiv.2609.11592"
+
+- title: "Socio-Conformal Calibration in Complex Survey Data: Marginal Validity Is Not Enough for Subgroup Reliability"
+  authors: "Amir Rafe and Subasish Das"
+  venue: "arXiv preprint"
+  year: 2026
+  doi: "https://doi.org/10.48550/arXiv.2605.05562"
+  pdf: "https://arxiv.org/pdf/2605.05562"
+  thumbnail: "/images/publications/socio-conformal.webp"
+  citation: "Rafe, A., and Das, S. (2026). Socio-Conformal Calibration in Complex Survey Data: Marginal Validity Is Not Enough for Subgroup Reliability. arXiv:2605.05562. https://doi.org/10.48550/arXiv.2605.05562"
+
+- title: "Coupled-NeuralHP: Directional Temporal Coupling Between AI Innovation Exposure and Public Response"
+  authors: "Amir Rafe and Subasish Das"
+  venue: "arXiv preprint"
+  year: 2026
+  doi: "https://doi.org/10.48550/arXiv.2605.04194"
+  pdf: "https://arxiv.org/pdf/2605.04194"
+  thumbnail: "/images/publications/coupled-neuralhp.webp"
+  citation: "Rafe, A., and Das, S. (2026). Coupled-NeuralHP: Directional Temporal Coupling Between AI Innovation Exposure and Public Response. arXiv:2605.04194. https://doi.org/10.48550/arXiv.2605.04194"
 
 - title: "Heterogeneous Ordinal Structure Learning with Bayesian Nonparametric Complexity Discovery"
   authors: "Amir Rafe and Subasish Das"
@@ -103,58 +147,20 @@
   thumbnail: "/images/publications/heterogeneous-ordinal.webp"
   citation: "Rafe, A., and Das, S. (2026). Heterogeneous Ordinal Structure Learning with Bayesian Nonparametric Complexity Discovery. arXiv:2605.04191. https://doi.org/10.48550/arXiv.2605.04191"
 
-- title: "A Comparative Study Using Generalized Ordered Probit, Stacking Ensemble, and TabNet: Application to Determinants of Pedestrian Crash Severity"
-  authors: "Amir Rafe, Mohammad Ali Arman, and Patrick A. Singleton"
-  venue: "Data Science for Transportation, 6(2), 13"
-  year: 2024
-  doi: "https://doi.org/10.1007/s42421-024-00098-x"
-  thumbnail: "/images/publications/generalized-probit-stacking-tabnet.webp"
-  citation: "Rafe, A., Arman, M. A., and Singleton, P. A. (2024). A Comparative Study Using Generalized Ordered Probit, Stacking Ensemble, and TabNet: Application to Determinants of Pedestrian Crash Severity. Data Science for Transportation, 6(2), 13. https://doi.org/10.1007/s42421-024-00098-x"
+- title: "Latent Profiles of AI Risk Perception and Their Differential Association with Community Driving Safety Concerns"
+  authors: "Amir Rafe, Ahmed Baitullah, and Subasish Das"
+  venue: "arXiv preprint"
+  year: 2026
+  doi: "https://doi.org/10.48550/arXiv.2604.04849"
+  pdf: "https://arxiv.org/pdf/2604.04849"
+  thumbnail: "/images/publications/ai-risk-profiles.webp"
+  citation: "Rafe, A., Baitullah, A., and Das, S. (2026). Latent Profiles of AI Risk Perception and Their Differential Association with Community Driving Safety Concerns. arXiv:2604.04849. https://doi.org/10.48550/arXiv.2604.04849"
 
-- title: "Enhancing Occupant Evacuation Simulation Using LLMs and Retrieval-Augmented Generation"
-  authors: "Amir Rafe, Peter J. Lawrence, Riccardo Lovreglio, Michael Spearpoint, and Patrick A. Singleton"
-  venue: "International Conference on Transportation and Development 2025"
-  year: 2025
-  doi: "https://doi.org/10.1061/9780784486191.034"
-  thumbnail: "/images/publications/llm-rag-evacuation.webp"
-  citation: "Rafe, A., Lawrence, P. J., Lovreglio, R., Spearpoint, M., and Singleton, P. A. (2025). Enhancing Occupant Evacuation Simulation Using LLMs and Retrieval-Augmented Generation. International Conference on Transportation and Development 2025. https://doi.org/10.1061/9780784486191.034"
-
-- title: "Exploring the Determinants of Pedestrian Crash Severity Using an AutoML Approach"
-  authors: "Amir Rafe and Patrick A. Singleton"
-  venue: "International Conference on Transportation and Development 2024, pp. 442-455"
-  year: 2024
-  doi: "https://doi.org/10.1061/9780784485514.039"
-  thumbnail: "/images/publications/automl-pedestrian-severity.webp"
-  citation: "Rafe, A., and Singleton, P. A. (2024). Exploring the Determinants of Pedestrian Crash Severity Using an AutoML Approach. International Conference on Transportation and Development 2024, 442-455. https://doi.org/10.1061/9780784485514.039"
-
-- title: "Pedestrian Crossing Behaviors at Signalized Intersections in Utah: Factors Affecting Spatial and Temporal Violations"
-  authors: "Amir Rafe, Patrick A. Singleton, Sydney Boyer, and Megan Mekker"
-  venue: "International Journal of Transportation Science and Technology"
-  year: 2025
-  doi: "https://doi.org/10.1016/j.ijtst.2024.12.005"
-  thumbnail: "/images/publications/signalized-crossing-behavior.webp"
-  citation: "Rafe, A., Singleton, P. A., Boyer, S., and Mekker, M. (2025). Pedestrian Crossing Behaviors at Signalized Intersections in Utah: Factors Affecting Spatial and Temporal Violations. International Journal of Transportation Science and Technology. https://doi.org/10.1016/j.ijtst.2024.12.005"
-
-- title: "Imputing Time Series Pedestrian Volume Data With Consideration of Epidemiological-Environmental Variables"
-  authors: "Amir Rafe and Patrick A. Singleton"
-  venue: "Transportation Research Record, 2678(11), 281-298"
-  year: 2024
-  doi: "https://doi.org/10.1177/03611981241240758"
-  thumbnail: "/images/publications/pedestrian-volume-imputation.webp"
-  citation: "Rafe, A., and Singleton, P. A. (2024). Imputing Time Series Pedestrian Volume Data With Consideration of Epidemiological-Environmental Variables. Transportation Research Record, 2678(11), 281-298. https://doi.org/10.1177/03611981241240758"
-
-- title: "Exploring the Complexity of Pedestrian Dynamics: Impact of Societal Behaviors and Personal Attributes in Urban Environments"
-  authors: "Amir Rafe and Patrick A. Singleton"
-  venue: "Transportation Research Record, 2679(2), 136-160"
-  year: 2025
-  doi: "https://doi.org/10.1177/03611981241260707"
-  thumbnail: "/images/publications/pedestrian-dynamics-societal-behaviors.webp"
-  citation: "Rafe, A., and Singleton, P. A. (2025). Exploring the Complexity of Pedestrian Dynamics: Impact of Societal Behaviors and Personal Attributes in Urban Environments. Transportation Research Record, 2679(2), 136-160. https://doi.org/10.1177/03611981241260707"
-
-- title: "Exploring Pedestrian Evacuation Behavior Using a Virtual Reality Environment: An Eye-Tracking Study"
-  authors: "Sajjad Mazloum, Navid Khademi, Ali Ahmadi, Kimia Afand, Amirmohammad Zabihpour, Amir Rafe, and Patrick A. Singleton"
-  venue: "International Conference on Transportation and Development 2025"
-  year: 2025
-  doi: "https://doi.org/10.1061/9780784486207.035"
-  thumbnail: "/images/publications/vr-eye-tracking-evacuation.webp"
-  citation: "Mazloum, S., Khademi, N., Ahmadi, A., Afand, K., Zabihpour, A., Rafe, A., and Singleton, P. A. (2025). Exploring Pedestrian Evacuation Behavior Using a Virtual Reality Environment: An Eye-Tracking Study. International Conference on Transportation and Development 2025. https://doi.org/10.1061/9780784486207.035"
+- title: "Community Driving-Safety Deterioration as a Push Factor for Public Endorsement of AI Driving Capability"
+  authors: "Amir Rafe and Subasish Das"
+  venue: "arXiv preprint"
+  year: 2026
+  doi: "https://doi.org/10.48550/arXiv.2604.04775"
+  pdf: "https://arxiv.org/pdf/2604.04775"
+  thumbnail: "/images/publications/driving-safety-push-factor.webp"
+  citation: "Rafe, A., and Das, S. (2026). Community Driving-Safety Deterioration as a Push Factor for Public Endorsement of AI Driving Capability. arXiv:2604.04775. https://doi.org/10.48550/arXiv.2604.04775"
