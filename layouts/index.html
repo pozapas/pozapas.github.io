@@ -6,7 +6,6 @@
 {{ end }}
 
 {{ define "main" }}
-{{ $paperTotal := len hugo.Data.publications }}
 {{ $toolTotal := add (len hugo.Data.tools.featured) (len hugo.Data.tools.open_source) }}
 <main id="main-content" class="member-page">
   <div class="site-container">
@@ -50,7 +49,7 @@
     <nav class="section-navigation" aria-label="Sections on this page">
       <ul>
         <li><a href="#tools">Tools <span data-tool-nav-count>(8/{{ $toolTotal }})</span></a></li>
-        <li><a href="#papers">Papers <span data-paper-nav-count>(6/{{ $paperTotal }})</span></a></li>
+        <li><a href="#papers">Papers</a></li>
         <li><a href="#podcast">Podcast <span>(6/11)</span></a></li>
         <li><a href="#background">Background</a></li>
       </ul>
@@ -97,7 +96,7 @@
     </section>
 
     <section class="member-section" id="papers" aria-labelledby="papers-heading">
-      <h2 class="member-section-heading" id="papers-heading">Papers <span data-paper-heading-count>(6/{{ $paperTotal }})</span></h2>
+      <h2 class="member-section-heading" id="papers-heading">Papers</h2>
 
       <div class="publication-list" id="publication-list">
         {{ range $index, $paper := hugo.Data.publications }}
@@ -139,8 +138,7 @@
         {{ end }}
       </div>
       <div class="see-more-controls" data-paper-controls>
-        <button type="button" class="see-more-artifacts" data-load-more-papers>Load 6 more papers</button>
-        <button type="button" class="see-more-all" data-load-all-papers>Load all {{ $paperTotal }} papers</button>
+        <button type="button" class="see-more-artifacts" data-load-more-papers>Load more papers</button>
       </div>
       <p class="scholar-link"><a href="https://scholar.google.com/citations?hl=en&amp;user=IUVLrp9PgFEC&amp;view_op=list_works">View the full record on Google Scholar</a></p>
     </section>

@@ -1,45 +1,27 @@
 # Publication first-page images
 
-The site uses a real image of the first page when one is available. It uses a neutral paper marker when an image is missing.
+The portfolio includes only selected papers that have both a paper link and a real first-page image. It does not use generated paper covers.
 
-## Add an image
+## Replace an image
 
 1. Open the final paper PDF.
-2. Export page 1 only as WebP, PNG, or JPG.
-3. Use a width of at least 760 pixels. Keep the full page ratio.
-4. Save the image in this folder with one of the names below.
-5. Add this field to the matching record in `data/publications.yml`:
+2. Export page 1 as WebP, PNG, or JPG.
+3. Use a width of at least 760 pixels when possible. Keep the full page ratio.
+4. Save the image in this folder.
+5. Set the matching `thumbnail` field in `data/publications.yml`.
 
-   `thumbnail: "/images/publications/FILE-NAME.webp"`
+## Current image set
 
-Use the final published paper when it is available. Do not use a generated cover.
+All 19 selected papers have first-page images. The six images added from the September 13 screenshot folder are:
 
-## Missing images
-
-- `pedestrian-crash-severity-tabnet.webp`
+- `generalized-probit-stacking-tabnet.webp`
+- `pedestrian-dynamics-societal-behaviors.webp`
 - `pedestrian-volume-imputation.webp`
-- `pedestrian-social-dynamics.webp`
 - `llm-rag-evacuation.webp`
-- `vr-leadership-evacuation.webp`
 - `vr-eye-tracking-evacuation.webp`
-- `automl-pedestrian-crash-severity.webp`
-- `social-behavior-pedestrian-dynamics.webp`
-- `hybrid-logit-crossing-safety.webp`
-- `gap-acceptance-tehran.webp`
-- `social-force-calibration.webp`
-- `crosswalk-gap-acceptance.webp`
-- `viswalk-walking-facilities.webp`
+- `automl-pedestrian-severity.webp`
 
-## Images already included
+The two September 2026 arXiv papers use:
 
-- Do Aviation Hazard Rankings Overlook Conservation-Concern Birds in U.S. Wildlife Strikes?
-- Experimental Analysis and Disability-Aware Social Force Modeling of Heterogeneous Evacuation with Counterfactual Route Guidance
-- Global, Regional, and National Burden of Road Injuries 1990-2023
-- Decoding Pedestrian Severity at Crosswalks
-- Bridging the Black Box: A Survey on Mechanistic Interpretability in AI
-- Pedestrian Crossing Behaviors at Signalized Intersections in Utah
-- Community Driving-Safety Deterioration as a Push Factor
-- Latent Profiles of AI Risk Perception
-- Heterogeneous Ordinal Structure Learning
-- Coupled-NeuralHP
-- Socio-Conformal Calibration
+- `transport-genai-sociotechnical-audit.webp`
+- `trustworthy-crash-severity-certification.webp`

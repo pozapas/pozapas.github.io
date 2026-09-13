@@ -33,15 +33,16 @@
     countSelector,
     batchSize,
     noun,
+    moreLabel,
     afterReveal,
   }) => {
     const items = Array.from(document.querySelectorAll(itemSelector));
     const controls = document.querySelector(controlsSelector);
     const moreButton = document.querySelector(moreSelector);
-    const allButton = document.querySelector(allSelector);
+    const allButton = allSelector ? document.querySelector(allSelector) : null;
     const countLabels = document.querySelectorAll(countSelector);
 
-    if (!items.length || !controls || !moreButton || !allButton) return;
+    if (!items.length || !controls || !moreButton) return;
 
     const visibleCount = () => items.filter((item) => !item.hidden).length;
 
@@ -58,8 +59,8 @@
       }
 
       controls.hidden = false;
-      moreButton.textContent = `Load ${Math.min(batchSize, remaining)} more ${noun}`;
-      allButton.textContent = `Load all ${items.length} ${noun}`;
+      moreButton.textContent = moreLabel || `Load ${Math.min(batchSize, remaining)} more ${noun}`;
+      if (allButton) allButton.textContent = `Load all ${items.length} ${noun}`;
       afterReveal?.();
     };
 
@@ -71,13 +72,15 @@
       refresh();
     });
 
-    allButton.addEventListener("click", () => {
-      items.forEach((item) => {
-        item.hidden = false;
+    if (allButton) {
+      allButton.addEventListener("click", () => {
+        items.forEach((item) => {
+          item.hidden = false;
+        });
+        afterReveal?.();
+        refresh();
       });
-      afterReveal?.();
-      refresh();
-    });
+    }
 
     refresh();
   };
@@ -110,6 +113,7 @@
     countSelector: "[data-paper-nav-count], [data-paper-heading-count]",
     batchSize: 6,
     noun: "papers",
+    moreLabel: "Load more papers",
   });
 
   const copyText = async (text) => {

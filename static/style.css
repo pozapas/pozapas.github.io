@@ -318,9 +318,7 @@ iframe:focus-visible {
 }
 
 .current-work a:hover,
-.current-work a:focus-visible,
-.footer-projects a:hover,
-.footer-projects a:focus-visible {
+.current-work a:focus-visible {
   text-decoration: underline;
 }
 
@@ -845,7 +843,7 @@ iframe:focus-visible {
 
 .footer-main {
   display: grid;
-  grid-template-columns: 1.05fr 1.35fr 1.35fr 0.75fr;
+  grid-template-columns: minmax(210px, 0.85fr) minmax(360px, 1.55fr) minmax(170px, 0.65fr);
   column-gap: 44px;
   row-gap: 18px;
   align-items: start;
@@ -875,6 +873,12 @@ iframe:focus-visible {
   gap: 10px;
 }
 
+.footer-brand-column {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+}
+
 .footer-brand img {
   width: 64px;
   height: auto;
@@ -891,15 +895,11 @@ iframe:focus-visible {
   white-space: nowrap;
 }
 
-.footer-about p {
-  max-width: 310px;
-}
-
 .footer-social {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 14px;
+  margin-top: 0;
 }
 
 .footer-social a {
@@ -926,31 +926,47 @@ iframe:focus-visible {
   height: 18px;
 }
 
-.footer-projects ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.footer-blogs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-content: start;
+  gap: 8px 18px;
 }
 
-.footer-projects li {
-  margin-bottom: 8px;
+.footer-blogs h2 {
+  grid-column: 1 / -1;
 }
 
-.footer-projects strong,
-.footer-projects span {
+.footer-blog-link {
+  display: block;
+  min-width: 0;
+  padding-left: 10px;
+  border-left: 2px solid rgba(255, 255, 255, 0.34);
+  color: #ffffff;
+}
+
+.footer-blog-link strong,
+.footer-blog-link time {
   display: block;
 }
 
-.footer-projects strong {
-  color: #ffffff;
+.footer-blog-link strong {
   font-size: 13px;
   font-weight: 600;
+  line-height: 1.3;
 }
 
-.footer-projects span {
-  color: rgba(255, 255, 255, 0.78);
-  font-size: 12px;
-  line-height: 1.4;
+.footer-blog-link time {
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 11px;
+}
+
+.footer-blog-link:hover,
+.footer-blog-link:focus-visible {
+  border-left-color: #ffffff;
+  color: #ffffff;
+  text-decoration: none;
 }
 
 .footer-links {
@@ -1394,6 +1410,10 @@ iframe:focus-visible {
   .current-work ul,
   .project-grid,
   .media-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-blogs {
     grid-template-columns: 1fr;
   }
 

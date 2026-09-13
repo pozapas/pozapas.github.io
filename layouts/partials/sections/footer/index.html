@@ -1,13 +1,10 @@
 <footer class="site-footer">
   <div class="site-container footer-main">
-    <div class="footer-brand">
-      <img src="{{ "/piz.png" | relURL }}" alt="A slice of pepperoni pizza" width="72" height="42">
-      <p>Pozapas Land</p>
-    </div>
-
-    <div class="footer-about">
-      <h2>Research and software</h2>
-      <p>I study transportation safety, causal AI, pedestrian dynamics, and evacuation. I build tools that make research evidence easier to inspect and use.</p>
+    <div class="footer-brand-column">
+      <div class="footer-brand">
+        <img src="{{ "/piz.png" | relURL }}" alt="A slice of pepperoni pizza" width="72" height="42">
+        <p>Pozapas Land</p>
+      </div>
       <nav class="footer-social" aria-label="Social profiles">
         <a href="https://www.linkedin.com/in/amir-rafe-08770854/" aria-label="LinkedIn">{{ partial "icon.html" "linkedin" }}</a>
         <a href="https://twitter.com/rafeamir" aria-label="Twitter">{{ partial "icon.html" "twitter" }}</a>
@@ -18,15 +15,15 @@
       </nav>
     </div>
 
-    <div class="footer-projects">
-      <h2>Current projects</h2>
-      <ul>
-        <li><a href="https://ait-lab.vercel.app/projects?search=FMCSA" target="_blank" rel="noreferrer"><strong>FMCSA</strong></a><span>Commercial vehicle safety research</span></li>
-        <li><a href="https://ait-lab.vercel.app/projects?search=NCHRP" target="_blank" rel="noreferrer"><strong>NCHRP 17-113 and 17-134</strong></a><span>Safe System and non-motorist safety research</span></li>
-        <li><a href="https://ait-lab.vercel.app/projects?search=BTS" target="_blank" rel="noreferrer"><strong>BTSCRP BTS-39 and BTS-42</strong></a><span>Impaired driving and automated enforcement</span></li>
-        <li><a href="https://ait-lab.vercel.app/projects?search=AAA" target="_blank" rel="noreferrer"><strong>AAA Foundation</strong></a><span>Pedestrian safety research</span></li>
-      </ul>
-    </div>
+    <section class="footer-blogs" aria-labelledby="footer-blogs-title">
+      <h2 id="footer-blogs-title">Recent blogs</h2>
+      {{ range first 3 (where .Site.RegularPages.ByDate.Reverse "Section" "blogs") }}
+      <a class="footer-blog-link" href="{{ .RelPermalink }}">
+        <strong>{{ .Title }}</strong>
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+      </a>
+      {{ end }}
+    </section>
 
     <nav class="footer-links" aria-label="Footer navigation">
       <h2>Links</h2>
