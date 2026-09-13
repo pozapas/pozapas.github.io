@@ -150,10 +150,10 @@ iframe:focus-visible {
 }
 
 .site-name-copy small {
-  color: var(--color-muted);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.025em;
+  color: var(--color-text-secondary);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.015em;
   white-space: nowrap;
 }
 
