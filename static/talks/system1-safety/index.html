@@ -1,0 +1,1133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>System 1 Models in Safety Research</title>
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="vendor/reveal/reveal.css">
+<link rel="stylesheet" href="css/form.css">
+</head>
+<body>
+<!--
+DIRECTION CONTRACT (seed 3ddd3ecf, assigned)
+WORLD: an incident report pad. Every slide is one sheet: maroon-ruled fields on cream stock, form numbers, a verdict tally in the header.
+FIRST VIEWPORT: the cover sheet shows tonight's question as an unfilled form, two empty probability bars and an empty verdict box, to be filled by 7:00 PM.
+MECHANISM: typed questions are form fields; the model fills them with probability bars; findings land as CAN or CANNOT rubber stamps.
+MOTION: the stamp is the one authored moment; bars fill with ink, checkboxes tick, tally marks accrue. Slow enough for a Teams stream.
+GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text labeled, no CRIS narrative without redaction and a manual read.
+-->
+<div class="reveal">
+<div class="slides">
+
+<section data-form="S1-00" data-title="Cover sheet">
+  <div class="cols" style="grid-template-columns: 1.25fr 0.75fr;">
+    <div class="stack" style="align-content: space-between;">
+      <div>
+        <h1 class="display">System 1 Models in Safety Research</h1>
+        <p class="subtitle">What Jev and Laya Can and Cannot Do</p>
+      </div>
+      <div class="value-row" style="grid-template-columns: 1.35fr 1fr 1fr 0.8fr;">
+        <div><span class="lbl">Presenter</span><div class="v">Amir Rafe, Ph.D.</div></div>
+        <div><span class="lbl">Unit</span><div class="v">AIT Lab</div></div>
+        <div><span class="lbl">Date</span><div class="v mono">2026-10-14</div></div>
+        <div><span class="lbl">Hosted by</span><div class="v">CE 7393</div></div>
+      </div>
+    </div>
+    <div class="stack" style="align-content: space-between;">
+      <div class="field">
+        <span class="lbl">Tonight's question</span>
+        <p style="font: 700 40px/1.2 var(--f-display); margin: 0 0 18px; color: var(--ink);">Can a System 1 model carry a safety decision?</p>
+        <div class="qrows stacked">
+          <div class="q"><div class="qtext">Can</div><div class="bar" style="--p:0"><div class="fill"></div></div><div class="pval unknown">?</div></div>
+          <div class="q"><div class="qtext">Cannot</div><div class="bar" style="--p:0"><div class="fill"></div></div><div class="pval unknown">?</div></div>
+        </div>
+      </div>
+      <div class="field dashed" style="min-height: 210px;">
+        <span class="lbl">Verdict</span>
+        <p class="note" style="margin: 30px 0 0;">To be completed by 7:00 PM.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">0:00. Welcome. Open on the unfilled form: tonight we fill these two bars with evidence. Every finding gets stamped CAN or CANNOT, and the tally in the top right corner keeps score. By 7:00 the verdict box gets filled.</aside>
+</section>
+
+<section data-form="S1-01" data-title="Primer · Two ways to ask AI for an answer">
+  <div class="stack" style="height: 100%; align-content: space-between;">
+    <div class="two">
+      <div class="field">
+        <span class="lbl">Generative model · writes</span>
+        <p class="callout" style="color: var(--ink); font-size: 46px; margin-bottom: 16px;">"The report describes a worker on a scaffold who slipped near a missing guardrail, and the harness..."</p>
+        <ul class="checklist" style="gap: 14px;">
+          <li class="ticked"><i class="cb"></i><div><b>Writes text, word by word</b><span class="d">You parse it, check it, and guess how sure it is.</span></div></li>
+          <li class="ticked"><i class="cb"></i><div><b>Seconds per answer</b><span class="d">Billed for every word it writes.</span></div></li>
+        </ul>
+      </div>
+      <div class="field">
+        <span class="lbl">Decision model · answers</span>
+        <div class="qrows stacked fill-now" style="margin-bottom: 8px;">
+          <div class="q"><div class="qtext">Fall hazard?<small>P(yes)</small></div><div class="bar" style="--p:0.99"><div class="fill"></div></div><div class="pval">0.99</div></div>
+          <div class="q"><div class="qtext">Anyone injured?<small>P(yes)</small></div><div class="bar" style="--p:0.04"><div class="fill"></div></div><div class="pval">0.04</div></div>
+        </div>
+        <ul class="checklist" style="gap: 14px;">
+          <li class="ticked"><i class="cb"></i><div><b>One probability per option</b><span class="d">Your code compares it with a threshold.</span></div></li>
+          <li class="ticked"><i class="cb"></i><div><b>A fraction of a second</b><span class="d">One pass through the model, nothing to parse.</span></div></li>
+        </ul>
+      </div>
+    </div>
+    <p class="src">Right panel: real Jev 1.13 answers on the synthetic scaffold report used in Lab 1, recorded 10 Oct 2026. Kahneman (2011) calls fast intuitive judgment System 1 and slow deliberate reasoning System 2.</p>
+  </div>
+  <aside class="notes">0:30. Most of you have used chat AI. It writes. Tonight is about a different kind of model that only answers typed questions with probabilities. The vendors borrowed Kahneman's word for fast judgment, System 1.</aside>
+</section>
+
+<section data-form="S1-02" data-title="Primer · A probability, not a paragraph">
+  <div class="clip-sheet">
+    <div class="clip-frame">
+      <span class="lbl">Attachment · Motion</span>
+      <video data-autoplay muted playsinline preload="auto" src="media/clip1_probability.mp4"></video>
+    </div>
+    <div class="clip-side">
+      <div class="field"><span class="lbl">Watch for</span><p class="note" style="margin: 0; color: var(--ink);">Both bars fill in one pass, while the generative model is still writing.</p></div>
+      <div class="field plain"><span class="lbl">Note</span><p class="src" style="margin: 0;">Synthetic report and illustrative values.</p></div>
+    </div>
+  </div>
+  <aside class="notes">1:30. Let the 20 second clip play without talking over the first ten seconds.</aside>
+</section>
+
+<section data-form="S1-03" data-title="Primer · Anatomy of a decision model">
+  <div class="stack" style="height: 100%; align-content: space-between;">
+    <div class="flow">
+      <div class="node"><span class="lbl">1 · State</span><b>The situation</b><span>Text or JSON. A crash narrative, an inspection note, a log.</span></div>
+      <div class="arrow" aria-hidden="true"></div>
+      <div class="node"><span class="lbl">2 · Typed questions</span><b>Declared options</b><span>Yes or no, a choice, or an ordered score.</span></div>
+      <div class="arrow" aria-hidden="true"></div>
+      <div class="node dark"><span class="lbl">3 · One pass</span><b>Decision head</b><span>Scores every option at once. No text generated.</span></div>
+      <div class="arrow" aria-hidden="true"></div>
+      <div class="node"><span class="lbl">4 · Probabilities</span><b>One per option</b><span>Trained to be calibrated: 0.9 should be right nine times in ten.</span></div>
+      <div class="arrow" aria-hidden="true"></div>
+      <div class="node"><span class="lbl">5 · Your policy</span><b>Act, review, escalate</b><span>A threshold in your own code decides.</span></div>
+    </div>
+    <div class="cards4" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="card"><span class="lbl">Primitive · noul</span><h3>Yes or no</h3><p>Returns P(yes). "Does the report describe a fall hazard?"</p></div>
+      <div class="card"><span class="lbl">Primitive · choice</span><h3>Pick one</h3><p>Up to 255 named options, a probability for each.</p></div>
+      <div class="card"><span class="lbl">Primitive · score</span><h3>Ordered levels</h3><p>A probability per level, such as severity 0 to 3.</p></div>
+    </div>
+    <p class="note" style="margin: 0; color: var(--ink);"><b>Definition (our survey, Paper 4B):</b> a typed probabilistic decision model returns a probability distribution over a caller-declared, finite answer space in one forward pass, and promises that the distribution is calibrated.</p>
+  </div>
+  <aside class="notes">2:00. Walk left to right. The important part is step 5: the model does not decide, your threshold does. Jev was trained with what TypeSafe calls reinforcement learning for calibrated decisions. Whether the promise of calibration holds is Lab 3.</aside>
+</section>
+
+<section data-form="S1-04" data-title="Primer · Where the idea comes from">
+  <div class="stack" style="height: 100%; align-content: space-between;">
+    <svg class="lanes" viewBox="0 0 1760 640" width="100%" role="img" aria-label="Five research lineages converging on typed decision models">
+      <g class="lane" transform="translate(0,40)">
+        <text class="ln" x="0" y="8">Zero-shot classifiers</text>
+        <line x1="420" y1="0" x2="1380" y2="0"/>
+        <circle cx="560" cy="0" r="10"/><text class="ms" x="560" y="-22">NLI zero-shot</text><text class="yr" x="560" y="42">2019</text>
+        <circle cx="860" cy="0" r="10"/><text class="ms" x="860" y="-22">BART-MNLI</text><text class="yr" x="860" y="42">2020</text>
+        <circle cx="1160" cy="0" r="10"/><text class="ms" x="1160" y="-22">GLiClass</text><text class="yr" x="1160" y="42">2025</text>
+      </g>
+      <g class="lane" transform="translate(0,170)">
+        <text class="ln" x="0" y="8">Reward models, judges</text>
+        <line x1="420" y1="0" x2="1380" y2="0"/>
+        <circle cx="560" cy="0" r="10"/><text class="ms" x="560" y="-22">RLHF reward model</text><text class="yr" x="560" y="42">2017</text>
+        <circle cx="860" cy="0" r="10"/><text class="ms" x="860" y="-22">LLM as a judge</text><text class="yr" x="860" y="42">2023</text>
+        <circle cx="1160" cy="0" r="10"/><text class="ms" x="1160" y="-22">RewardBench</text><text class="yr" x="1160" y="42">2025</text>
+      </g>
+      <g class="lane" transform="translate(0,300)">
+        <text class="ln" x="0" y="8">Calibration</text>
+        <line x1="420" y1="0" x2="1380" y2="0"/>
+        <circle cx="560" cy="0" r="10"/><text class="ms" x="560" y="-22">Brier score</text><text class="yr" x="560" y="42">1950</text>
+        <circle cx="860" cy="0" r="10"/><text class="ms" x="860" y="-22">Temperature scaling</text><text class="yr" x="860" y="42">2017</text>
+        <circle cx="1160" cy="0" r="10"/><text class="ms" x="1160" y="-22">RL for calibration</text><text class="yr" x="1160" y="42">2025</text>
+      </g>
+      <g class="lane" transform="translate(0,430)">
+        <text class="ln" x="0" y="8">Abstain, defer, route</text>
+        <line x1="420" y1="0" x2="1380" y2="0"/>
+        <circle cx="560" cy="0" r="10"/><text class="ms" x="560" y="-22">Chow reject option</text><text class="yr" x="560" y="42">1957</text>
+        <circle cx="860" cy="0" r="10"/><text class="ms" x="860" y="-22">Learning to defer</text><text class="yr" x="860" y="42">2020</text>
+        <circle cx="1160" cy="0" r="10"/><text class="ms" x="1160" y="-22">RouteLLM</text><text class="yr" x="1160" y="42">2024</text>
+      </g>
+      <g class="lane" transform="translate(0,560)">
+        <text class="ln" x="0" y="8">Dual-process theory</text>
+        <line x1="420" y1="0" x2="1380" y2="0"/>
+        <circle cx="560" cy="0" r="10"/><text class="ms" x="560" y="-22">Dual-process review</text><text class="yr" x="560" y="42">2008</text>
+        <circle cx="860" cy="0" r="10"/><text class="ms" x="860" y="-22">Thinking, Fast and Slow</text><text class="yr" x="860" y="42">2011</text>
+        <circle cx="1160" cy="0" r="10"/><text class="ms" x="1160" y="-22">Fast and slow AI agents</text><text class="yr" x="1160" y="42">2021</text>
+      </g>
+      <path class="join" d="M1380 40 C1470 40 1470 300 1540 300 M1380 170 C1450 170 1470 300 1540 300 M1380 300 L1540 300 M1380 430 C1450 430 1470 300 1540 300 M1380 560 C1470 560 1470 300 1540 300"/>
+      <rect class="hub" x="1540" y="230" width="220" height="140"/>
+      <text class="hubt" x="1650" y="282" text-anchor="middle">Jev 1.13</text>
+      <text class="hubs" x="1650" y="318" text-anchor="middle">15 Sep 2026</text>
+      <text class="hubs" x="1650" y="350" text-anchor="middle">System One</text>
+    </svg>
+    <p class="src">Five lineages traced in our survey (Paper 4B, genealogy section). Each dot is a milestone named there.</p>
+  </div>
+  <aside class="notes">3:30. One minute. None of this is new on its own: zero-shot classifiers, reward models, calibration, abstain and route, and the System 1 idea itself. What changed on 15 September is that one product combined them behind a simple contract.</aside>
+</section>
+
+<section data-form="S1-05" data-title="Primer · A field that is four weeks old">
+  <div class="stack" style="height: 100%; align-content: space-between;">
+    <table class="ledger tl">
+      <tbody>
+        <tr><td class="mono">15 Sep</td><td class="key">Jev 1.13</td><td>TypeSafe releases the first hosted System One model.</td></tr>
+        <tr><td class="mono">16 to 21 Sep</td><td class="key">Open copies</td><td>decider, Laya, Nimble, Kev, Von, this-that, Decision-1.0 and others.</td></tr>
+        <tr><td class="mono">24 Sep</td><td class="key">Our census</td><td>101 open checkpoints in 67 families, 259 derivatives, 226 repositories (Paper 4B).</td></tr>
+        <tr><td class="mono">29 Sep</td><td class="key">Our benchmark</td><td>Decision models against classifiers and LLMs, arXiv 2610.00346 (Paper 4A).</td></tr>
+        <tr><td class="mono">30 Sep</td><td class="key">Fastino GLiDE</td><td>A "thinking" decision model that reasons longer when the choice is uncertain.</td></tr>
+        <tr><td class="mono">1 Oct</td><td class="key">Cloudflare Clef</td><td>Open weights, Apache 2.0, same API as Jev. Clef-flash also reads images and video.</td></tr>
+        <tr><td class="mono">9 Oct</td><td class="key">Microsoft-Decision-1</td><td>On Microsoft Foundry and OpenRouter, priced like Jev per input token.</td></tr>
+        <tr><td class="mono">10 Oct</td><td class="key">Leaderboards</td><td>Decision Index ranks 117 models. Perplexity, OpenAI, Liquid AI, Upstage and Inception now offer decision models too.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <aside class="notes">4:30. One minute. The point is speed: four weeks from one product to more than a hundred models, big companies included. A field this young has few safety studies, which is why tonight's six studies matter.</aside>
+</section>
+
+<section data-form="S1-06" data-title="Primer · Who makes them">
+  <div class="stack" style="height: 100%; align-content: space-between;">
+    <table class="ledger">
+      <thead><tr><th>Model</th><th>Maker</th><th>Access</th><th class="num">Size</th><th>Worth knowing</th></tr></thead>
+      <tbody>
+        <tr><td class="key">Jev 1.13</td><td>TypeSafe</td><td>Hosted API</td><td class="num">not disclosed</td><td>The reference everyone compares with</td></tr>
+        <tr><td class="key">Laya</td><td>Convai Innovations</td><td>Open, Apache 2.0</td><td class="num">0.4B</td><td>Runs on a laptop CPU</td></tr>
+        <tr><td class="key">Clef, Clef-flash</td><td>Cloudflare</td><td>Open, Apache 2.0</td><td class="num">28B, 9.7B</td><td>Jev-compatible API, images and video</td></tr>
+        <tr><td class="key">pplx-decider v1.1</td><td>Perplexity</td><td>Weights, gated</td><td class="num">27B</td><td>Top of both leaderboards on 10 Oct</td></tr>
+        <tr><td class="key">GLiDE</td><td>Fastino</td><td>API</td><td class="num">not disclosed</td><td>Thinks longer when unsure</td></tr>
+        <tr><td class="key">Microsoft-Decision-1</td><td>Microsoft</td><td>Foundry, OpenRouter</td><td class="num">9B base</td><td>Released 9 Oct 2026</td></tr>
+        <tr><td class="key">GPT-6 Luna Decisions</td><td>OpenAI</td><td>API</td><td class="num">not disclosed</td><td>Listed on EdgeEvals</td></tr>
+      </tbody>
+    </table>
+    <p class="src">Sources: model cards on Hugging Face, Cloudflare and Fastino launch posts, Microsoft announcement of 9 Oct 2026, EdgeEvals System One page of 10 Oct 2026.</p>
+  </div>
+  <aside class="notes">5:30. Open models matter for agencies and job sites: the data never leaves your machine. Hosted models are easier to start with. Tonight we use one of each, Jev and Laya, because they started the field.</aside>
+</section>
+
+<section data-form="S1-07" data-title="Primer · Which one is best? It depends where you test">
+  <div class="stack" style="height: 100%; align-content: space-between;">
+    <div class="two">
+      <div class="field">
+        <span class="lbl">Decision Index 0.3.1 · 117 models · general</span>
+        <table class="ledger">
+          <tbody>
+            <tr><td>Perplexity Decider v1.1</td><td class="num">62.8</td></tr>
+            <tr><td>Fastino GLiDE</td><td class="num">60.2</td></tr>
+            <tr><td>Jev 1.13</td><td class="num">60.1</td></tr>
+            <tr><td>Cloudflare Clef</td><td class="num">53.1</td></tr>
+            <tr><td>Cloudflare Clef-flash</td><td class="num">47.6</td></tr>
+            <tr class="worst"><td>Laya</td><td class="num">4.4</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="field">
+        <span class="lbl">EdgeEvals · 35 models · clinical</span>
+        <table class="ledger">
+          <tbody>
+            <tr><td>pplx-decider v1.1</td><td class="num">96.1</td></tr>
+            <tr><td>GPT-6 Luna Decisions</td><td class="num">95.2</td></tr>
+            <tr><td>Jev 1.13</td><td class="num">93.9</td></tr>
+            <tr><td>Clef 27B</td><td class="num">92.8</td></tr>
+            <tr><td>Microsoft-Decision-1</td><td class="num">91.3</td></tr>
+            <tr class="worst"><td>Laya</td><td class="num">21.4</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="callout" style="font-size: 42px;">Rankings move every week and change with the domain. Nobody has ranked them on safety decisions, so tonight we test them on safety data ourselves.</p>
+    <p class="src">Both leaderboards as published on 10 Oct 2026. Scores are on each board's own scale. Our benchmark (Paper 4A) adds that a classifier fine-tuned on labels still beats them where labels exist.</p>
+  </div>
+  <aside class="notes">6:15. Point at Laya: near the bottom on both boards. Keep that in mind for Lab 1. The board scales differ, so compare ranks within a board, not numbers across boards.</aside>
+</section>
+
+<section data-form="S1-08" data-title="Primer · What they are used for">
+  <div class="cols" style="grid-template-columns: 1fr 1fr;">
+    <div class="stack" style="align-content: center; gap: 24px;">
+      <div class="field">
+        <span class="lbl">Uses named by the makers and the studies</span>
+        <table class="ledger">
+          <tbody>
+            <tr><td class="key">Route</td><td>Send a request to the right team or model</td></tr>
+            <tr><td class="key">Guard</td><td>Block an unsafe action by an AI agent</td></tr>
+            <tr><td class="key">Verify</td><td>Check another model's answer</td></tr>
+            <tr><td class="key">Triage</td><td>Rank alerts and tickets by urgency</td></tr>
+            <tr><td class="key">Code</td><td>Turn documents into variables at scale</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="stack" style="align-content: center; gap: 30px;">
+      <div class="field">
+        <span class="lbl">In civil engineering safety, for example</span>
+        <p class="note" style="margin: 0; color: var(--ink);">Reading crash and incident reports. Triaging bridge and sensor alarms. Screening inspection notes. Checking a design change an AI assistant proposes.</p>
+      </div>
+      <div class="field" style="background: var(--maroon); border-color: var(--maroon);">
+        <span class="lbl" style="color: var(--gold-fill);">Tonight's question</span>
+        <p style="font: 800 52px/1.12 var(--f-display); color: var(--paper); margin: 0;">Can a System 1 model carry a safety decision?</p>
+        <p class="note" style="margin: 16px 0 0; color: var(--paper-field);">Seven short labs, each one a test. You predict first.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">7:15. Bridge to the labs. Read the question on the maroon card, then move to the next sheet, which explains how every lab works.</aside>
+</section>
+
+<section data-form="S1-09" data-title="How this hour works">
+  <div class="cols" style="grid-template-columns: 1fr 1fr;">
+    <div class="stack" style="align-content: center; gap: 30px;">
+      <h2 class="display" style="font-size: 96px;">A workshop, not a lecture</h2>
+      <p class="lead" style="max-width: 26ch;">Seven short labs. In each one you commit to a guess before you see any model output.</p>
+    </div>
+    <div class="stack" style="align-content: center;">
+      <div class="field">
+        <span class="lbl">Every lab follows this procedure</span>
+        <ul class="checklist">
+          <li class="ticked"><i class="cb"></i><div><b>Predict</b><span class="d">You answer first, in Teams chat or a Teams poll.</span></div></li>
+          <li class="ticked"><i class="cb"></i><div><b>Run</b><span class="d">We run real code on screen and read the raw response.</span></div></li>
+          <li class="ticked"><i class="cb"></i><div><b>Reveal</b><span class="d">The finding is stamped CAN or CANNOT and added to the tally.</span></div></li>
+        </ul>
+      </div>
+      <div class="value-row">
+        <div><span class="lbl">Answer in</span><div class="v">Teams chat</div></div>
+        <div><span class="lbl">Votes</span><div class="v">Teams polls</div></div>
+        <div><span class="lbl">Code along</span><div class="v">Colab, optional</div></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">8:00. Explain the routine once. Drop the Colab link in the chat now and say it is optional; everything works for people who only watch. Ask everyone to keep the chat open.</aside>
+</section>
+
+<section data-form="S1-10" data-title="Lab 0 · Your own System 1">
+  <div class="stack" style="height: 100%; align-content: space-between;">
+    <div class="field plain">
+      <span class="lbl">Narrative <span class="synthetic-tag">Synthetic</span></span>
+      <p class="ruled">Unit 1 northbound in light rain, left lane. Driver states she looked down at her phone for directions, looked up, and traffic had stopped. Unit 1 struck the rear of Unit 2. No injuries reported.</p>
+    </div>
+    <p class="big-q" style="font-size: 76px;">Was the driver distracted? Did the weather contribute?</p>
+    <div class="cols" style="grid-template-columns: 1.4fr 0.6fr; gap: 28px;">
+      <div class="field" style="display: grid; grid-template-columns: 96px 1fr; gap: 28px; align-items: center;">
+        <span class="lbl">Answer in Teams chat</span>
+        <svg viewBox="0 0 96 84" width="96" height="84" aria-hidden="true"><path d="M8 8 h80 v52 h-44 l-20 18 v-18 h-16 z" fill="none" stroke="var(--maroon)" stroke-width="5" stroke-linejoin="round"/><path d="M24 28 h48 M24 42 h32" stroke="var(--maroon)" stroke-width="5" stroke-linecap="round"/></svg>
+        <div><div class="mono" style="font-size: 60px; font-weight: 700;">yes 90, no 20</div><div class="note">Two answers, each with how sure you are in percent.</div></div>
+      </div>
+      <div class="field countdown" data-seconds="20">
+        <span class="lbl">Time · press T</span>
+        <div class="t">0:20</div>
+        <div class="drain"><i></i></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">8:45. Read it once, press T for the 20 second timer. Read five or six chat answers aloud and point out the spread on weather. Do not reveal the model yet.</aside>
+</section>
+
+<section data-form="S1-11" data-title="Lab 0 · What you just did">
+  <div class="cols" style="grid-template-columns: 1fr 1fr;">
+    <div class="stack" style="align-content: center; gap: 34px;">
+      <h2 class="display" style="font-size: 84px; color: var(--ink);">You read a report and returned two probabilities.</h2>
+      <p class="lead">That is exactly the job of the decision models you just met. A typed answer and how sure, nothing else.</p>
+    </div>
+    <div class="stack" style="align-content: center; gap: 28px;">
+      <div class="run-status"><i></i>Recorded run · jev-1.13.0 · 10 Oct 2026</div>
+      <div class="field">
+        <span class="lbl">Model's answer</span>
+        <div class="qrows stacked">
+          <div class="q fragment"><div class="qtext">Was the driver distracted?<small>P(yes)</small></div><div class="bar" style="--p:0.97"><div class="fill"></div></div><div class="pval">0.97</div></div>
+          <div class="q fragment"><div class="qtext">Did the weather contribute?<small>P(yes)</small></div><div class="bar" style="--p:0.32"><div class="fill"></div></div><div class="pval">0.32</div></div>
+        </div>
+      </div>
+      <p class="note fragment">Compare with the chat. Where did the class disagree most?</p>
+    </div>
+  </div>
+  <aside class="notes">10:15. Reveal the two bars one at a time. Usually the class agrees on distraction and splits on weather; the model also hedges on weather. The point is the output format: a probability per question, no paragraph.</aside>
+</section>
+
+<section data-form="S1-12" data-title="Lab 1 · Anatomy of one call">
+  <div class="cols" style="grid-template-columns: 1fr 1fr;">
+    <div class="stack" style="align-content: center; gap: 34px;">
+      <h2 class="display" style="font-size: 132px;">Lab 1</h2>
+      <h2 class="display" style="color: var(--ink); font-size: 84px;">Anatomy of one call</h2>
+      <p class="lead">One construction report, three typed questions, two models. Same request, very different answers.</p>
+    </div>
+    <div class="stack" style="align-content: center;">
+      <div class="field">
+        <span class="lbl">Procedure</span>
+        <ul class="checklist">
+          <li class="fragment"><i class="cb"></i><div><b>Predict</b><span class="d">Will an open laptop model agree with the hosted one?</span></div></li>
+          <li class="fragment"><i class="cb"></i><div><b>Run</b><span class="d">The same three questions go to Laya and to Jev.</span></div></li>
+          <li class="fragment"><i class="cb"></i><div><b>Reveal</b><span class="d">We compare the answers with what the report says.</span></div></li>
+        </ul>
+      </div>
+      <div class="value-row">
+        <div><span class="lbl">Time</span><div class="v mono">8 min</div></div>
+        <div><span class="lbl">Colab</span><div class="v">Cells 1 to 3</div></div>
+        <div><span class="lbl">Evidence</span><div class="v">Paper 4A</div></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">11:15.</aside>
+</section>
+
+<section data-form="S1-13" data-title="Lab 1 · The call, in Python">
+  <div class="cols" style="grid-template-columns: 1.18fr 0.82fr; gap: 40px;">
+    <div class="attachment">
+      <svg class="clip" viewBox="0 0 68 120" aria-hidden="true"><path d="M22 104 V24 a13 13 0 0 1 26 0 V94 a7 7 0 0 1 -14 0 V34" fill="none" stroke="#b9b0a3" stroke-width="6" stroke-linecap="round"/></svg>
+      <span class="att-lbl">Attachment A · laya 0.4.2</span>
+      <pre><code class="language-python" data-trim data-noescape data-line-numbers="1-3|5-6|7-14|15">
+from laya import Router
+
+router = Router()   # downloads the open checkpoint once
+
+state = ("Worker on level 3 scaffold. East guardrail missing. "
+         "Worker slipped, harness held, no injury.")
+questions = {
+  "fall_hazard":  {"type": "noul",
+     "instructions": "Does the report describe a fall hazard?"},
+  "harness_held": {"type": "noul",
+     "instructions": "Did fall protection stop the fall?"},
+  "injury":       {"type": "noul",
+     "instructions": "Was anyone injured?"},
+}
+result = router.predict(state, questions)
+      </code></pre>
+    </div>
+    <div class="stack" style="align-content: start; gap: 26px;">
+      <div class="run-status"><i></i>Recorded run · laptop CPU · 0.17 s</div>
+      <div class="field">
+        <span class="lbl">Response · Laya default checkpoint</span>
+        <div class="qrows stacked">
+          <div class="q fragment"><div class="qtext">fall_hazard<small>P(yes)</small></div><div class="bar" style="--p:0.22"><div class="fill"></div></div><div class="pval">0.22</div></div>
+          <div class="q fragment"><div class="qtext">harness_held<small>P(yes)</small></div><div class="bar" style="--p:0.61"><div class="fill"></div></div><div class="pval">0.61</div></div>
+          <div class="q fragment"><div class="qtext">injury<small>P(yes)</small></div><div class="bar" style="--p:0.55"><div class="fill"></div></div><div class="pval">0.55</div></div>
+        </div>
+      </div>
+      <p class="note fragment">Read the report again. Which of these three is wrong?</p>
+    </div>
+  </div>
+  <aside class="notes">11:45. Step through the code with the arrow key: import, state, typed questions, the call. Then the three bars. The guardrail is missing and the report says no injury, so 0.22 on fall hazard and 0.55 on injury are both wrong. Ask the chat before saying so. These are real values, laya 0.4.2 default checkpoint, 10 Oct 2026.</aside>
+</section>
+
+<section data-form="S1-14" data-title="Lab 1 · Same request, two models">
+  <div class="live" data-preset="lab1_scaffold" data-mode="compare" data-criteria-note="1"></div>
+  <aside class="notes">13:45. If the runner is up, press Run both to show it is live; otherwise the recorded run appears and is labeled as recorded. Jev: about 0.98, 0.9 and 0.04 (live values move by a point or two between runs). The open model is not wrong everywhere, but on this report it is. Then point at the note under Laya: adding plain yes and no descriptions moves it to 0.37, 0.77, 0.65, still wrong on injury. Wording matters a lot for this checkpoint.</aside>
+</section>
+
+<section data-form="S1-15" data-title="Lab 1 · What the benchmark says">
+  <div class="cols" style="grid-template-columns: 1.1fr 0.9fr;">
+    <div class="stack" style="gap: 26px;">
+      <div class="field">
+        <span class="lbl">Accuracy on typed decisions and intents (Paper 4A)</span>
+        <table class="ledger">
+          <thead><tr><th>Model</th><th class="num">Typed decisions</th><th class="num">CLINC-150</th></tr></thead>
+          <tbody>
+            <tr class="best"><td>DeBERTa-v3-large, fine-tuned on labels</td><td class="num">0.793</td><td class="num">0.953</td></tr>
+            <tr><td>Gemma-4-31B, generative, no labels</td><td class="num">0.741</td><td class="num">0.942</td></tr>
+            <tr><td>Jev 1.13, no labels</td><td class="num">0.732</td><td class="num">0.913</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="field">
+        <span class="lbl">Swap the words "yes" and "no" in the option descriptions</span>
+        <table class="ledger">
+          <thead><tr><th>Model</th><th class="num">Answers that flip, per 100</th></tr></thead>
+          <tbody>
+            <tr><td>Kev-9B</td><td class="num">6.5</td></tr>
+            <tr><td>Jev 1.13</td><td class="num">50.5</td></tr>
+            <tr class="worst"><td>Laya English</td><td class="num">91.3</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="stack" style="align-content: center; gap: 30px;">
+      <p class="callout">Where labels exist, a fine-tuned classifier still wins. Without labels, a System 1 model is a strong, fast start.</p>
+      <p class="src">Paper 4A, eight decision checkpoints in six families plus four open generative models and four classifier baselines, eight datasets.</p>
+    </div>
+  </div>
+  <aside class="notes">15:45. The flip test is the cleanest way to show wording sensitivity: same content, only the option labels swapped. Laya flips 91 of 100 answers. That explains what we just saw on the scaffold report.</aside>
+</section>
+
+<section data-form="S1-16" data-title="Lab 1 · Verdict">
+  <div class="two" style="height: 100%; align-items: center;">
+    <div class="stack" style="gap: 26px;">
+      <p class="callout" style="color: var(--ink);">Answer typed questions about a written report in about 0.2 seconds, with nothing to parse.</p>
+      <div class="field plain stamp-slot" style="min-height: 250px;"><span class="lbl">Reviewed by</span><div class="stamp can fragment" data-verdict="can">Can</div></div>
+    </div>
+    <div class="stack" style="gap: 26px;">
+      <p class="callout" style="color: var(--ink);">Be assumed ready out of the box. The checkpoint and the wording both change the answer.</p>
+      <div class="field plain stamp-slot" style="min-height: 250px;"><span class="lbl">Reviewed by</span><div class="stamp cannot fragment" data-verdict="cannot">Cannot</div></div>
+    </div>
+  </div>
+  <aside class="notes">16:45. Two stamps. The tally now reads one and one.</aside>
+</section>
+
+<section data-form="S1-17" data-title="Lab 2 · Design the schema">
+  <div class="cols" style="grid-template-columns: 1fr 1fr;">
+    <div class="stack" style="align-content: center; gap: 34px;">
+      <h2 class="display" style="font-size: 132px;">Lab 2</h2>
+      <h2 class="display" style="color: var(--ink); font-size: 84px;">Design the schema</h2>
+      <p class="lead">You write the questions. We add gates, run them on one report, and read what comes back.</p>
+    </div>
+    <div class="stack" style="align-content: center;">
+      <div class="field">
+        <span class="lbl">Procedure</span>
+        <ul class="checklist">
+          <li class="fragment"><i class="cb"></i><div><b>Predict</b><span class="d">Post one typed question in Teams chat.</span></div></li>
+          <li class="fragment"><i class="cb"></i><div><b>Run</b><span class="d">Your questions go into the schema and run live.</span></div></li>
+          <li class="fragment"><i class="cb"></i><div><b>Reveal</b><span class="d">We read the probabilities and stamp the verdict.</span></div></li>
+        </ul>
+      </div>
+      <div class="value-row">
+        <div><span class="lbl">Time</span><div class="v mono">10 min</div></div>
+        <div><span class="lbl">Colab</span><div class="v">Cell 4</div></div>
+        <div><span class="lbl">Evidence</span><div class="v">Paper 1</div></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">17:15.</aside>
+</section>
+
+<section data-form="S1-18" data-title="Lab 2 · Write a typed question">
+  <div class="stack" style="height: 100%; align-content: space-between;">
+    <div class="field plain">
+      <span class="lbl">Narrative <span class="synthetic-tag">Synthetic</span></span>
+      <p class="ruled">Unit 2 was stopped at the light on FM 1626. Driver of Unit 1 stated he felt dizzy and blacked out before the crash. Witness stated Unit 1 did not brake. Driver of Unit 1 transported to hospital by EMS.</p>
+    </div>
+    <div class="cards4" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="card"><span class="lbl">Type · noul</span><h3>Yes or no</h3><p>Did the driver have a medical episode?</p></div>
+      <div class="card"><span class="lbl">Type · choice</span><h3>Pick one option</h3><p>What kind of episode? Seizure, blackout, diabetic, cardiac, other.</p></div>
+      <div class="card"><span class="lbl">Type · score</span><h3>An ordinal level</h3><p>How detailed is the narrative, from 0 to 3?</p></div>
+    </div>
+    <div class="field" style="display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 30px;">
+      <span class="lbl">Your turn · Teams chat · press T</span>
+      <p class="big-q" style="font-size: 50px;">Post one yes or no question you would ask of this report.</p>
+      <div class="countdown" data-seconds="60"><div class="t" style="font-size: 84px;">1:00</div><div class="drain"><i></i></div></div>
+    </div>
+  </div>
+  <aside class="notes">17:45. Press T for 60 seconds. Pick two or three chat questions to paste into the live form two sheets from now. Good ones are answerable from the text; steer away from counting and dates, which these models do poorly.</aside>
+</section>
+
+<section data-form="S1-19" data-title="Lab 2 · Gates: ask only when it applies">
+  <div class="clip-sheet">
+    <div class="clip-frame">
+      <span class="lbl">Attachment · Motion</span>
+      <video data-autoplay muted playsinline preload="auto" src="media/clip2_the_gated_schema.mp4"></video>
+    </div>
+    <div class="clip-side">
+      <div class="field"><span class="lbl">Watch for</span><p class="note" style="margin: 0; color: var(--ink);">A screen question opens or shuts a gate. Follow-up questions run only behind an open gate.</p></div>
+      <div class="field"><span class="lbl">Why gate</span><p class="note" style="margin: 0; color: var(--ink);">Fewer questions per report, and no detail asked of reports where it cannot apply.</p></div>
+    </div>
+  </div>
+  <aside class="notes">19:15.</aside>
+</section>
+
+<section data-form="S1-20" data-title="Lab 2 · A real schema, Paper 1">
+  <div class="cols" style="grid-template-columns: 1.15fr 0.85fr; gap: 40px;">
+    <div class="attachment">
+      <svg class="clip" viewBox="0 0 68 120" aria-hidden="true"><path d="M22 104 V24 a13 13 0 0 1 26 0 V94 a7 7 0 0 1 -14 0 V34" fill="none" stroke="#b9b0a3" stroke-width="6" stroke-linecap="round"/></svg>
+      <span class="att-lbl">Attachment B · crash_factors_v1.json</span>
+      <pre><code class="language-json" data-trim data-noescape data-line-numbers="1-4|5-11|12-14">
+"medical_episode": {
+  "type": "noul",
+  "instructions": "The narrative states that a driver had a
+    medical episode, such as fainting or a seizure."},
+"medical_type": {
+  "type": "choice",
+  "instructions": "What kind of medical episode does the
+    narrative describe?",
+  "criteria": {
+    "seizure": "...", "loss_of_consciousness": "...",
+    "diabetic": "...", "cardiac": "...", "other": "..."}},
+"gates": {
+  "medical_type": "medical_episode",
+  "drug_class":   "drug_involved", ...}
+      </code></pre>
+    </div>
+    <div class="stack" style="align-content: start; gap: 22px;">
+      <div class="field">
+        <span class="lbl">The full schema</span>
+        <table class="ledger">
+          <tbody>
+            <tr><td>Questions</td><td class="num">27</td></tr>
+            <tr><td>Yes or no (presence)</td><td class="num">16</td></tr>
+            <tr><td>Choice (categorical)</td><td class="num">8</td></tr>
+            <tr><td>Score (ordinal)</td><td class="num">3</td></tr>
+            <tr><td>Behind a gate</td><td class="num">7</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">A gate opens when the screen question returns a probability above 0.5.</p>
+      <p class="src">Instruction text shortened for the slide. Variables include medical episode, drugs, alcohol, hydroplaning, vehicle defect, fatigue, aggression, phone use, wrong way, animal, pregnancy.</p>
+    </div>
+  </div>
+  <aside class="notes">20:00. The schema is just JSON. Instructions are the analyst's definition; criteria name the options. Gates keep the detailed questions off reports where they cannot apply.</aside>
+</section>
+
+<section data-form="S1-21" data-title="Lab 2 · Run the class schema">
+  <div class="live" data-preset="lab2_schema" data-mode="compare" data-extra="2"></div>
+  <aside class="notes">21:15. Paste two chat questions into the empty rows, then Run both. If the runner is off, the three preset questions show their recorded answers; new questions need the runner. Note that both models agree on the medical episode here. Then move on.</aside>
+</section>
+
+<section data-form="S1-22" data-title="Lab 2 · The same schema on a whole state">
+  <div class="cols" style="grid-template-columns: 0.9fr 1.1fr;">
+    <div class="stack" style="gap: 24px; align-content: start;">
+      <div class="field">
+        <span class="lbl">Texas crash narratives, 2017 to 2025 (Paper 1)</span>
+        <table class="ledger">
+          <tbody>
+            <tr><td>Narratives in scope</td><td class="num">5,018,080</td></tr>
+            <tr><td>Screened with 10 questions</td><td class="num">499,500</td></tr>
+            <tr><td>Coded with all 27 questions</td><td class="num">195,857</td></tr>
+            <tr><td>Blinded human judgments</td><td class="num">2,416</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="field">
+        <span class="lbl">Agreement with human labels (F1)</span>
+        <table class="ledger">
+          <tbody>
+            <tr><td>Jev 1.13</td><td class="num">0.908</td></tr>
+            <tr><td>Frontier generative model A</td><td class="num">0.967</td></tr>
+            <tr><td>Frontier generative model B</td><td class="num">0.885</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="stack" style="gap: 24px; align-content: start;">
+      <div class="field">
+        <span class="lbl">Injury and fatal crashes per year attributed to nine factors</span>
+        <div class="hbars fill-now" style="margin-top: 10px;">
+          <div class="hbar"><span>Coded fields</span><div class="track"><div class="seg-a" style="width: 72.3%;"></div></div><span class="v">28,057</span></div>
+          <div class="hbar fragment"><span>Plus narratives</span><div class="track"><div class="seg-a" style="width: 72.3%;"></div><div class="seg-b" style="left: 72.3%; width: 27.7%;"></div></div><span class="v">+10,747</span></div>
+        </div>
+        <div class="legend" style="margin-top: 20px;"><span><i style="background: var(--gold-fill);"></i>coded</span><span><i style="background: var(--maroon);"></i>added from narratives</span></div>
+      </div>
+      <p class="callout fragment" style="font-size: 40px;">Phone use rises by 182 percent. Four of nine factors change rank.</p>
+    </div>
+  </div>
+  <aside class="notes">23:15. Generative model A is a frontier model and does better than Jev; model B is about the same. The safety finding is on the right: reading the narratives changes which factors look important. Calibration on these is the next lab. If asked: the added count includes unbelted and wrong-way flags, where coders confirmed only 15 and 29 percent of narrative-only flags, so those two additions are mostly model error.</aside>
+</section>
+
+<section data-form="S1-23" data-title="Finding · Crash narratives">
+  <div class="cols" style="grid-template-columns: 1.15fr 0.85fr;">
+    <div class="stack" style="align-content: center; gap: 36px;">
+      <h2 class="display" style="color: var(--ink); font-size: 80px;">Code police crash narratives at state scale with a gated schema.</h2>
+      <div class="field">
+        <span class="lbl">Evidence</span>
+        <p class="lead" style="max-width: none; font-size: 30px;">Paper 1. Jev 1.13 on 195,857 Texas narratives. F1 of 0.908 against 2,416 blinded human judgments.</p>
+      </div>
+    </div>
+    <div class="stack" style="align-content: center;">
+      <div class="field plain stamp-slot"><span class="lbl">Reviewed by</span><div class="stamp can fragment" data-verdict="can">Can</div></div>
+    </div>
+  </div>
+  <aside class="notes">24:45.</aside>
+</section>
+
+<section data-form="S1-24" data-title="Lab 3 · The trust meter">
+  <div class="cols" style="grid-template-columns: 1fr 1fr;">
+    <div class="stack" style="align-content: center; gap: 34px;">
+      <h2 class="display" style="font-size: 132px;">Lab 3</h2>
+      <h2 class="display" style="color: var(--ink); font-size: 84px;">The trust meter</h2>
+      <p class="lead">A probability is only useful if 0.9 means right nine times in ten. We check that, and fix it when it fails.</p>
+    </div>
+    <div class="stack" style="align-content: center;">
+      <div class="field">
+        <span class="lbl">Procedure</span>
+        <ul class="checklist">
+          <li class="fragment"><i class="cb"></i><div><b>Predict</b><span class="d">Teams poll on what 0.90 really means.</span></div></li>
+          <li class="fragment"><i class="cb"></i><div><b>Run</b><span class="d">Reliability curves from three of our studies.</span></div></li>
+          <li class="fragment"><i class="cb"></i><div><b>Reveal</b><span class="d">How many reports a person still has to read.</span></div></li>
+        </ul>
+      </div>
+      <div class="value-row">
+        <div><span class="lbl">Time</span><div class="v mono">10 min</div></div>
+        <div><span class="lbl">Colab</span><div class="v">Cell 5</div></div>
+        <div><span class="lbl">Evidence</span><div class="v">Papers 1, 3, 4A</div></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">25:15.</aside>
+</section>
+
+<section data-form="S1-25" data-title="Lab 3 · Teams poll">
+  <div class="cols" style="grid-template-columns: 1fr 1fr;">
+    <div class="stack" style="align-content: center; gap: 30px;">
+      <p class="big-q" style="font-size: 76px;">The model says 0.90 on a hundred reports.</p>
+      <p class="big-q" style="font-size: 76px; color: var(--maroon);">How many does it get right?</p>
+    </div>
+    <div class="stack" style="align-content: center;">
+      <div class="field">
+        <span class="lbl">Teams poll 2 · single choice</span>
+        <ul class="checklist">
+          <li><i class="cb"></i><div><b>About 90</b></div></li>
+          <li><i class="cb"></i><div><b>About 75</b></div></li>
+          <li><i class="cb"></i><div><b>About 50</b></div></li>
+          <li><i class="cb"></i><div><b>Cannot know until we measure</b></div></li>
+        </ul>
+      </div>
+      <p class="note">Launch poll 2 from the Polls tab now.</p>
+    </div>
+  </div>
+  <aside class="notes">25:45. Launch poll 2. Give it 40 seconds, share results. The right answer is the last one, and the next sheet shows why: it depends on the model and the task.</aside>
+</section>
+
+<section data-form="S1-26" data-title="Lab 3 · Reliability, measured">
+  <div class="cols instrument" style="grid-template-columns: 0.95fr 1.05fr; gap: 44px;">
+    <div class="field plain" style="padding: 50px 16px 8px;">
+      <span class="lbl">Stated confidence against observed accuracy</span>
+      <svg id="calib" viewBox="0 0 760 660" width="100%" role="img" aria-label="Reliability diagram"></svg>
+    </div>
+    <div class="stack" style="gap: 22px; align-content: start;">
+      <div class="seg seg-wrap" role="group" aria-label="Dataset">
+        <button type="button" data-ds="p1" aria-pressed="true">Crash narratives · Jev</button>
+        <button type="button" data-ds="p3" aria-pressed="false">Pedestrian · Jev</button>
+        <button type="button" data-ds="p4laya" aria-pressed="false">Typed decisions · Laya</button>
+        <button type="button" data-ds="p4raw" aria-pressed="false">Emotion · Jev raw</button>
+        <button type="button" data-ds="p4cal" aria-pressed="false">Emotion · Jev rescaled</button>
+      </div>
+      <div class="field">
+        <span class="lbl" id="ds-src">Source</span>
+        <p class="callout" id="ds-head" style="font-size: 40px;"></p>
+        <p class="note" id="ds-body" style="margin: 14px 0 0; color: var(--ink);"></p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Top bin, stated</span><div class="n" id="ro-stated">0.00</div><div class="u">mean confidence</div></div>
+        <div><span class="lbl">Top bin, observed</span><div class="n" id="ro-observed">0.00</div><div class="u">share correct</div></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">27:00. Click through the five buttons in order. Crash narratives: points sit on the line, the tails are trustworthy. Pedestrian: the model says 0.98 and is right less than half the time (46.5 percent in the top bin). Laya on typed decisions: a flat curve, confidence carries little information. Emotion raw then rescaled: recalibration pulls the curve back to the line.</aside>
+</section>
+
+<section data-form="S1-27" data-title="Lab 3 · Recalibration in four lines">
+  <div class="cols" style="grid-template-columns: 1.15fr 0.85fr; gap: 40px;">
+    <div class="attachment">
+      <svg class="clip" viewBox="0 0 68 120" aria-hidden="true"><path d="M22 104 V24 a13 13 0 0 1 26 0 V94 a7 7 0 0 1 -14 0 V34" fill="none" stroke="#b9b0a3" stroke-width="6" stroke-linecap="round"/></svg>
+      <span class="att-lbl">Attachment C · Platt scaling</span>
+      <pre><code class="language-python" data-trim data-noescape data-line-numbers="1-2|4-5|6-8">
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+
+# p: model probabilities, y: human labels (0 or 1)
+p = np.clip(p, 1e-4, 1 - 1e-4)
+z = np.log(p / (1 - p)).reshape(-1, 1)    # model log-odds
+platt = LogisticRegression().fit(z, y)     # learn slope and shift
+p_new = platt.predict_proba(z)[:, 1]        # recalibrated
+      </code></pre>
+    </div>
+    <div class="stack" style="align-content: start; gap: 24px;">
+      <div class="field">
+        <span class="lbl">Paper 1 · calibration error</span>
+        <table class="ledger">
+          <tbody>
+            <tr><td>As returned by Jev</td><td class="num">0.0231</td></tr>
+            <tr class="best"><td>After Platt scaling, held out</td><td class="num">0.0069</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="callout" style="font-size: 40px;">3.3 times smaller error, from labels you already need for the audit.</p>
+      <p class="src">Recalibration fixes miscalibrated numbers. It cannot add information the model never had, which is why the pedestrian curve stays poor.</p>
+    </div>
+  </div>
+  <aside class="notes">29:30. Fit on held-out human labels, never on the records you report. Laya ships its own helper for the same idea, laya.fit_temperatures.</aside>
+</section>
+
+<section data-form="S1-28" data-title="Lab 3 · How many reports a person still reads">
+  <div class="stack" style="gap: 26px;">
+    <p class="big-q" style="font-size: 52px;">To reach 90 percent precision, what share of flagged reports must a person still read?</p>
+    <table class="ledger">
+      <thead><tr><th>Variable</th><th class="num">Flags per year</th><th class="num">Judged against coded fields</th><th class="num">Judged against human labels</th></tr></thead>
+      <tbody>
+        <tr><td class="key">Alcohol</td><td class="num">20,262</td><td class="num">100%</td><td class="num">5.1%</td></tr>
+        <tr><td class="key">Hydroplaning</td><td class="num">13,114</td><td class="num">100%</td><td class="num">0.0%</td></tr>
+        <tr><td class="key">Wrong way</td><td class="num">7,958</td><td class="num">100%</td><td class="num">72.2%</td></tr>
+        <tr><td class="key">Fatigue</td><td class="num">7,798</td><td class="num">100%</td><td class="num">0.1%</td></tr>
+        <tr><td class="key">Medical episode</td><td class="num">5,880</td><td class="num">100%</td><td class="num">14.4%</td></tr>
+      </tbody>
+    </table>
+    <p class="callout fragment" style="font-size: 40px;">The coded field is a poor yardstick. Measured against it, agreement looks worse by a median kappa of 0.26.</p>
+  </div>
+  <aside class="notes">31:00. Paper 1 review budget. Against coded fields you would read every flag; against blinded human labels you read a small share, except wrong way. The coded field misses what the narrative says, which is Lab 4.</aside>
+</section>
+
+<section data-form="S1-29" data-title="Finding · Calibration">
+  <div class="cols" style="grid-template-columns: 1.15fr 0.85fr;">
+    <div class="stack" style="align-content: center; gap: 36px;">
+      <h2 class="display" style="color: var(--ink); font-size: 76px;">Be trusted on the model card's word. Calibration changes with the model and the task.</h2>
+      <div class="field">
+        <span class="lbl">Evidence</span>
+        <p class="lead" style="max-width: none; font-size: 30px;">Paper 1, well calibrated tails on crash narratives. Paper 3, stated 0.98 and right less than half the time. Paper 4A, Laya confidence carries little signal on typed decisions.</p>
+      </div>
+    </div>
+    <div class="stack" style="align-content: center;">
+      <div class="field plain stamp-slot"><span class="lbl">Reviewed by</span><div class="stamp cannot fragment" data-verdict="cannot">Cannot</div></div>
+    </div>
+  </div>
+  <aside class="notes">32:30.</aside>
+</section>
+
+<section data-form="S1-30" data-title="Lab 4 · Two readers, one crash">
+  <div class="cols" style="grid-template-columns: 1fr 1fr;">
+    <div class="stack" style="align-content: center; gap: 34px;">
+      <h2 class="display" style="font-size: 132px;">Lab 4</h2>
+      <h2 class="display" style="color: var(--ink); font-size: 84px;">Two readers, one crash</h2>
+      <p class="lead">The coded record and the officer's narrative describe the same crash. They do not always agree.</p>
+    </div>
+    <div class="stack" style="align-content: center;">
+      <div class="field">
+        <span class="lbl">Procedure</span>
+        <ul class="checklist">
+          <li class="fragment"><i class="cb"></i><div><b>Predict</b><span class="d">What did the coded record miss?</span></div></li>
+          <li class="fragment"><i class="cb"></i><div><b>Run</b><span class="d">The model reads the narrative.</span></div></li>
+          <li class="fragment"><i class="cb"></i><div><b>Reveal</b><span class="d">How often the form misses it across Texas.</span></div></li>
+        </ul>
+      </div>
+      <div class="value-row">
+        <div><span class="lbl">Time</span><div class="v mono">7 min</div></div>
+        <div><span class="lbl">Colab</span><div class="v">Not needed</div></div>
+        <div><span class="lbl">Evidence</span><div class="v">Papers 2, 5</div></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">33:00.</aside>
+</section>
+
+<section data-form="S1-31" data-title="Lab 4 · Spot the gap">
+  <div class="cols" style="grid-template-columns: 0.85fr 1.15fr; gap: 36px;">
+    <div class="field">
+      <span class="lbl">Coded record <span class="synthetic-tag">Synthetic</span></span>
+      <table class="ledger">
+        <tbody>
+          <tr><td>Crash type</td><td class="mono">Rear end</td></tr>
+          <tr><td>Severity</td><td class="mono">Possible injury</td></tr>
+          <tr><td>Contributing factor 1</td><td class="mono">Followed too closely</td></tr>
+          <tr><td>Contributing factor 2</td><td class="mono">None</td></tr>
+          <tr><td>Distraction coded</td><td class="mono">No</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="stack" style="gap: 24px; align-content: start;">
+      <div class="field plain">
+        <span class="lbl">Narrative <span class="synthetic-tag">Synthetic</span></span>
+        <p class="ruled">Unit 1 was traveling west on Loop 410 in moderate traffic. Driver of Unit 1 stated he was reading a text message when traffic slowed ahead. Unit 1 struck the rear of Unit 2. Driver of Unit 2 complained of neck pain.</p>
+      </div>
+      <div class="field fragment">
+        <span class="lbl">Model reads the narrative · recorded run · jev-1.13.0</span>
+        <div class="qrows stacked fill-now">
+          <div class="q"><div class="qtext">Phone use stated in the narrative<small>P(yes)</small></div><div class="bar" style="--p:0.98"><div class="fill"></div></div><div class="pval">0.98</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">33:30. Ask the chat: what is missing from the coded record? Then reveal the model answer. Synthetic example built on the pattern Paper 5 reports most often.</aside>
+</section>
+
+<section data-form="S1-32" data-title="Lab 4 · What the form misses across Texas">
+  <div class="stack" style="height: 100%; align-content: space-around;">
+    <div class="field">
+      <span class="lbl">Injury or fatal crashes, 2017 to 2025 · coded count and narrative estimate (Paper 5)</span>
+      <div class="hbars tall fill-now" style="margin-top: 14px;">
+        <div class="hbar"><span>Phone use</span><div class="track"><div class="seg-a" style="width: 22.2%;"></div><div class="seg-b" style="left: 22.2%; width: 23.5%;"></div></div><span class="v">15,074</span></div>
+        <div class="hbar"><span>Medical episode</span><div class="track"><div class="seg-a" style="width: 49.1%;"></div><div class="seg-b" style="left: 49.1%; width: 36.8%;"></div></div><span class="v">28,345</span></div>
+        <div class="hbar"><span>Hydroplaning</span><div class="track"><div class="seg-a" style="width: 83.1%;"></div><div class="seg-b" style="left: 83.1%; width: 16.9%;"></div></div><span class="v">32,996</span></div>
+        <div class="hbar"><span>Fatigue</span><div class="track"><div class="seg-a" style="width: 65.9%;"></div><div class="seg-b" style="left: 65.9%; width: 9.5%;"></div></div><span class="v">24,880</span></div>
+        <div class="hbar"><span>Animal</span><div class="track"><div class="seg-a" style="width: 47.6%;"></div><div class="seg-b" style="left: 47.6%; width: 13.6%;"></div></div><span class="v">20,195</span></div>
+      </div>
+      <div class="legend" style="margin-top: 20px;"><span><i style="background: var(--gold-fill);"></i>coded in the crash record</span><span><i style="background: var(--maroon);"></i>narrative estimate above the coded count</span></div>
+    </div>
+    <p class="callout fragment" style="font-size: 40px;">The narrative shows about twice the phone use the form records. A second human check agreed on all fifteen factors.</p>
+  </div>
+  <aside class="notes">35:00. Coded phone use is 7,340 against 15,074 estimated from narratives. For these five the whole interval lies above the coded count. The reverse also happens: alcohol is coded more often than the narrative mentions it, because test results arrive after the officer writes.</aside>
+</section>
+
+<section data-form="S1-33" data-title="Lab 4 · A variable the form never asks for">
+  <div class="cols" style="grid-template-columns: 1fr 1fr;">
+    <div class="stack" style="align-content: center; gap: 28px;">
+      <h2 class="display" style="font-size: 76px; color: var(--ink);">The crash form has no field for pregnancy. The narrative sometimes says it.</h2>
+      <p class="lead">Paper 2 read every narrative flagged by a keyword screen and estimated what the screen missed.</p>
+    </div>
+    <div class="stack" style="align-content: center; gap: 24px;">
+      <div class="field">
+        <span class="lbl">Texas, 2017 to 2025 (Paper 2)</span>
+        <table class="ledger">
+          <tbody>
+            <tr><td>Narratives in scope</td><td class="num">5,018,079</td></tr>
+            <tr><td>Crashes documenting a pregnancy</td><td class="num">5,467</td></tr>
+            <tr><td>95 percent interval</td><td class="num">5,306 to 5,577</td></tr>
+            <tr><td>Core keyword hits the model confirmed</td><td class="num">97.9%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="callout fragment" style="font-size: 38px;">Yet that is only about 3 percent of the pregnant drivers vital statistics predict, and mostly the injured ones.</p>
+    </div>
+  </div>
+  <aside class="notes">36:30. The lesson: narratives recover a variable no form records, but officers document it unevenly. Injured drivers are 21.7 times more likely to have the pregnancy written down. A model can read only what was written.</aside>
+</section>
+
+<section data-form="S1-34" data-title="Lab 4 · Buy labels, not more model reads">
+  <div class="stack" style="height: 100%; align-content: space-around;">
+    <p class="big-q" style="font-size: 56px;">Our estimates have a 22 percent margin. Which spends effort better?</p>
+    <div class="field">
+      <span class="lbl">Root mean square relative margin across factors (Paper 5)</span>
+      <div class="hbars tall fill-now" style="margin-top: 14px;">
+        <div class="hbar"><span>Now</span><div class="track"><div class="seg-b" style="width: 100%; left: 0;"></div></div><span class="v">22.0%</span></div>
+        <div class="hbar fragment"><span>Model reads all</span><div class="track"><div class="seg-b" style="width: 96.4%; left: 0;"></div></div><span class="v">21.2%</span></div>
+        <div class="hbar fragment"><span>400 more labels</span><div class="track"><div class="seg-a" style="width: 73.6%;"></div></div><span class="v">16.2%</span></div>
+      </div>
+    </div>
+    <p class="callout fragment" style="font-size: 40px;">Reading all five million narratives barely helps. Four hundred more human-coded narratives do.</p>
+  </div>
+  <aside class="notes">37:45. Ask the chat before revealing each bar. The model's reads are cheap; the uncertainty sits in the human calibration tier.</aside>
+</section>
+
+<section data-form="S1-35" data-title="Finding · The narrative as a second reader">
+  <div class="cols" style="grid-template-columns: 1.15fr 0.85fr;">
+    <div class="stack" style="align-content: center; gap: 36px;">
+      <h2 class="display" style="color: var(--ink); font-size: 78px;">Recover factors the coded form misses, then size them with human labels.</h2>
+      <div class="field">
+        <span class="lbl">Evidence</span>
+        <p class="lead" style="max-width: none; font-size: 30px;">Paper 5, about twice the coded phone use, confirmed by a second human check. Paper 2, pregnancy found in 5,467 crashes on a form that never asks.</p>
+      </div>
+    </div>
+    <div class="stack" style="align-content: center;">
+      <div class="field plain stamp-slot"><span class="lbl">Reviewed by</span><div class="stamp can fragment" data-verdict="can">Can</div></div>
+    </div>
+  </div>
+  <aside class="notes">38:45.</aside>
+</section>
+
+<section data-form="S1-36" data-title="Lab 5 · Be the pedestrian">
+  <div class="cols" style="grid-template-columns: 1fr 1fr;">
+    <div class="stack" style="align-content: center; gap: 34px;">
+      <h2 class="display" style="font-size: 132px;">Lab 5</h2>
+      <h2 class="display" style="color: var(--ink); font-size: 84px;">Be the pedestrian</h2>
+      <p class="lead">Can a model that reads text stand in for a person walking in a crowd?</p>
+    </div>
+    <div class="stack" style="align-content: center;">
+      <div class="field">
+        <span class="lbl">Procedure</span>
+        <ul class="checklist">
+          <li class="fragment"><i class="cb"></i><div><b>Predict</b><span class="d">Teams poll on which way this pedestrian goes.</span></div></li>
+          <li class="fragment"><i class="cb"></i><div><b>Run</b><span class="d">The model answers the same described scene.</span></div></li>
+          <li class="fragment"><i class="cb"></i><div><b>Reveal</b><span class="d">Three thousand real decisions decide the verdict.</span></div></li>
+        </ul>
+      </div>
+      <div class="value-row">
+        <div><span class="lbl">Time</span><div class="v mono">8 min</div></div>
+        <div><span class="lbl">Data</span><div class="v">Jülich corridors</div></div>
+        <div><span class="lbl">Evidence</span><div class="v">Paper 3</div></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">39:15.</aside>
+</section>
+
+<section data-form="S1-37" data-title="Lab 5 · The scene, in words">
+  <div class="cols" style="grid-template-columns: 1.1fr 0.9fr; gap: 36px;">
+    <div class="attachment">
+      <svg class="clip" viewBox="0 0 68 120" aria-hidden="true"><path d="M22 104 V24 a13 13 0 0 1 26 0 V94 a7 7 0 0 1 -14 0 V34" fill="none" stroke="#b9b0a3" stroke-width="6" stroke-linecap="round"/></svg>
+      <span class="att-lbl">Attachment D · state sent to the model</span>
+      <pre><code class="language-json" data-trim data-noescape>
+{"your_pace": "walking briskly",
+ "your_destination": "straight ahead",
+ "crowding": "open space around you",
+ "wall_on_your_left": "far away",
+ "wall_on_your_right": "one step away",
+ "space_directly_ahead": "clear for several steps",
+ "people_nearby": [
+   "ahead to your left, a few steps away:
+    pulling away from you, walking the same
+    way at your pace", "..."]}
+      </code></pre>
+    </div>
+    <div class="stack" style="align-content: start; gap: 22px;">
+      <div class="field">
+        <span class="lbl">Teams poll 3 · which way next?</span>
+        <ul class="checklist" style="gap: 14px;">
+          <li><i class="cb"></i><div><b>Hard left</b></div></li>
+          <li><i class="cb"></i><div><b>Left</b></div></li>
+          <li><i class="cb"></i><div><b>Straight</b></div></li>
+          <li><i class="cb"></i><div><b>Right</b></div></li>
+          <li><i class="cb"></i><div><b>Hard right</b></div></li>
+        </ul>
+      </div>
+      <div class="field fragment">
+        <span class="lbl">Model · jev-1.13.0 · and the measured path</span>
+        <div class="qrows stacked fill-now">
+          <div class="q"><div class="qtext">Straight</div><div class="bar" style="--p:0.85"><div class="fill"></div></div><div class="pval">0.85</div></div>
+        </div>
+        <p class="note" style="margin: 8px 0 0; color: var(--can);">The person did go straight.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">39:45. Launch poll 3. A real state from the Jülich 2013 one-way corridor (5 m wide), trimmed. The model was asked which way the person moves over the next second. The model gets this one right. Ask: is one right answer evidence? The next sheets show 3,000 decisions.</aside>
+</section>
+
+<section data-form="S1-38" data-title="Lab 5 · Physics, squeezed into words">
+  <div class="clip-sheet">
+    <div class="clip-frame">
+      <span class="lbl">Attachment · Motion</span>
+      <video data-autoplay muted playsinline preload="auto" src="media/clip3_bottleneck.mp4"></video>
+    </div>
+    <div class="clip-side">
+      <div class="field"><span class="lbl">Watch for</span><p class="note" style="margin: 0; color: var(--ink);">Spacing, speed and body contact do not survive the translation into a sentence.</p></div>
+      <div class="field plain"><span class="lbl">Note</span><p class="src" style="margin: 0;">Illustrative values, not a model run.</p></div>
+    </div>
+  </div>
+  <aside class="notes">41:45.</aside>
+</section>
+
+<section data-form="S1-39" data-title="Lab 5 · Three thousand decisions later">
+  <div class="cols" style="grid-template-columns: 1.1fr 0.9fr; gap: 40px;">
+    <div class="stack" style="gap: 22px;">
+      <div class="field">
+        <span class="lbl">Direction choice, one-way corridor, 1 s ahead · log loss, lower is better (Paper 3)</span>
+        <table class="ledger">
+          <tbody>
+            <tr class="best"><td>Logistic model on the same words</td><td class="num">0.966</td></tr>
+            <tr><td>Always guess the base rates</td><td class="num">1.410</td></tr>
+            <tr class="worst"><td>Jev 1.13, zero shot</td><td class="num">1.923</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="field">
+        <span class="lbl">Pushing at a bottleneck, four categories · accuracy</span>
+        <table class="ledger">
+          <tbody>
+            <tr class="best"><td>Repeat last second's rating</td><td class="num">0.956</td></tr>
+            <tr><td>Logistic model on the same words</td><td class="num">0.70</td></tr>
+            <tr class="worst"><td>Jev 1.13, zero shot</td><td class="num">0.53</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="stack" style="align-content: center; gap: 26px;">
+      <p class="callout">It says 0.98 and is right less than half the time. It never gets a hard turn right.</p>
+      <p class="note" style="color: var(--ink);">Adding its answers to the simple model improves it by at most 3.12 percent, and makes every pushing task worse.</p>
+      <p class="src">Jülich 2013 corridors and the 2018 Wuppertal bottleneck experiment. About 3,000 decisions per corridor setting, 3,640 rated person-seconds for pushing.</p>
+    </div>
+  </div>
+  <aside class="notes">42:30. Even guessing the base rates beats the zero-shot model on direction. Recall is 0.94 on straight and 0.00 on hard turns. Each question names its horizon in words (next second here). Forecasts of crowd nudging studies were the best of five forecasters on exact band, 0.48, but still overpredict effects and detect null results weakly, AUC 0.64.</aside>
+</section>
+
+<section data-form="S1-40" data-title="Finding · Pedestrian choices">
+  <div class="cols" style="grid-template-columns: 1.15fr 0.85fr;">
+    <div class="stack" style="align-content: center; gap: 36px;">
+      <h2 class="display" style="color: var(--ink); font-size: 76px;">Stand in for a pedestrian. When physics is turned into words, a simple model on the same words wins.</h2>
+      <div class="field">
+        <span class="lbl">Evidence</span>
+        <p class="lead" style="max-width: none; font-size: 30px;">Paper 3. Zero-shot Jev 1.13 on Jülich corridors and a bottleneck experiment. Laya was not tested here.</p>
+      </div>
+    </div>
+    <div class="stack" style="align-content: center;">
+      <div class="field plain stamp-slot"><span class="lbl">Reviewed by</span><div class="stamp cannot fragment" data-verdict="cannot">Cannot</div></div>
+    </div>
+  </div>
+  <aside class="notes">44:30.</aside>
+</section>
+
+<section data-form="S1-41" data-title="Lab 6 · Your domain">
+  <div class="stack" style="height: 100%; align-content: space-between;">
+    <div class="cards4 big">
+      <div class="card"><span class="lbl">Construction <span class="synthetic-tag">Synthetic</span></span><h3>Trench report</h3><p>8 ft excavation at Pier 3, no shoring or trench box. Laborer entered to clear a pump hose.</p><div class="tq">Cave-in hazard described?</div></div>
+      <div class="card"><span class="lbl">Bridges <span class="synthetic-tag">Synthetic</span></span><h3>Inspection note</h3><p>Girder G3, 0.5 mm diagonal crack near the east bearing, rust staining, bearing appears frozen.</p><div class="tq">Needs a site visit before the next cycle?</div></div>
+      <div class="card"><span class="lbl">Water <span class="synthetic-tag">Synthetic</span></span><h3>Main break</h3><p>12-inch cast iron main break near hydrant 44. Roadway undermined and sagging.</p><div class="tq">Hazard to traffic described?</div></div>
+      <div class="card"><span class="lbl">Buildings <span class="synthetic-tag">Synthetic</span></span><h3>Fire report</h3><p>Kitchen fire, four-story apartment. No sprinkler system. One resident treated for smoke.</p><div class="tq">Suppression missing or failed?</div></div>
+    </div>
+    <div class="field" style="display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center;">
+      <span class="lbl">Your turn · Teams chat · press T</span>
+      <p class="big-q" style="font-size: 46px;">Pick a card, or bring a report from your own field. Post one typed question.</p>
+      <div class="countdown" data-seconds="45"><div class="t" style="font-size: 84px;">0:45</div><div class="drain"><i></i></div></div>
+    </div>
+  </div>
+  <aside class="notes">45:00. Press T. Take two chat questions to the next sheet.</aside>
+</section>
+
+<section data-form="S1-42" data-title="Lab 6 · Live run">
+  <div class="live" data-preset="lab6_construction" data-mode="compare" data-extra="1" data-presets="lab6_construction,lab6_bridge,lab6_water,lab6_fire"></div>
+  <aside class="notes">46:30. Use the preset buttons for the four cards, add one chat question, Run both. Recorded runs exist for the four presets. Typical pattern: Jev reads the hazards well; the open checkpoint is right on some questions and wrong on others, which is the Lab 1 lesson again.</aside>
+</section>
+
+<section data-form="S1-43" data-title="Rule card · Before a probability carries a decision">
+  <div class="cols" style="grid-template-columns: 1.1fr 0.9fr;">
+    <div class="field">
+      <span class="lbl">Check every box</span>
+      <ul class="checklist" style="gap: 30px; margin-top: 6px;">
+        <li class="fragment"><i class="cb"></i><div><b>The state is written by people</b><span class="d">Reports, notes, logs. Not physics turned into words.</span></div></li>
+        <li class="fragment"><i class="cb"></i><div><b>Questions are typed and gated</b><span class="d">Fixed options, asked only when they apply.</span></div></li>
+        <li class="fragment"><i class="cb"></i><div><b>This model was tested on your data</b><span class="d">Checkpoint and wording both change answers.</span></div></li>
+        <li class="fragment"><i class="cb"></i><div><b>Calibration is measured</b><span class="d">On held-out human labels, then recalibrated.</span></div></li>
+        <li class="fragment"><i class="cb"></i><div><b>A human review budget is set</b><span class="d">Against human labels, not the coded field.</span></div></li>
+      </ul>
+    </div>
+    <div class="stack" style="align-content: space-between;">
+      <div class="field">
+        <span class="lbl">Tonight's question · share of verdicts</span>
+        <p style="font: 700 40px/1.2 var(--f-display); margin: 0 0 18px;">Can a System 1 model carry a safety decision?</p>
+        <div class="qrows stacked fill-now">
+          <div class="q"><div class="qtext">Can</div><div class="bar" data-share="can" style="--p:0"><div class="fill"></div></div><div class="pval" data-share-v="can">0.00</div></div>
+          <div class="q"><div class="qtext">Cannot</div><div class="bar" data-share="cannot" style="--p:0"><div class="fill"></div></div><div class="pval" data-share-v="cannot">0.00</div></div>
+        </div>
+      </div>
+      <div class="field" style="min-height: 230px;">
+        <span class="lbl">Verdict</span>
+        <p style="font: 800 42px/1.15 var(--f-display); color: var(--maroon); margin: 6px 0 0;">Strong on what people wrote down. Weak where physics is squeezed into words. Never trusted before it is measured.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">49:00. Tick the five boxes one by one. The tally gives three CAN and three CANNOT, so the bars sit at 0.50 each: the answer depends on the conditions on the left.</aside>
+</section>
+
+<section data-form="S1-44" data-title="Take home">
+  <div class="cols" style="grid-template-columns: 1.1fr 0.9fr;">
+    <div class="field">
+      <span class="lbl">The six studies behind tonight · Rafe and Das, 2026</span>
+      <table class="ledger">
+        <tbody>
+          <tr><td class="mono">1</td><td>Calibrated decisions at scale. Crash narratives into calibrated variables.</td></tr>
+          <tr><td class="mono">2</td><td>Pregnancy in crash narratives. A variable no form records.</td></tr>
+          <tr><td class="mono">3</td><td>Calibrated decisions without crowd sense. A boundary study.</td></tr>
+          <tr><td class="mono">4A</td><td>Benchmarking System One models for decision gates.</td></tr>
+          <tr><td class="mono">4B</td><td>A survey and census of System One models.</td></tr>
+          <tr><td class="mono">5</td><td>Estimating uncoded crash factors with Kumo Tabular and Jev.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="stack" style="align-content: start; gap: 24px;">
+      <div class="field">
+        <span class="lbl">Notebook</span>
+        <p class="note" style="margin: 0; color: var(--ink);">The Colab notebook from the chat runs the labs with Laya on a free CPU. No key needed.</p>
+      </div>
+      <div class="field">
+        <span class="lbl">Follow the field</span>
+        <p class="note" style="margin: 0; color: var(--ink);">Decision Index on Hugging Face (multimodalart). EdgeEvals System One. Our benchmark, arXiv 2610.00346.</p>
+      </div>
+      <div class="field">
+        <span class="lbl">Contact</span>
+        <p class="note" style="margin: 0; color: var(--ink);">Amir Rafe, Ph.D.<br>AIT Lab, Ingram School of Engineering<br>Texas State University</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">51:00. Repost the Colab link. Papers are manuscripts; share preprint links only where they exist.</aside>
+</section>
+
+<section data-form="S1-45" data-title="Questions">
+  <div class="cols" style="grid-template-columns: 1.2fr 0.8fr;">
+    <div class="stack" style="align-content: center; gap: 30px;">
+      <h1 class="display" style="font-size: 150px;">Questions</h1>
+      <p class="subtitle">What would you ask a System 1 model in your own work?</p>
+    </div>
+    <div class="stack" style="align-content: center;">
+      <div class="field plain stamp-slot" style="min-height: 320px;"><span class="lbl">Reviewed by</span><div class="stamp can" style="font-size: 72px;">Measured</div></div>
+    </div>
+  </div>
+  <aside class="notes">52:00.</aside>
+</section>
+
+</div>
+</div>
+
+<script src="vendor/reveal/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes.js"></script>
+<script src="vendor/reveal/plugin/highlight.js"></script>
+<script src="js/recorded.js"></script>
+<script src="js/deck.js"></script>
+</body>
+</html>
