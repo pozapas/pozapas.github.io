@@ -13,3 +13,12 @@
       url: "https://colab.research.google.com/github/pozapas/pozapas.github.io/blob/main/static/talks/system1-safety/notebook/system1_workshop.ipynb"
     - label: "Download"
       url: "/talks/system1-safety/system1-safety-lecture.zip"
+- title: "Agentic AI in Civil Engineering"
+  url: "/aicivil.html"
+  image: "/images/tools/agentic-civil.webp"
+  alt: "Agentic AI in Civil Engineering interactive learning page"
+  type: "Lecture · interactive learning page · Spring 2026"
+  description: "Explains AI agents, tools, skills, and civil-engineering applications through an interactive guide."
+  links:
+    - label: "Open the lecture"
+      url: "/aicivil.html"
