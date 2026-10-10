@@ -52,32 +52,25 @@ GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text l
   <aside class="notes">0:00. Welcome. Open on the unfilled form: tonight we fill these two bars with evidence. Every finding gets stamped CAN or CANNOT, and the tally in the top right corner keeps score. By 7:00 the verdict box gets filled.</aside>
 </section>
 
-<section data-form="S1-01" data-title="Primer · Two ways to ask AI for an answer">
+<section data-form="S1-01" data-title="Primer · Same report, two kinds of answer">
   <div class="stack" style="height: 100%; align-content: space-between;">
-    <div class="two">
-      <div class="field">
-        <span class="lbl">Generative model · writes</span>
-        <p class="callout" style="color: var(--ink); font-size: 46px; margin-bottom: 16px;">"The report describes a worker on a scaffold who slipped near a missing guardrail, and the harness..."</p>
-        <ul class="checklist" style="gap: 14px;">
-          <li class="ticked"><i class="cb"></i><div><b>Writes text, word by word</b><span class="d">You parse it, check it, and guess how sure it is.</span></div></li>
-          <li class="ticked"><i class="cb"></i><div><b>Seconds per answer</b><span class="d">Billed for every word it writes.</span></div></li>
-        </ul>
+    <h2 class="display" style="font-size: 92px; color: var(--ink);">Same report. Two kinds of answer.</h2>
+    <div class="duel">
+      <div class="duel-side writes">
+        <span class="lbl">Chat AI · writes</span>
+        <p class="typewriter" data-text="The report describes a worker on a level 3 scaffold who slipped near a section where the east guardrail was missing. The worker's harness appears to have arrested the fall, and no injury is mentioned, although the missing guardrail suggests a fall hazard that the site team should review before work continues on that level…"></p>
+        <div class="duel-meta"><span class="mono" data-wordcount>0 words</span><span>you still have to read it and judge it</span></div>
       </div>
-      <div class="field">
+      <div class="duel-side answers">
         <span class="lbl">Decision model · answers</span>
-        <div class="qrows stacked fill-now" style="margin-bottom: 8px;">
-          <div class="q"><div class="qtext">Fall hazard?<small>P(yes)</small></div><div class="bar" style="--p:0.99"><div class="fill"></div></div><div class="pval">0.99</div></div>
-          <div class="q"><div class="qtext">Anyone injured?<small>P(yes)</small></div><div class="bar" style="--p:0.04"><div class="fill"></div></div><div class="pval">0.04</div></div>
-        </div>
-        <ul class="checklist" style="gap: 14px;">
-          <li class="ticked"><i class="cb"></i><div><b>One probability per option</b><span class="d">Your code compares it with a threshold.</span></div></li>
-          <li class="ticked"><i class="cb"></i><div><b>A fraction of a second</b><span class="d">One pass through the model, nothing to parse.</span></div></li>
-        </ul>
+        <div class="bigbar fill-now"><span class="bq">Fall hazard?</span><div class="bar" style="--p:0.99"><div class="fill"></div></div><span class="bv">0.99</span></div>
+        <div class="bigbar fill-now"><span class="bq">Anyone injured?</span><div class="bar" style="--p:0.04"><div class="fill"></div></div><span class="bv">0.04</span></div>
+        <div class="duel-meta"><span class="mono">0.2 s</span><span>numbers your code can act on</span></div>
       </div>
     </div>
-    <p class="src">Right panel: real Jev 1.13 answers on the synthetic scaffold report used in Lab 1, recorded 10 Oct 2026. Kahneman (2011) calls fast intuitive judgment System 1 and slow deliberate reasoning System 2.</p>
+    <p class="src">Right: real Jev 1.13 answers on the synthetic scaffold report from Lab 1, recorded 10 Oct 2026. Left: a typical chat answer, written for this slide.</p>
   </div>
-  <aside class="notes">0:30. Most of you have used chat AI. It writes. Tonight is about a different kind of model that only answers typed questions with probabilities. The vendors borrowed Kahneman's word for fast judgment, System 1.</aside>
+  <aside class="notes">0:00. Let the left side type out. Most of you use chat AI, and it writes. Tonight is about models that only answer typed questions with probabilities, the right side. The vendors borrowed Kahneman's word for fast judgment: System 1.</aside>
 </section>
 
 <section data-form="S1-02" data-title="Primer · A probability, not a paragraph">
@@ -91,183 +84,178 @@ GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text l
       <div class="field plain"><span class="lbl">Note</span><p class="src" style="margin: 0;">Synthetic report and illustrative values.</p></div>
     </div>
   </div>
-  <aside class="notes">1:30. Let the 20 second clip play without talking over the first ten seconds.</aside>
+  <aside class="notes">1:00. Let the 20 second clip play without talking over the first ten seconds.</aside>
 </section>
 
-<section data-form="S1-03" data-title="Primer · Anatomy of a decision model">
+<section data-form="S1-03" data-title="Primer · How a decision model works">
   <div class="stack" style="height: 100%; align-content: space-between;">
-    <div class="flow">
-      <div class="node"><span class="lbl">1 · State</span><b>The situation</b><span>Text or JSON. A crash narrative, an inspection note, a log.</span></div>
-      <div class="arrow" aria-hidden="true"></div>
-      <div class="node"><span class="lbl">2 · Typed questions</span><b>Declared options</b><span>Yes or no, a choice, or an ordered score.</span></div>
-      <div class="arrow" aria-hidden="true"></div>
-      <div class="node dark"><span class="lbl">3 · One pass</span><b>Decision head</b><span>Scores every option at once. No text generated.</span></div>
-      <div class="arrow" aria-hidden="true"></div>
-      <div class="node"><span class="lbl">4 · Probabilities</span><b>One per option</b><span>Trained to be calibrated: 0.9 should be right nine times in ten.</span></div>
-      <div class="arrow" aria-hidden="true"></div>
-      <div class="node"><span class="lbl">5 · Your policy</span><b>Act, review, escalate</b><span>A threshold in your own code decides.</span></div>
-    </div>
-    <div class="cards4" style="grid-template-columns: repeat(3, 1fr);">
-      <div class="card"><span class="lbl">Primitive · noul</span><h3>Yes or no</h3><p>Returns P(yes). "Does the report describe a fall hazard?"</p></div>
-      <div class="card"><span class="lbl">Primitive · choice</span><h3>Pick one</h3><p>Up to 255 named options, a probability for each.</p></div>
-      <div class="card"><span class="lbl">Primitive · score</span><h3>Ordered levels</h3><p>A probability per level, such as severity 0 to 3.</p></div>
-    </div>
-    <p class="note" style="margin: 0; color: var(--ink);"><b>Definition (our survey, Paper 4B):</b> a typed probabilistic decision model returns a probability distribution over a caller-declared, finite answer space in one forward pass, and promises that the distribution is calibrated.</p>
+    <svg class="pipeline" viewBox="0 0 1760 600" width="100%" role="img" aria-label="A report and typed questions go into a decision model, which returns probabilities that your rule turns into act, review or escalate">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#501214"/></marker>
+      </defs>
+      <!-- 1 report -->
+      <g transform="translate(20,90)">
+        <path class="paper" d="M0 0 H200 L250 50 V330 H0 Z"/><path class="paper-fold" d="M200 0 V50 H250"/>
+        <rect class="ink-line" x="28" y="80" width="190" height="10"/><rect class="ink-line" x="28" y="112" width="170" height="10"/><rect class="ink-line" x="28" y="144" width="190" height="10"/><rect class="ink-line" x="28" y="176" width="120" height="10"/><rect class="ink-line" x="28" y="208" width="180" height="10"/><rect class="ink-line" x="28" y="240" width="150" height="10"/>
+        <text class="step" x="125" y="400" text-anchor="middle">State</text>
+        <text class="sub" x="125" y="440" text-anchor="middle">a report, a log, JSON</text>
+      </g>
+      <!-- 2 questions -->
+      <g transform="translate(340,110)">
+        <g class="tag"><rect x="0" y="0" width="290" height="70" rx="35"/><text x="145" y="46" text-anchor="middle">Fall hazard? y/n</text></g>
+        <g class="tag"><rect x="0" y="100" width="290" height="70" rx="35"/><text x="145" y="146" text-anchor="middle">Severity? 0 to 3</text></g>
+        <g class="tag"><rect x="0" y="200" width="290" height="70" rx="35"/><text x="145" y="246" text-anchor="middle">Which crew? A, B, C</text></g>
+        <text class="step" x="145" y="380" text-anchor="middle">Typed questions</text>
+        <text class="sub" x="145" y="420" text-anchor="middle">options you declare</text>
+      </g>
+      <!-- 3 model -->
+      <g transform="translate(730,120)">
+        <rect class="machine" x="0" y="0" width="300" height="250"/>
+        <path class="bolt" d="M160 50 L110 140 H150 L130 210 L200 110 H158 Z"/>
+        <text class="step" x="150" y="350" text-anchor="middle">Decision model</text>
+        <text class="sub" x="150" y="390" text-anchor="middle">one pass, no text</text>
+      </g>
+      <!-- 4 probabilities -->
+      <g transform="translate(1100,140)">
+        <rect class="pbar-bg" x="0" y="0" width="220" height="44"/><rect class="pbar" x="0" y="0" width="213" height="44"/><text class="pv" x="232" y="32">0.97</text>
+        <rect class="pbar-bg" x="0" y="80" width="220" height="44"/><rect class="pbar" x="0" y="80" width="84" height="44"/><text class="pv" x="232" y="112">0.38</text>
+        <rect class="pbar-bg" x="0" y="160" width="220" height="44"/><rect class="pbar" x="0" y="160" width="35" height="44"/><text class="pv" x="232" y="192">0.16</text>
+        <text class="step" x="125" y="330" text-anchor="middle">Probabilities</text>
+        <text class="sub" x="125" y="370" text-anchor="middle">one per option</text>
+      </g>
+      <!-- 5 your rule -->
+      <g transform="translate(1530,100)">
+        <g class="route act"><rect x="0" y="0" width="220" height="66"/><text x="110" y="44" text-anchor="middle">Act</text></g>
+        <g class="route review"><rect x="0" y="110" width="220" height="66"/><text x="110" y="154" text-anchor="middle">Review</text></g>
+        <g class="route esc"><rect x="0" y="220" width="220" height="66"/><text x="110" y="264" text-anchor="middle">Escalate</text></g>
+        <text class="step" x="110" y="390" text-anchor="middle">Your rule</text>
+        <text class="sub" x="110" y="430" text-anchor="middle">a threshold you set</text>
+      </g>
+      <!-- arrows -->
+      <path class="flowline" d="M282 255 H330" marker-end="url(#ah)"/>
+      <path class="flowline" d="M640 255 H720" marker-end="url(#ah)"/>
+      <path class="flowline" d="M1040 245 H1090" marker-end="url(#ah)"/>
+      <path class="flowline" d="M1432 245 C1475 245 1480 133 1522 133" marker-end="url(#ah)"/>
+      <path class="flowline" d="M1432 245 H1522" marker-end="url(#ah)"/>
+      <path class="flowline" d="M1432 245 C1475 245 1480 353 1522 353" marker-end="url(#ah)"/>
+    </svg>
+    <p class="big-q" style="font-size: 48px; text-align: center;">The model scores. <span style="color: var(--maroon);">Your rule decides.</span></p>
   </div>
-  <aside class="notes">2:00. Walk left to right. The important part is step 5: the model does not decide, your threshold does. Jev was trained with what TypeSafe calls reinforcement learning for calibrated decisions. Whether the promise of calibration holds is Lab 3.</aside>
+  <aside class="notes">2:00. Walk left to right. Step 5 is the important one: the model never decides, a threshold in your own code does. Whether 0.9 really means right nine times in ten is Lab 3.</aside>
 </section>
 
 <section data-form="S1-04" data-title="Primer · Where the idea comes from">
   <div class="stack" style="height: 100%; align-content: space-between;">
-    <svg class="lanes" viewBox="0 0 1760 640" width="100%" role="img" aria-label="Five research lineages converging on typed decision models">
+    <svg class="lanes" viewBox="0 -40 1760 700" width="100%" role="img" aria-label="Five research lineages converging on typed decision models">
       <g class="lane" transform="translate(0,40)">
-        <text class="ln" x="0" y="8">Zero-shot classifiers</text>
-        <line x1="420" y1="0" x2="1380" y2="0"/>
-        <circle cx="560" cy="0" r="10"/><text class="ms" x="560" y="-22">NLI zero-shot</text><text class="yr" x="560" y="42">2019</text>
-        <circle cx="860" cy="0" r="10"/><text class="ms" x="860" y="-22">BART-MNLI</text><text class="yr" x="860" y="42">2020</text>
-        <circle cx="1160" cy="0" r="10"/><text class="ms" x="1160" y="-22">GLiClass</text><text class="yr" x="1160" y="42">2025</text>
+        <text class="ln" x="0" y="10">Zero-shot classifiers</text>
+        <line x1="440" y1="0" x2="1380" y2="0"/>
+        <circle cx="580" cy="0" r="12"/><text class="ms" x="580" y="-24">NLI zero-shot</text><text class="yr" x="580" y="46">2019</text>
+        <circle cx="880" cy="0" r="12"/><text class="ms" x="880" y="-24">BART-MNLI</text><text class="yr" x="880" y="46">2020</text>
+        <circle cx="1180" cy="0" r="12"/><text class="ms" x="1180" y="-24">GLiClass</text><text class="yr" x="1180" y="46">2025</text>
       </g>
       <g class="lane" transform="translate(0,170)">
-        <text class="ln" x="0" y="8">Reward models, judges</text>
-        <line x1="420" y1="0" x2="1380" y2="0"/>
-        <circle cx="560" cy="0" r="10"/><text class="ms" x="560" y="-22">RLHF reward model</text><text class="yr" x="560" y="42">2017</text>
-        <circle cx="860" cy="0" r="10"/><text class="ms" x="860" y="-22">LLM as a judge</text><text class="yr" x="860" y="42">2023</text>
-        <circle cx="1160" cy="0" r="10"/><text class="ms" x="1160" y="-22">RewardBench</text><text class="yr" x="1160" y="42">2025</text>
+        <text class="ln" x="0" y="10">Reward models, judges</text>
+        <line x1="440" y1="0" x2="1380" y2="0"/>
+        <circle cx="580" cy="0" r="12"/><text class="ms" x="580" y="-24">RLHF reward</text><text class="yr" x="580" y="46">2017</text>
+        <circle cx="880" cy="0" r="12"/><text class="ms" x="880" y="-24">LLM as judge</text><text class="yr" x="880" y="46">2023</text>
+        <circle cx="1180" cy="0" r="12"/><text class="ms" x="1180" y="-24">RewardBench</text><text class="yr" x="1180" y="46">2025</text>
       </g>
       <g class="lane" transform="translate(0,300)">
-        <text class="ln" x="0" y="8">Calibration</text>
-        <line x1="420" y1="0" x2="1380" y2="0"/>
-        <circle cx="560" cy="0" r="10"/><text class="ms" x="560" y="-22">Brier score</text><text class="yr" x="560" y="42">1950</text>
-        <circle cx="860" cy="0" r="10"/><text class="ms" x="860" y="-22">Temperature scaling</text><text class="yr" x="860" y="42">2017</text>
-        <circle cx="1160" cy="0" r="10"/><text class="ms" x="1160" y="-22">RL for calibration</text><text class="yr" x="1160" y="42">2025</text>
+        <text class="ln" x="0" y="10">Calibration</text>
+        <line x1="440" y1="0" x2="1380" y2="0"/>
+        <circle cx="580" cy="0" r="12"/><text class="ms" x="580" y="-24">Brier score</text><text class="yr" x="580" y="46">1950</text>
+        <circle cx="880" cy="0" r="12"/><text class="ms" x="880" y="-24">Temperature scaling</text><text class="yr" x="880" y="46">2017</text>
+        <circle cx="1180" cy="0" r="12"/><text class="ms" x="1180" y="-24">RL for calibration</text><text class="yr" x="1180" y="46">2025</text>
       </g>
       <g class="lane" transform="translate(0,430)">
-        <text class="ln" x="0" y="8">Abstain, defer, route</text>
-        <line x1="420" y1="0" x2="1380" y2="0"/>
-        <circle cx="560" cy="0" r="10"/><text class="ms" x="560" y="-22">Chow reject option</text><text class="yr" x="560" y="42">1957</text>
-        <circle cx="860" cy="0" r="10"/><text class="ms" x="860" y="-22">Learning to defer</text><text class="yr" x="860" y="42">2020</text>
-        <circle cx="1160" cy="0" r="10"/><text class="ms" x="1160" y="-22">RouteLLM</text><text class="yr" x="1160" y="42">2024</text>
+        <text class="ln" x="0" y="10">Abstain, defer, route</text>
+        <line x1="440" y1="0" x2="1380" y2="0"/>
+        <circle cx="580" cy="0" r="12"/><text class="ms" x="580" y="-24">Reject option</text><text class="yr" x="580" y="46">1957</text>
+        <circle cx="880" cy="0" r="12"/><text class="ms" x="880" y="-24">Learning to defer</text><text class="yr" x="880" y="46">2020</text>
+        <circle cx="1180" cy="0" r="12"/><text class="ms" x="1180" y="-24">RouteLLM</text><text class="yr" x="1180" y="46">2024</text>
       </g>
       <g class="lane" transform="translate(0,560)">
-        <text class="ln" x="0" y="8">Dual-process theory</text>
-        <line x1="420" y1="0" x2="1380" y2="0"/>
-        <circle cx="560" cy="0" r="10"/><text class="ms" x="560" y="-22">Dual-process review</text><text class="yr" x="560" y="42">2008</text>
-        <circle cx="860" cy="0" r="10"/><text class="ms" x="860" y="-22">Thinking, Fast and Slow</text><text class="yr" x="860" y="42">2011</text>
-        <circle cx="1160" cy="0" r="10"/><text class="ms" x="1160" y="-22">Fast and slow AI agents</text><text class="yr" x="1160" y="42">2021</text>
+        <text class="ln" x="0" y="10">System 1 and 2</text>
+        <line x1="440" y1="0" x2="1380" y2="0"/>
+        <circle cx="580" cy="0" r="12"/><text class="ms" x="580" y="-24">Dual-process theory</text><text class="yr" x="580" y="46">2008</text>
+        <circle cx="880" cy="0" r="12"/><text class="ms" x="880" y="-24">Fast and Slow</text><text class="yr" x="880" y="46">2011</text>
+        <circle cx="1180" cy="0" r="12"/><text class="ms" x="1180" y="-24">Fast and slow AI</text><text class="yr" x="1180" y="46">2021</text>
       </g>
       <path class="join" d="M1380 40 C1470 40 1470 300 1540 300 M1380 170 C1450 170 1470 300 1540 300 M1380 300 L1540 300 M1380 430 C1450 430 1470 300 1540 300 M1380 560 C1470 560 1470 300 1540 300"/>
-      <rect class="hub" x="1540" y="230" width="220" height="140"/>
+      <g class="hubg"><rect class="hub" x="1540" y="222" width="220" height="156"/>
       <text class="hubt" x="1650" y="282" text-anchor="middle">Jev 1.13</text>
-      <text class="hubs" x="1650" y="318" text-anchor="middle">15 Sep 2026</text>
-      <text class="hubs" x="1650" y="350" text-anchor="middle">System One</text>
+      <text class="hubs" x="1650" y="320" text-anchor="middle">15 Sep 2026</text>
+      <text class="hubs" x="1650" y="352" text-anchor="middle">System One</text></g>
     </svg>
-    <p class="src">Five lineages traced in our survey (Paper 4B, genealogy section). Each dot is a milestone named there.</p>
+    <p class="src">Five lineages traced in our survey (Paper 4B). Nothing here is new on its own; Jev put them behind one simple contract.</p>
   </div>
-  <aside class="notes">3:30. One minute. None of this is new on its own: zero-shot classifiers, reward models, calibration, abstain and route, and the System 1 idea itself. What changed on 15 September is that one product combined them behind a simple contract.</aside>
+  <aside class="notes">3:30. One minute. Zero-shot classifiers, reward models, calibration, abstain and route, and the System 1 idea itself. What changed on 15 September is that one product combined them.</aside>
 </section>
 
 <section data-form="S1-05" data-title="Primer · A field that is four weeks old">
-  <div class="stack" style="height: 100%; align-content: space-between;">
-    <table class="ledger tl">
-      <tbody>
-        <tr><td class="mono">15 Sep</td><td class="key">Jev 1.13</td><td>TypeSafe releases the first hosted System One model.</td></tr>
-        <tr><td class="mono">16 to 21 Sep</td><td class="key">Open copies</td><td>decider, Laya, Nimble, Kev, Von, this-that, Decision-1.0 and others.</td></tr>
-        <tr><td class="mono">24 Sep</td><td class="key">Our census</td><td>101 open checkpoints in 67 families, 259 derivatives, 226 repositories (Paper 4B).</td></tr>
-        <tr><td class="mono">29 Sep</td><td class="key">Our benchmark</td><td>Decision models against classifiers and LLMs, arXiv 2610.00346 (Paper 4A).</td></tr>
-        <tr><td class="mono">30 Sep</td><td class="key">Fastino GLiDE</td><td>A "thinking" decision model that reasons longer when the choice is uncertain.</td></tr>
-        <tr><td class="mono">1 Oct</td><td class="key">Cloudflare Clef</td><td>Open weights, Apache 2.0, same API as Jev. Clef-flash also reads images and video.</td></tr>
-        <tr><td class="mono">9 Oct</td><td class="key">Microsoft-Decision-1</td><td>On Microsoft Foundry and OpenRouter, priced like Jev per input token.</td></tr>
-        <tr><td class="mono">10 Oct</td><td class="key">Leaderboards</td><td>Decision Index ranks 117 models. Perplexity, OpenAI, Liquid AI, Upstage and Inception now offer decision models too.</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <aside class="notes">4:30. One minute. The point is speed: four weeks from one product to more than a hundred models, big companies included. A field this young has few safety studies, which is why tonight's six studies matter.</aside>
-</section>
-
-<section data-form="S1-06" data-title="Primer · Who makes them">
-  <div class="stack" style="height: 100%; align-content: space-between;">
-    <table class="ledger">
-      <thead><tr><th>Model</th><th>Maker</th><th>Access</th><th class="num">Size</th><th>Worth knowing</th></tr></thead>
-      <tbody>
-        <tr><td class="key">Jev 1.13</td><td>TypeSafe</td><td>Hosted API</td><td class="num">not disclosed</td><td>The reference everyone compares with</td></tr>
-        <tr><td class="key">Laya</td><td>Convai Innovations</td><td>Open, Apache 2.0</td><td class="num">0.4B</td><td>Runs on a laptop CPU</td></tr>
-        <tr><td class="key">Clef, Clef-flash</td><td>Cloudflare</td><td>Open, Apache 2.0</td><td class="num">28B, 9.7B</td><td>Jev-compatible API, images and video</td></tr>
-        <tr><td class="key">pplx-decider v1.1</td><td>Perplexity</td><td>Weights, gated</td><td class="num">27B</td><td>Top of both leaderboards on 10 Oct</td></tr>
-        <tr><td class="key">GLiDE</td><td>Fastino</td><td>API</td><td class="num">not disclosed</td><td>Thinks longer when unsure</td></tr>
-        <tr><td class="key">Microsoft-Decision-1</td><td>Microsoft</td><td>Foundry, OpenRouter</td><td class="num">9B base</td><td>Released 9 Oct 2026</td></tr>
-        <tr><td class="key">GPT-6 Luna Decisions</td><td>OpenAI</td><td>API</td><td class="num">not disclosed</td><td>Listed on EdgeEvals</td></tr>
-      </tbody>
-    </table>
-    <p class="src">Sources: model cards on Hugging Face, Cloudflare and Fastino launch posts, Microsoft announcement of 9 Oct 2026, EdgeEvals System One page of 10 Oct 2026.</p>
-  </div>
-  <aside class="notes">5:30. Open models matter for agencies and job sites: the data never leaves your machine. Hosted models are easier to start with. Tonight we use one of each, Jev and Laya, because they started the field.</aside>
-</section>
-
-<section data-form="S1-07" data-title="Primer · Which one is best? It depends where you test">
-  <div class="stack" style="height: 100%; align-content: space-between;">
-    <div class="two">
-      <div class="field">
-        <span class="lbl">Decision Index 0.3.1 · 117 models · general</span>
-        <table class="ledger">
-          <tbody>
-            <tr><td>Perplexity Decider v1.1</td><td class="num">62.8</td></tr>
-            <tr><td>Fastino GLiDE</td><td class="num">60.2</td></tr>
-            <tr><td>Jev 1.13</td><td class="num">60.1</td></tr>
-            <tr><td>Cloudflare Clef</td><td class="num">53.1</td></tr>
-            <tr><td>Cloudflare Clef-flash</td><td class="num">47.6</td></tr>
-            <tr class="worst"><td>Laya</td><td class="num">4.4</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="field">
-        <span class="lbl">EdgeEvals · 35 models · clinical</span>
-        <table class="ledger">
-          <tbody>
-            <tr><td>pplx-decider v1.1</td><td class="num">96.1</td></tr>
-            <tr><td>GPT-6 Luna Decisions</td><td class="num">95.2</td></tr>
-            <tr><td>Jev 1.13</td><td class="num">93.9</td></tr>
-            <tr><td>Clef 27B</td><td class="num">92.8</td></tr>
-            <tr><td>Microsoft-Decision-1</td><td class="num">91.3</td></tr>
-            <tr class="worst"><td>Laya</td><td class="num">21.4</td></tr>
-          </tbody>
-        </table>
-      </div>
+  <div class="cols" style="grid-template-columns: 1.2fr 0.8fr; gap: 40px;">
+    <div class="stack" style="align-content: start; gap: 10px;">
+      <p class="hero-num"><span>360</span> open models in nine days</p>
+      <svg id="growth" viewBox="0 0 1000 560" width="100%" role="img" aria-label="Cumulative count of open System One models on Hugging Face from 15 to 24 September 2026"></svg>
+      <p class="src">Open System One checkpoints on Hugging Face by release date, from our census (Paper 4B). Originals are new models; derivatives are copies, conversions and fine-tunes.</p>
     </div>
-    <p class="callout" style="font-size: 42px;">Rankings move every week and change with the domain. Nobody has ranked them on safety decisions, so tonight we test them on safety data ourselves.</p>
-    <p class="src">Both leaderboards as published on 10 Oct 2026. Scores are on each board's own scale. Our benchmark (Paper 4A) adds that a classifier fine-tuned on labels still beats them where labels exist.</p>
+    <div class="photos">
+      <span class="lbl" style="position: static;">Then the big companies arrived</span>
+      <figure class="photo p1" style="--r: -2deg;"><img src="media/shots/glide.webp" alt="Fastino blog post introducing GLiDE"><figcaption><b>30 Sep</b> Fastino GLiDE, a model that thinks longer when unsure</figcaption></figure>
+      <figure class="photo p2" style="--r: 1.5deg;"><img src="media/shots/clef.webp" alt="Cloudflare blog post introducing Clef"><figcaption><b>1 Oct</b> Cloudflare Clef, open weights</figcaption></figure>
+      <figure class="photo p3" style="--r: -1deg;"><img src="media/shots/msft.webp" alt="Microsoft announcement of Microsoft-Decision-1"><figcaption><b>9 Oct</b> Microsoft-Decision-1</figcaption></figure>
+    </div>
   </div>
-  <aside class="notes">6:15. Point at Laya: near the bottom on both boards. Keep that in mind for Lab 1. The board scales differ, so compare ranks within a board, not numbers across boards.</aside>
+  <aside class="notes">4:30. One minute. Jev appeared on 15 September; nine days later there were 101 new open models and 259 copies. Then Fastino, Cloudflare and Microsoft released their own. Perplexity, OpenAI, Liquid AI, Upstage and Inception also have decision models by now.</aside>
+</section>
+
+<section data-form="S1-06" data-title="Primer · 117 models on one leaderboard">
+  <div class="cols" style="grid-template-columns: 1.3fr 0.7fr; gap: 40px;">
+    <div class="stack" style="align-content: start; gap: 8px;">
+      <svg id="scatter" viewBox="0 0 1100 700" width="100%" role="img" aria-label="Decision Index score against model size for 117 models"></svg>
+    </div>
+    <div class="stack" style="align-content: center; gap: 28px;">
+      <figure class="photo" style="--r: 1.5deg; margin: 0;"><img src="media/shots/dindex.webp" alt="Decision Index 0.3.1 leaderboard page"><figcaption><b>Decision Index 0.3.1</b> · 10 Oct 2026</figcaption></figure>
+      <div class="legend" style="flex-direction: column; gap: 14px; align-items: start;">
+        <span><i style="background: var(--gold-fill);"></i>open weights</span>
+        <span><i style="background: var(--paper); border-color: var(--maroon);"></i>weights not public</span>
+        <span><i style="background: transparent; border: 0; border-top: 4px dashed var(--maroon); height: 0; width: 26px;"></i>Jev, size not disclosed</span>
+      </div>
+      <p class="callout" style="font-size: 40px;">Big open models now reach Jev. Small ones, like Laya, are far behind.</p>
+    </div>
+  </div>
+  <aside class="notes">5:30. Each dot is one model. Up is better, right is bigger. Point at Laya at the bottom left: 0.4 billion parameters, score 4.4. Keep that in mind for Lab 1.</aside>
+</section>
+
+<section data-form="S1-07" data-title="Primer · Two leaderboards, no safety one">
+  <div class="cols" style="grid-template-columns: 1.15fr 0.85fr; gap: 40px;">
+    <svg id="slope" viewBox="0 0 1000 720" width="100%" role="img" aria-label="Scores of fourteen models on a general leaderboard and a clinical leaderboard"></svg>
+    <div class="stack" style="align-content: center; gap: 30px;">
+      <figure class="photo" style="--r: -1.5deg; margin: 0;"><img src="media/shots/edge.webp" alt="EdgeEvals System One clinical leaderboard"><figcaption><b>EdgeEvals System One</b> · 669 clinical decisions</figcaption></figure>
+      <p class="callout" style="font-size: 42px;">Both boards put the same models near the top. Neither tests safety decisions.</p>
+      <p class="note" style="margin: 0; color: var(--ink);">So tonight we test them on safety data ourselves.</p>
+    </div>
+  </div>
+  <aside class="notes">6:15. Lines connect the same model on both boards; the scales differ, so read the order, not the numbers. The order mostly holds. The gap that matters for us: no board has safety decisions.</aside>
 </section>
 
 <section data-form="S1-08" data-title="Primer · What they are used for">
-  <div class="cols" style="grid-template-columns: 1fr 1fr;">
-    <div class="stack" style="align-content: center; gap: 24px;">
-      <div class="field">
-        <span class="lbl">Uses named by the makers and the studies</span>
-        <table class="ledger">
-          <tbody>
-            <tr><td class="key">Route</td><td>Send a request to the right team or model</td></tr>
-            <tr><td class="key">Guard</td><td>Block an unsafe action by an AI agent</td></tr>
-            <tr><td class="key">Verify</td><td>Check another model's answer</td></tr>
-            <tr><td class="key">Triage</td><td>Rank alerts and tickets by urgency</td></tr>
-            <tr><td class="key">Code</td><td>Turn documents into variables at scale</td></tr>
-          </tbody>
-        </table>
-      </div>
+  <div class="stack" style="height: 100%; align-content: space-between;">
+    <div class="uses">
+      <div class="use"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M14 50 H44 M44 50 C60 50 60 22 82 22 M44 50 H82 M44 50 C60 50 60 78 82 78" /><path d="M74 14 L84 22 L74 30 M74 42 L84 50 L74 58 M74 70 L84 78 L74 86" /></svg><b>Route</b><span>send a defect note to the right crew</span></div>
+      <div class="use"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 10 L84 22 V48 C84 70 68 84 50 92 C32 84 16 70 16 48 V22 Z"/><path d="M36 50 L47 61 L66 40"/></svg><b>Guard</b><span>stop an AI agent's unsafe action</span></div>
+      <div class="use"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="42" cy="42" r="26"/><path d="M61 61 L86 86"/><path d="M30 42 L39 51 L55 34"/></svg><b>Verify</b><span>check another model's answer</span></div>
+      <div class="use"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M16 80 H84"/><rect x="22" y="22" width="14" height="58"/><rect x="44" y="40" width="14" height="40"/><rect x="66" y="58" width="14" height="22"/></svg><b>Triage</b><span>rank bridge alarms by urgency</span></div>
+      <div class="use"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M14 12 H46 L56 22 V88 H14 Z"/><path d="M22 34 H46 M22 46 H46 M22 58 H40"/><path d="M60 50 H70"/><path d="M66 44 L74 50 L66 56"/><rect x="74" y="30" width="16" height="40"/><path d="M74 43 H90 M74 56 H90"/></svg><b>Code</b><span>turn crash reports into variables</span></div>
     </div>
-    <div class="stack" style="align-content: center; gap: 30px;">
-      <div class="field">
-        <span class="lbl">In civil engineering safety, for example</span>
-        <p class="note" style="margin: 0; color: var(--ink);">Reading crash and incident reports. Triaging bridge and sensor alarms. Screening inspection notes. Checking a design change an AI assistant proposes.</p>
-      </div>
-      <div class="field" style="background: var(--maroon); border-color: var(--maroon);">
-        <span class="lbl" style="color: var(--gold-fill);">Tonight's question</span>
-        <p style="font: 800 52px/1.12 var(--f-display); color: var(--paper); margin: 0;">Can a System 1 model carry a safety decision?</p>
-        <p class="note" style="margin: 16px 0 0; color: var(--paper-field);">Seven short labs, each one a test. You predict first.</p>
-      </div>
+    <div class="question-card">
+      <span class="lbl">Tonight's question</span>
+      <p>Can a System 1 model carry a safety decision?</p>
+      <span class="qc-sub">Seven short labs. You predict first, every time.</span>
     </div>
   </div>
-  <aside class="notes">7:15. Bridge to the labs. Read the question on the maroon card, then move to the next sheet, which explains how every lab works.</aside>
+  <aside class="notes">7:15. Read the five uses quickly, then the question on the maroon card. That is the bridge into the labs: next sheet explains how every lab runs.</aside>
 </section>
 
 <section data-form="S1-09" data-title="How this hour works">
@@ -1129,5 +1117,7 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
 <script src="vendor/reveal/plugin/highlight.js"></script>
 <script src="js/recorded.js"></script>
 <script src="js/deck.js"></script>
+<script src="js/di.js"></script>
+<script src="js/primer.js"></script>
 </body>
 </html>
