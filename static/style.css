@@ -411,7 +411,8 @@ iframe:focus-visible {
 }
 
 #tools > .member-section-heading,
-#papers > .member-section-heading {
+#papers > .member-section-heading,
+#talks > .member-section-heading {
   margin-bottom: 26px;
 }
 
