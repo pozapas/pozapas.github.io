@@ -30,5 +30,5 @@ The four September and October 2026 arXiv papers added on October 11 use:
 
 - `kumo-jev-crash-factors.webp`
 - `system-one-decision-benchmark.webp`
-- `pregnancy-crash-narratives.webp`
-- `jev-crash-narratives.webp`
+- `pregnancy-crash-narratives-page2.webp`
+- `jev-crash-narratives-page2.webp`

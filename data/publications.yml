@@ -126,7 +126,7 @@
   year: 2026
   doi: "https://doi.org/10.48550/arXiv.2610.00213"
   pdf: "https://arxiv.org/pdf/2610.00213"
-  thumbnail: "/images/publications/pregnancy-crash-narratives.webp"
+  thumbnail: "/images/publications/pregnancy-crash-narratives-page2.webp"
   citation: "Rafe, A., and Das, S. (2026). Counting the Uncounted: Population-Level Surveillance of Documented Pregnancy and Fetal Harm in Police Crash Narratives with a System One Model (Jev). arXiv:2610.00213. https://doi.org/10.48550/arXiv.2610.00213"
 
 - title: "Calibrated Decisions at Scale: Converting Police Crash Narratives into Probabilistic Crash Variables with a System One Model (Jev)"
@@ -135,7 +135,7 @@
   year: 2026
   doi: "https://doi.org/10.48550/arXiv.2609.24052"
   pdf: "https://arxiv.org/pdf/2609.24052"
-  thumbnail: "/images/publications/jev-crash-narratives.webp"
+  thumbnail: "/images/publications/jev-crash-narratives-page2.webp"
   citation: "Rafe, A., and Das, S. (2026). Calibrated Decisions at Scale: Converting Police Crash Narratives into Probabilistic Crash Variables with a System One Model (Jev). arXiv:2609.24052. https://doi.org/10.48550/arXiv.2609.24052"
 
 - title: "Who Bears the Risk When Generative AI Enters Transport? A Distributional Sociotechnical Audit of Algorithmic Equity, Synthetic-Data Validity, and Public Trust"
