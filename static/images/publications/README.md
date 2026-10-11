@@ -12,7 +12,7 @@ The portfolio includes only selected papers that have both a paper link and a re
 
 ## Current image set
 
-All 19 selected papers have first-page images. The six images added from the September 13 screenshot folder are:
+All 23 selected papers have first-page images. The six images added from the September 13 screenshot folder are:
 
 - `generalized-probit-stacking-tabnet.webp`
 - `pedestrian-dynamics-societal-behaviors.webp`
@@ -25,3 +25,10 @@ The two September 2026 arXiv papers use:
 
 - `transport-genai-sociotechnical-audit.webp`
 - `trustworthy-crash-severity-certification.webp`
+
+The four September and October 2026 arXiv papers added on October 11 use:
+
+- `kumo-jev-crash-factors.webp`
+- `system-one-decision-benchmark.webp`
+- `pregnancy-crash-narratives.webp`
+- `jev-crash-narratives.webp`

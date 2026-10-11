@@ -102,6 +102,42 @@
 
 # arXiv and SSRN preprints — newest first
 
+- title: "Estimating Uncoded Crash Factors with Tabular Foundation and System One Models: Kumo Tabular and Jev"
+  authors: "Amir Rafe and Subasish Das"
+  venue: "arXiv preprint"
+  year: 2026
+  doi: "https://doi.org/10.48550/arXiv.2610.10321"
+  pdf: "https://arxiv.org/pdf/2610.10321"
+  thumbnail: "/images/publications/kumo-jev-crash-factors.webp"
+  citation: "Rafe, A., and Das, S. (2026). Estimating Uncoded Crash Factors with Tabular Foundation and System One Models: Kumo Tabular and Jev. arXiv:2610.10321. https://doi.org/10.48550/arXiv.2610.10321"
+
+- title: "Benchmarking System One decision models against trained classifiers and language models for automated decision gates"
+  authors: "Amir Rafe and Subasish Das"
+  venue: "arXiv preprint"
+  year: 2026
+  doi: "https://doi.org/10.48550/arXiv.2610.00346"
+  pdf: "https://arxiv.org/pdf/2610.00346"
+  thumbnail: "/images/publications/system-one-decision-benchmark.webp"
+  citation: "Rafe, A., and Das, S. (2026). Benchmarking System One decision models against trained classifiers and language models for automated decision gates. arXiv:2610.00346. https://doi.org/10.48550/arXiv.2610.00346"
+
+- title: "Counting the Uncounted: Population-Level Surveillance of Documented Pregnancy and Fetal Harm in Police Crash Narratives with a System One Model (Jev)"
+  authors: "Amir Rafe and Subasish Das"
+  venue: "arXiv preprint"
+  year: 2026
+  doi: "https://doi.org/10.48550/arXiv.2610.00213"
+  pdf: "https://arxiv.org/pdf/2610.00213"
+  thumbnail: "/images/publications/pregnancy-crash-narratives.webp"
+  citation: "Rafe, A., and Das, S. (2026). Counting the Uncounted: Population-Level Surveillance of Documented Pregnancy and Fetal Harm in Police Crash Narratives with a System One Model (Jev). arXiv:2610.00213. https://doi.org/10.48550/arXiv.2610.00213"
+
+- title: "Calibrated Decisions at Scale: Converting Police Crash Narratives into Probabilistic Crash Variables with a System One Model (Jev)"
+  authors: "Amir Rafe and Subasish Das"
+  venue: "arXiv preprint"
+  year: 2026
+  doi: "https://doi.org/10.48550/arXiv.2609.24052"
+  pdf: "https://arxiv.org/pdf/2609.24052"
+  thumbnail: "/images/publications/jev-crash-narratives.webp"
+  citation: "Rafe, A., and Das, S. (2026). Calibrated Decisions at Scale: Converting Police Crash Narratives into Probabilistic Crash Variables with a System One Model (Jev). arXiv:2609.24052. https://doi.org/10.48550/arXiv.2609.24052"
+
 - title: "Who Bears the Risk When Generative AI Enters Transport? A Distributional Sociotechnical Audit of Algorithmic Equity, Synthetic-Data Validity, and Public Trust"
   authors: "Amir Rafe and Subasish Das"
   venue: "arXiv preprint"
