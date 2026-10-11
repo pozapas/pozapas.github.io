@@ -150,11 +150,11 @@
       <div class="project-grid" role="list">
         {{ range hugo.Data.talks }}
         <article class="project-card" role="listitem">
-          <a class="project-image-link" href="{{ .url | relURL }}">
+          <a class="project-image-link" href="{{ if hasPrefix .url "http" }}{{ .url }}{{ else }}{{ .url | relURL }}{{ end }}"{{ if hasPrefix .url "http" }} target="_blank" rel="noreferrer"{{ end }}>
             <img src="{{ .image | relURL }}" alt="{{ .alt }}" loading="lazy" width="1280" height="768">
           </a>
           <div class="project-info">
-            <h3><a href="{{ .url | relURL }}">{{ .title }}</a></h3>
+            <h3><a href="{{ if hasPrefix .url "http" }}{{ .url }}{{ else }}{{ .url | relURL }}{{ end }}"{{ if hasPrefix .url "http" }} target="_blank" rel="noreferrer"{{ end }}>{{ .title }}</a></h3>
             <p>{{ .type }}</p>
             <div class="publication-actions">
               {{ range .links }}

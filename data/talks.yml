@@ -22,3 +22,21 @@
   links:
     - label: "Open the lecture"
       url: "/aicivil.html"
+- title: "Causal Inference for Crowd Management: From Observation to Intervention"
+  url: "https://docs.google.com/presentation/d/1qWPYEeY5GOxLdeo6YjAo7MCPOLKIBGEy/edit?usp=sharing&ouid=109333519115712226261&rtpof=true&sd=true"
+  image: "/images/talks/causal-inference-crowd-management.webp"
+  alt: "Title slide for Causal Inference for Crowd Management: From Observation to Intervention"
+  type: "Presentation · Utah State University · 2025"
+  description: "Introduces causal reasoning for crowd analysis and the transition from observation to intervention."
+  links:
+    - label: "Google Slides"
+      url: "https://docs.google.com/presentation/d/1qWPYEeY5GOxLdeo6YjAo7MCPOLKIBGEy/edit?usp=sharing&ouid=109333519115712226261&rtpof=true&sd=true"
+- title: "Leveraging AI in Pedestrian Studies: Advancing from Data Collection to Strategic Planning"
+  url: "https://docs.google.com/presentation/d/1WGvOv_zWHba_mRuhBueLndH7axZfVh3M/edit?usp=sharing&ouid=109333519115712226261&rtpof=true&sd=true"
+  image: "/images/talks/ai-pedestrian-studies.webp"
+  alt: "Title slide for Leveraging AI in Pedestrian Studies: Advancing from Data Collection to Strategic Planning"
+  type: "Presentation · Utah State University · February 2025"
+  description: "Explores how AI can support pedestrian data collection, analysis, and strategic planning."
+  links:
+    - label: "Google Slides"
+      url: "https://docs.google.com/presentation/d/1WGvOv_zWHba_mRuhBueLndH7axZfVh3M/edit?usp=sharing&ouid=109333519115712226261&rtpof=true&sd=true"
