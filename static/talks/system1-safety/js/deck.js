@@ -239,7 +239,7 @@
       runnerUp = r.ok;
     } catch (e) { runnerUp = false; }
     document.querySelectorAll(".live .runner-flag").forEach((el) => {
-      el.textContent = runnerUp ? "Runner live on this laptop" : "Runner off · recorded runs";
+      el.textContent = runnerUp ? "Runner live on this computer" : "Runner off · recorded runs";
       el.parentElement.classList.toggle("on", runnerUp);
     });
   }
@@ -280,7 +280,7 @@
         "</div>" +
       "</div>" +
       '<div class="stack" style="gap: 18px; align-content: start;">' +
-        '<div class="field res"><span class="lbl">Laya 0.4.2 · open weights · this laptop</span><div class="rows" data-m="laya"></div><div class="run-meta" data-meta="laya"></div>' +
+        '<div class="field res"><span class="lbl">Laya 0.4.2 · open weights · this computer</span><div class="rows" data-m="laya"></div><div class="run-meta" data-meta="laya"></div>' +
           (el.dataset.criteriaNote ? '<p class="note fragment" style="margin: 10px 0 0; color: var(--ink);">With plain yes and no descriptions added to each question, Laya moves to 0.37, 0.77 and 0.65. Wording changes the answer.</p>' : "") +
         "</div>" +
         '<div class="field res"><span class="lbl">Jev 1.13 · TypeSafe API</span><div class="rows" data-m="jev"></div><div class="run-meta" data-meta="jev"></div></div>' +
@@ -338,9 +338,12 @@
         const p = PRESETS[key];
         const answers = {};
         if (rec && state === p.state.trim()) {
+          const norm = (t) => t.toLowerCase().replace(/[^a-z0-9 ]/g, "").trim();
+          const sug = (RECORDED[key] && RECORDED[key].suggested) || {};
           questions.forEach((q) => {
             const orig = p.questions.find((o) => o.id === q.id);
             if (orig && orig.instructions === q.instructions && rec.answers[q.id]) answers[q.id] = rec.answers[q.id];
+            else if (sug[norm(q.instructions)]) answers[q.id] = sug[norm(q.instructions)][model];
           });
           how = how || ("recorded run · 10 Oct 2026 · " + (model === "jev" ? "jev-1.13.0" : "laya 0.4.2") + " · " + rec.latency_ms + " ms");
         } else {
@@ -358,6 +361,22 @@
     }));
     el.querySelectorAll(".presets .btn").forEach((b) => b.addEventListener("click", () => load(b.dataset.k)));
     load(key);
+  }
+
+  /* ---------- presenter motion switch (key M) ---------- */
+
+  const root = document.documentElement;
+  try { if (localStorage.getItem("deck-motion") === "on") root.classList.add("motion-on"); } catch (e) {}
+  if (/motion=on/.test(location.search)) root.classList.add("motion-on");
+  const toast = document.createElement("div");
+  toast.className = "motion-toast";
+  document.body.appendChild(toast);
+  function toggleMotion() {
+    const on = root.classList.toggle("motion-on");
+    try { localStorage.setItem("deck-motion", on ? "on" : "off"); } catch (e) {}
+    toast.textContent = on ? "Full animation on" : "Animation follows the system setting";
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 1600);
   }
 
   /* ---------- boot ---------- */
@@ -378,7 +397,7 @@
     transitionSpeed: "fast",
     backgroundTransition: "none",
     pdfSeparateFragments: false,
-    keyboard: { 84: toggleCountdown },
+    keyboard: { 84: toggleCountdown, 77: toggleMotion },
     plugins: [RevealHighlight, RevealNotes]
   }).then(() => {
     initInstrument();

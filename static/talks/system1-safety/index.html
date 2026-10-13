@@ -6,17 +6,9 @@
 <title>System 1 Models in Safety Research</title>
 <link rel="stylesheet" href="vendor/fonts/fonts.css">
 <link rel="stylesheet" href="vendor/reveal/reveal.css">
-<link rel="stylesheet" href="css/form.css">
+<link rel="stylesheet" href="css/form.css?v=1013b">
 </head>
 <body>
-<!--
-DIRECTION CONTRACT (seed 3ddd3ecf, assigned)
-WORLD: an incident report pad. Every slide is one sheet: maroon-ruled fields on cream stock, form numbers, a verdict tally in the header.
-FIRST VIEWPORT: the cover sheet shows tonight's question as an unfilled form, two empty probability bars and an empty verdict box, to be filled by 7:00 PM.
-MECHANISM: typed questions are form fields; the model fills them with probability bars; findings land as CAN or CANNOT rubber stamps.
-MOTION: the stamp is the one authored moment; bars fill with ink, checkboxes tick, tally marks accrue. Slow enough for a Teams stream.
-GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text labeled, no CRIS narrative without redaction and a manual read.
--->
 <div class="reveal">
 <div class="slides">
 
@@ -49,7 +41,6 @@ GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text l
       </div>
     </div>
   </div>
-  <aside class="notes">0:00. Welcome. Open on the unfilled form: tonight we fill these two bars with evidence. Every finding gets stamped CAN or CANNOT, and the tally in the top right corner keeps score. By 7:00 the verdict box gets filled.</aside>
 </section>
 
 <section data-form="S1-01" data-title="Primer · Same report, two kinds of answer">
@@ -70,7 +61,6 @@ GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text l
     </div>
     <p class="src">Right: real Jev 1.13 answers on the synthetic scaffold report from Lab 1, recorded 10 Oct 2026. Left: a typical chat answer, written for this slide.</p>
   </div>
-  <aside class="notes">0:00. Let the left side type out. Most of you use chat AI, and it writes. Tonight is about models that only answer typed questions with probabilities, the right side. The vendors borrowed Kahneman's word for fast judgment: System 1.</aside>
 </section>
 
 <section data-form="S1-02" data-title="Primer · A probability, not a paragraph">
@@ -84,7 +74,6 @@ GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text l
       <div class="field plain"><span class="lbl">Note</span><p class="src" style="margin: 0;">Synthetic report and illustrative values.</p></div>
     </div>
   </div>
-  <aside class="notes">1:00. Let the 20 second clip play without talking over the first ten seconds.</aside>
 </section>
 
 <section data-form="S1-03" data-title="Primer · How a decision model works">
@@ -141,7 +130,6 @@ GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text l
     </svg>
     <p class="big-q" style="font-size: 48px; text-align: center;">The model scores. <span style="color: var(--maroon);">Your rule decides.</span></p>
   </div>
-  <aside class="notes">2:00. Walk left to right. Step 5 is the important one: the model never decides, a threshold in your own code does. Whether 0.9 really means right nine times in ten is Lab 3.</aside>
 </section>
 
 <section data-form="S1-04" data-title="Primer · Where the idea comes from">
@@ -190,7 +178,6 @@ GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text l
     </svg>
     <p class="src">Five lineages traced in our survey (Paper 4B). Nothing here is new on its own; Jev put them behind one simple contract.</p>
   </div>
-  <aside class="notes">3:30. One minute. Zero-shot classifiers, reward models, calibration, abstain and route, and the System 1 idea itself. What changed on 15 September is that one product combined them.</aside>
 </section>
 
 <section data-form="S1-05" data-title="Primer · A field that is four weeks old">
@@ -207,7 +194,6 @@ GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text l
       <figure class="photo p3" style="--r: -1deg;"><img src="media/shots/msft.webp" alt="Microsoft announcement of Microsoft-Decision-1"><figcaption><b>9 Oct</b> Microsoft-Decision-1</figcaption></figure>
     </div>
   </div>
-  <aside class="notes">4:30. One minute. Jev appeared on 15 September; nine days later there were 101 new open models and 259 copies. Then Fastino, Cloudflare and Microsoft released their own. Perplexity, OpenAI, Liquid AI, Upstage and Inception also have decision models by now.</aside>
 </section>
 
 <section data-form="S1-06" data-title="Primer · 117 models on one leaderboard">
@@ -225,7 +211,6 @@ GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text l
       <p class="callout" style="font-size: 40px;">Big open models now reach Jev. Small ones, like Laya, are far behind.</p>
     </div>
   </div>
-  <aside class="notes">5:30. Each dot is one model. Up is better, right is bigger. Point at Laya at the bottom left: 0.4 billion parameters, score 4.4. Keep that in mind for Lab 1.</aside>
 </section>
 
 <section data-form="S1-07" data-title="Primer · Two leaderboards, no safety one">
@@ -237,7 +222,6 @@ GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text l
       <p class="note" style="margin: 0; color: var(--ink);">So tonight we test them on safety data ourselves.</p>
     </div>
   </div>
-  <aside class="notes">6:15. Lines connect the same model on both boards; the scales differ, so read the order, not the numbers. The order mostly holds. The gap that matters for us: no board has safety decisions.</aside>
 </section>
 
 <section data-form="S1-08" data-title="Primer · What they are used for">
@@ -255,7 +239,6 @@ GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text l
       <span class="qc-sub">Seven short labs. You predict first, every time.</span>
     </div>
   </div>
-  <aside class="notes">7:15. Read the five uses quickly, then the question on the maroon card. That is the bridge into the labs: next sheet explains how every lab runs.</aside>
 </section>
 
 <section data-form="S1-09" data-title="How this hour works">
@@ -280,7 +263,6 @@ GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text l
       </div>
     </div>
   </div>
-  <aside class="notes">8:00. Explain the routine once. Drop the Colab link in the chat now and say it is optional; everything works for people who only watch. Ask everyone to keep the chat open.</aside>
 </section>
 
 <section data-form="S1-10" data-title="Lab 0 · Your own System 1">
@@ -303,7 +285,6 @@ GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text l
       </div>
     </div>
   </div>
-  <aside class="notes">8:45. Read it once, press T for the 20 second timer. Read five or six chat answers aloud and point out the spread on weather. Do not reveal the model yet.</aside>
 </section>
 
 <section data-form="S1-11" data-title="Lab 0 · What you just did">
@@ -324,7 +305,6 @@ GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text l
       <p class="note fragment">Compare with the chat. Where did the class disagree most?</p>
     </div>
   </div>
-  <aside class="notes">10:15. Reveal the two bars one at a time. Usually the class agrees on distraction and splits on weather; the model also hedges on weather. The point is the output format: a probability per question, no paragraph.</aside>
 </section>
 
 <section data-form="S1-12" data-title="Lab 1 · Anatomy of one call">
@@ -338,7 +318,7 @@ GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text l
       <div class="field">
         <span class="lbl">Procedure</span>
         <ul class="checklist">
-          <li class="fragment"><i class="cb"></i><div><b>Predict</b><span class="d">Will an open laptop model agree with the hosted one?</span></div></li>
+          <li class="fragment"><i class="cb"></i><div><b>Predict</b><span class="d">Will an open model on a regular computer agree with the hosted one?</span></div></li>
           <li class="fragment"><i class="cb"></i><div><b>Run</b><span class="d">The same three questions go to Laya and to Jev.</span></div></li>
           <li class="fragment"><i class="cb"></i><div><b>Reveal</b><span class="d">We compare the answers with what the report says.</span></div></li>
         </ul>
@@ -350,7 +330,6 @@ GUARDS: text and code at 28 px or larger, AA contrast on cream, synthetic text l
       </div>
     </div>
   </div>
-  <aside class="notes">11:15.</aside>
 </section>
 
 <section data-form="S1-13" data-title="Lab 1 · The call, in Python">
@@ -377,7 +356,7 @@ result = router.predict(state, questions)
       </code></pre>
     </div>
     <div class="stack" style="align-content: start; gap: 26px;">
-      <div class="run-status"><i></i>Recorded run · laptop CPU · 0.17 s</div>
+      <div class="run-status"><i></i>Recorded run · 0.17 s</div>
       <div class="field">
         <span class="lbl">Response · Laya default checkpoint</span>
         <div class="qrows stacked">
@@ -389,12 +368,10 @@ result = router.predict(state, questions)
       <p class="note fragment">Read the report again. Which of these three is wrong?</p>
     </div>
   </div>
-  <aside class="notes">11:45. Step through the code with the arrow key: import, state, typed questions, the call. Then the three bars. The guardrail is missing and the report says no injury, so 0.22 on fall hazard and 0.55 on injury are both wrong. Ask the chat before saying so. These are real values, laya 0.4.2 default checkpoint, 10 Oct 2026.</aside>
 </section>
 
 <section data-form="S1-14" data-title="Lab 1 · Same request, two models">
-  <div class="live" data-preset="lab1_scaffold" data-mode="compare" data-criteria-note="1"></div>
-  <aside class="notes">13:45. If the runner is up, press Run both to show it is live; otherwise the recorded run appears and is labeled as recorded. Jev: about 0.98, 0.9 and 0.04 (live values move by a point or two between runs). The open model is not wrong everywhere, but on this report it is. Then point at the note under Laya: adding plain yes and no descriptions moves it to 0.37, 0.77, 0.65, still wrong on injury. Wording matters a lot for this checkpoint.</aside>
+  <div class="live" data-preset="lab1_scaffold" data-mode="compare" data-extra="1" data-criteria-note="1"></div>
 </section>
 
 <section data-form="S1-15" data-title="Lab 1 · What the benchmark says">
@@ -428,7 +405,6 @@ result = router.predict(state, questions)
       <p class="src">Paper 4A, eight decision checkpoints in six families plus four open generative models and four classifier baselines, eight datasets.</p>
     </div>
   </div>
-  <aside class="notes">15:45. The flip test is the cleanest way to show wording sensitivity: same content, only the option labels swapped. Laya flips 91 of 100 answers. That explains what we just saw on the scaffold report.</aside>
 </section>
 
 <section data-form="S1-16" data-title="Lab 1 · Verdict">
@@ -442,7 +418,6 @@ result = router.predict(state, questions)
       <div class="field plain stamp-slot" style="min-height: 250px;"><span class="lbl">Reviewed by</span><div class="stamp cannot fragment" data-verdict="cannot">Cannot</div></div>
     </div>
   </div>
-  <aside class="notes">16:45. Two stamps. The tally now reads one and one.</aside>
 </section>
 
 <section data-form="S1-17" data-title="Lab 2 · Design the schema">
@@ -468,7 +443,6 @@ result = router.predict(state, questions)
       </div>
     </div>
   </div>
-  <aside class="notes">17:15.</aside>
 </section>
 
 <section data-form="S1-18" data-title="Lab 2 · Write a typed question">
@@ -488,7 +462,6 @@ result = router.predict(state, questions)
       <div class="countdown" data-seconds="60"><div class="t" style="font-size: 84px;">1:00</div><div class="drain"><i></i></div></div>
     </div>
   </div>
-  <aside class="notes">17:45. Press T for 60 seconds. Pick two or three chat questions to paste into the live form two sheets from now. Good ones are answerable from the text; steer away from counting and dates, which these models do poorly.</aside>
 </section>
 
 <section data-form="S1-19" data-title="Lab 2 · Gates: ask only when it applies">
@@ -502,7 +475,6 @@ result = router.predict(state, questions)
       <div class="field"><span class="lbl">Why gate</span><p class="note" style="margin: 0; color: var(--ink);">Fewer questions per report, and no detail asked of reports where it cannot apply.</p></div>
     </div>
   </div>
-  <aside class="notes">19:15.</aside>
 </section>
 
 <section data-form="S1-20" data-title="Lab 2 · A real schema, Paper 1">
@@ -544,12 +516,10 @@ result = router.predict(state, questions)
       <p class="src">Instruction text shortened for the slide. Variables include medical episode, drugs, alcohol, hydroplaning, vehicle defect, fatigue, aggression, phone use, wrong way, animal, pregnancy.</p>
     </div>
   </div>
-  <aside class="notes">20:00. The schema is just JSON. Instructions are the analyst's definition; criteria name the options. Gates keep the detailed questions off reports where they cannot apply.</aside>
 </section>
 
 <section data-form="S1-21" data-title="Lab 2 · Run the class schema">
   <div class="live" data-preset="lab2_schema" data-mode="compare" data-extra="2"></div>
-  <aside class="notes">21:15. Paste two chat questions into the empty rows, then Run both. If the runner is off, the three preset questions show their recorded answers; new questions need the runner. Note that both models agree on the medical episode here. Then move on.</aside>
 </section>
 
 <section data-form="S1-22" data-title="Lab 2 · The same schema on a whole state">
@@ -589,7 +559,6 @@ result = router.predict(state, questions)
       <p class="callout fragment" style="font-size: 40px;">Phone use rises by 182 percent. Four of nine factors change rank.</p>
     </div>
   </div>
-  <aside class="notes">23:15. Generative model A is a frontier model and does better than Jev; model B is about the same. The safety finding is on the right: reading the narratives changes which factors look important. Calibration on these is the next lab. If asked: the added count includes unbelted and wrong-way flags, where coders confirmed only 15 and 29 percent of narrative-only flags, so those two additions are mostly model error.</aside>
 </section>
 
 <section data-form="S1-23" data-title="Finding · Crash narratives">
@@ -605,7 +574,6 @@ result = router.predict(state, questions)
       <div class="field plain stamp-slot"><span class="lbl">Reviewed by</span><div class="stamp can fragment" data-verdict="can">Can</div></div>
     </div>
   </div>
-  <aside class="notes">24:45.</aside>
 </section>
 
 <section data-form="S1-24" data-title="Lab 3 · The trust meter">
@@ -631,7 +599,6 @@ result = router.predict(state, questions)
       </div>
     </div>
   </div>
-  <aside class="notes">25:15.</aside>
 </section>
 
 <section data-form="S1-25" data-title="Lab 3 · Teams poll">
@@ -653,7 +620,6 @@ result = router.predict(state, questions)
       <p class="note">Launch poll 2 from the Polls tab now.</p>
     </div>
   </div>
-  <aside class="notes">25:45. Launch poll 2. Give it 40 seconds, share results. The right answer is the last one, and the next sheet shows why: it depends on the model and the task.</aside>
 </section>
 
 <section data-form="S1-26" data-title="Lab 3 · Reliability, measured">
@@ -681,7 +647,6 @@ result = router.predict(state, questions)
       </div>
     </div>
   </div>
-  <aside class="notes">27:00. Click through the five buttons in order. Crash narratives: points sit on the line, the tails are trustworthy. Pedestrian: the model says 0.98 and is right less than half the time (46.5 percent in the top bin). Laya on typed decisions: a flat curve, confidence carries little information. Emotion raw then rescaled: recalibration pulls the curve back to the line.</aside>
 </section>
 
 <section data-form="S1-27" data-title="Lab 3 · Recalibration in four lines">
@@ -714,7 +679,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
       <p class="src">Recalibration fixes miscalibrated numbers. It cannot add information the model never had, which is why the pedestrian curve stays poor.</p>
     </div>
   </div>
-  <aside class="notes">29:30. Fit on held-out human labels, never on the records you report. Laya ships its own helper for the same idea, laya.fit_temperatures.</aside>
 </section>
 
 <section data-form="S1-28" data-title="Lab 3 · How many reports a person still reads">
@@ -732,7 +696,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
     </table>
     <p class="callout fragment" style="font-size: 40px;">The coded field is a poor yardstick. Measured against it, agreement looks worse by a median kappa of 0.26.</p>
   </div>
-  <aside class="notes">31:00. Paper 1 review budget. Against coded fields you would read every flag; against blinded human labels you read a small share, except wrong way. The coded field misses what the narrative says, which is Lab 4.</aside>
 </section>
 
 <section data-form="S1-29" data-title="Finding · Calibration">
@@ -748,7 +711,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
       <div class="field plain stamp-slot"><span class="lbl">Reviewed by</span><div class="stamp cannot fragment" data-verdict="cannot">Cannot</div></div>
     </div>
   </div>
-  <aside class="notes">32:30.</aside>
 </section>
 
 <section data-form="S1-30" data-title="Lab 4 · Two readers, one crash">
@@ -774,7 +736,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
       </div>
     </div>
   </div>
-  <aside class="notes">33:00.</aside>
 </section>
 
 <section data-form="S1-31" data-title="Lab 4 · Spot the gap">
@@ -804,7 +765,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
       </div>
     </div>
   </div>
-  <aside class="notes">33:30. Ask the chat: what is missing from the coded record? Then reveal the model answer. Synthetic example built on the pattern Paper 5 reports most often.</aside>
 </section>
 
 <section data-form="S1-32" data-title="Lab 4 · What the form misses across Texas">
@@ -822,7 +782,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
     </div>
     <p class="callout fragment" style="font-size: 40px;">The narrative shows about twice the phone use the form records. A second human check agreed on all fifteen factors.</p>
   </div>
-  <aside class="notes">35:00. Coded phone use is 7,340 against 15,074 estimated from narratives. For these five the whole interval lies above the coded count. The reverse also happens: alcohol is coded more often than the narrative mentions it, because test results arrive after the officer writes.</aside>
 </section>
 
 <section data-form="S1-33" data-title="Lab 4 · A variable the form never asks for">
@@ -846,7 +805,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
       <p class="callout fragment" style="font-size: 38px;">Yet that is only about 3 percent of the pregnant drivers vital statistics predict, and mostly the injured ones.</p>
     </div>
   </div>
-  <aside class="notes">36:30. The lesson: narratives recover a variable no form records, but officers document it unevenly. Injured drivers are 21.7 times more likely to have the pregnancy written down. A model can read only what was written.</aside>
 </section>
 
 <section data-form="S1-34" data-title="Lab 4 · Buy labels, not more model reads">
@@ -862,7 +820,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
     </div>
     <p class="callout fragment" style="font-size: 40px;">Reading all five million narratives barely helps. Four hundred more human-coded narratives do.</p>
   </div>
-  <aside class="notes">37:45. Ask the chat before revealing each bar. The model's reads are cheap; the uncertainty sits in the human calibration tier.</aside>
 </section>
 
 <section data-form="S1-35" data-title="Finding · The narrative as a second reader">
@@ -878,7 +835,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
       <div class="field plain stamp-slot"><span class="lbl">Reviewed by</span><div class="stamp can fragment" data-verdict="can">Can</div></div>
     </div>
   </div>
-  <aside class="notes">38:45.</aside>
 </section>
 
 <section data-form="S1-36" data-title="Lab 5 · Be the pedestrian">
@@ -904,7 +860,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
       </div>
     </div>
   </div>
-  <aside class="notes">39:15.</aside>
 </section>
 
 <section data-form="S1-37" data-title="Lab 5 · The scene, in words">
@@ -945,7 +900,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
       </div>
     </div>
   </div>
-  <aside class="notes">39:45. Launch poll 3. A real state from the Jülich 2013 one-way corridor (5 m wide), trimmed. The model was asked which way the person moves over the next second. The model gets this one right. Ask: is one right answer evidence? The next sheets show 3,000 decisions.</aside>
 </section>
 
 <section data-form="S1-38" data-title="Lab 5 · Physics, squeezed into words">
@@ -959,7 +913,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
       <div class="field plain"><span class="lbl">Note</span><p class="src" style="margin: 0;">Illustrative values, not a model run.</p></div>
     </div>
   </div>
-  <aside class="notes">41:45.</aside>
 </section>
 
 <section data-form="S1-39" data-title="Lab 5 · Three thousand decisions later">
@@ -992,7 +945,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
       <p class="src">Jülich 2013 corridors and the 2018 Wuppertal bottleneck experiment. About 3,000 decisions per corridor setting, 3,640 rated person-seconds for pushing.</p>
     </div>
   </div>
-  <aside class="notes">42:30. Even guessing the base rates beats the zero-shot model on direction. Recall is 0.94 on straight and 0.00 on hard turns. Each question names its horizon in words (next second here). Forecasts of crowd nudging studies were the best of five forecasters on exact band, 0.48, but still overpredict effects and detect null results weakly, AUC 0.64.</aside>
 </section>
 
 <section data-form="S1-40" data-title="Finding · Pedestrian choices">
@@ -1008,7 +960,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
       <div class="field plain stamp-slot"><span class="lbl">Reviewed by</span><div class="stamp cannot fragment" data-verdict="cannot">Cannot</div></div>
     </div>
   </div>
-  <aside class="notes">44:30.</aside>
 </section>
 
 <section data-form="S1-41" data-title="Lab 6 · Your domain">
@@ -1025,12 +976,10 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
       <div class="countdown" data-seconds="45"><div class="t" style="font-size: 84px;">0:45</div><div class="drain"><i></i></div></div>
     </div>
   </div>
-  <aside class="notes">45:00. Press T. Take two chat questions to the next sheet.</aside>
 </section>
 
 <section data-form="S1-42" data-title="Lab 6 · Live run">
   <div class="live" data-preset="lab6_construction" data-mode="compare" data-extra="1" data-presets="lab6_construction,lab6_bridge,lab6_water,lab6_fire"></div>
-  <aside class="notes">46:30. Use the preset buttons for the four cards, add one chat question, Run both. Recorded runs exist for the four presets. Typical pattern: Jev reads the hazards well; the open checkpoint is right on some questions and wrong on others, which is the Lab 1 lesson again.</aside>
 </section>
 
 <section data-form="S1-43" data-title="Rule card · Before a probability carries a decision">
@@ -1060,7 +1009,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
       </div>
     </div>
   </div>
-  <aside class="notes">49:00. Tick the five boxes one by one. The tally gives three CAN and three CANNOT, so the bars sit at 0.50 each: the answer depends on the conditions on the left.</aside>
 </section>
 
 <section data-form="S1-44" data-title="Take home">
@@ -1093,7 +1041,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
       </div>
     </div>
   </div>
-  <aside class="notes">51:00. Repost the Colab link. Papers are manuscripts; share preprint links only where they exist.</aside>
 </section>
 
 <section data-form="S1-45" data-title="Questions">
@@ -1106,7 +1053,6 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
       <div class="field plain stamp-slot" style="min-height: 320px;"><span class="lbl">Reviewed by</span><div class="stamp can" style="font-size: 72px;">Measured</div></div>
     </div>
   </div>
-  <aside class="notes">52:00.</aside>
 </section>
 
 </div>
@@ -1115,9 +1061,9 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
 <script src="vendor/reveal/reveal.js"></script>
 <script src="vendor/reveal/plugin/notes.js"></script>
 <script src="vendor/reveal/plugin/highlight.js"></script>
-<script src="js/recorded.js"></script>
-<script src="js/deck.js"></script>
-<script src="js/di.js"></script>
-<script src="js/primer.js"></script>
+<script src="js/recorded.js?v=1013b"></script>
+<script src="js/deck.js?v=1013b"></script>
+<script src="js/di.js?v=1013b"></script>
+<script src="js/primer.js?v=1013b"></script>
 </body>
 </html>

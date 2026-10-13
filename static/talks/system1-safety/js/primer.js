@@ -21,7 +21,7 @@
     const full = p.dataset.text || "";
     const counter = slide.querySelector("[data-wordcount]");
     if (typing) clearInterval(typing);
-    if (reduce || /autorun/.test(location.search)) { p.textContent = full; p.classList.add("done"); if (counter) counter.textContent = full.split(/\s+/).length + " words"; return; }
+    if (/autorun/.test(location.search)) { p.textContent = full; p.classList.add("done"); if (counter) counter.textContent = full.split(/\s+/).length + " words"; return; }
     let i = 0;
     p.textContent = ""; p.classList.remove("done");
     typing = setInterval(() => {

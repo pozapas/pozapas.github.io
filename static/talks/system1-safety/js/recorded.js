@@ -1,4 +1,4 @@
-/* Generated from runner/presets.json and data/recorded_runs.json. Real runs recorded 2026-10-10 (jev-1.13.0 via TypeSafe API; laya 0.4.2 default checkpoint on a laptop CPU). */
+/* Generated from runner/presets.json and data/recorded_runs.json. Real runs recorded 2026-10-10 (jev-1.13.0 via TypeSafe API; laya 0.4.2 default checkpoint on a regular computer CPU). Suggested questions recorded 13 Oct 2026. */
 window.PRESETS = {
  "lab0_phone": {
   "label": "Crash \u00b7 distraction",
@@ -35,6 +35,12 @@ window.PRESETS = {
     "type": "noul",
     "instructions": "Was anyone injured?"
    }
+  ],
+  "suggestions": [
+   "Is the east guardrail missing?",
+   "Did the worker fall to the ground?",
+   "Does the report say that no one was injured?",
+   "Should work on level 3 stop until the guardrail is fixed?"
   ]
  },
  "lab2_schema": {
@@ -63,6 +69,12 @@ window.PRESETS = {
     "type": "noul",
     "instructions": "The narrative cites a statement from a witness."
    }
+  ],
+  "suggestions": [
+   "Was the driver of Unit 1 taken to the hospital?",
+   "Did the driver of Unit 1 brake before the crash?",
+   "Was alcohol involved?",
+   "Was Unit 2 moving when it was hit?"
   ]
  },
  "lab4_table_vs_narrative": {
@@ -95,6 +107,10 @@ window.PRESETS = {
     "type": "noul",
     "instructions": "Was work stopped?"
    }
+  ],
+  "suggestions": [
+   "Was a trench box or shoring in place?",
+   "Was the spoil pile placed too close to the trench edge?"
   ]
  },
  "lab6_bridge": {
@@ -116,6 +132,10 @@ window.PRESETS = {
      "severe": "Threatens load capacity or safety and needs prompt action."
     }
    }
+  ],
+  "suggestions": [
+   "Did the inspector find section loss on the girder?",
+   "Is the bearing working normally?"
   ]
  },
  "lab6_water": {
@@ -132,6 +152,10 @@ window.PRESETS = {
     "type": "noul",
     "instructions": "Is the broken pipe made of cast iron?"
    }
+  ],
+  "suggestions": [
+   "Is the roadway safe for normal traffic?",
+   "Did customers report a water quality problem?"
   ]
  },
  "lab6_fire": {
@@ -148,6 +172,10 @@ window.PRESETS = {
     "type": "noul",
     "instructions": "Was anyone injured?"
    }
+  ],
+  "suggestions": [
+   "Did the smoke detectors activate?",
+   "Was anyone hurt?"
   ]
  }
 };
@@ -221,18 +249,49 @@ window.RECORDED = {
      }
     }
    },
-   "laya_criteria": {
-    "model": "laya",
-    "latency_ms": null,
-    "answers": {
-     "fall_hazard": {
-      "p_yes": 0.37
+   "suggested": {
+    "is the east guardrail missing": {
+     "text": "Is the east guardrail missing?",
+     "jev": {
+      "p_yes": 0.98,
+      "confidence": null
      },
-     "harness_held": {
-      "p_yes": 0.77
+     "laya": {
+      "p_yes": 0.9308,
+      "confidence": 0.9308
+     }
+    },
+    "did the worker fall to the ground": {
+     "text": "Did the worker fall to the ground?",
+     "jev": {
+      "p_yes": 0.07,
+      "confidence": null
      },
-     "injury": {
-      "p_yes": 0.65
+     "laya": {
+      "p_yes": 0.1167,
+      "confidence": 0.8833
+     }
+    },
+    "does the report say that no one was injured": {
+     "text": "Does the report say that no one was injured?",
+     "jev": {
+      "p_yes": 0.97,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.8319,
+      "confidence": 0.8319
+     }
+    },
+    "should work on level 3 stop until the guardrail is fixed": {
+     "text": "Should work on level 3 stop until the guardrail is fixed?",
+     "jev": {
+      "p_yes": 0.96,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.1416,
+      "confidence": 0.8584
      }
     }
    }
@@ -285,6 +344,52 @@ window.RECORDED = {
      "witness_cited": {
       "p_yes": 0.694,
       "confidence": 0.694
+     }
+    }
+   },
+   "suggested": {
+    "was the driver of unit 1 taken to the hospital": {
+     "text": "Was the driver of Unit 1 taken to the hospital?",
+     "jev": {
+      "p_yes": 0.99,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.9277,
+      "confidence": 0.9277
+     }
+    },
+    "did the driver of unit 1 brake before the crash": {
+     "text": "Did the driver of Unit 1 brake before the crash?",
+     "jev": {
+      "p_yes": 0.05,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.3937,
+      "confidence": 0.6063
+     }
+    },
+    "was alcohol involved": {
+     "text": "Was alcohol involved?",
+     "jev": {
+      "p_yes": 0.13,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.3535,
+      "confidence": 0.6465
+     }
+    },
+    "was unit 2 moving when it was hit": {
+     "text": "Was Unit 2 moving when it was hit?",
+     "jev": {
+      "p_yes": 0.14,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.8036,
+      "confidence": 0.8036
      }
     }
    }
@@ -347,6 +452,30 @@ window.RECORDED = {
       "confidence": 0.8955
      }
     }
+   },
+   "suggested": {
+    "was a trench box or shoring in place": {
+     "text": "Was a trench box or shoring in place?",
+     "jev": {
+      "p_yes": 0.02,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.4013,
+      "confidence": 0.5987
+     }
+    },
+    "was the spoil pile placed too close to the trench edge": {
+     "text": "Was the spoil pile placed too close to the trench edge?",
+     "jev": {
+      "p_yes": 0.86,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.5222,
+      "confidence": 0.5222
+     }
+    }
    }
   },
   "lab6_bridge": {
@@ -387,6 +516,30 @@ window.RECORDED = {
       "confidence": 0.0785
      }
     }
+   },
+   "suggested": {
+    "did the inspector find section loss on the girder": {
+     "text": "Did the inspector find section loss on the girder?",
+     "jev": {
+      "p_yes": 0.03,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.3779,
+      "confidence": 0.6221
+     }
+    },
+    "is the bearing working normally": {
+     "text": "Is the bearing working normally?",
+     "jev": {
+      "p_yes": 0.08,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.0868,
+      "confidence": 0.9132
+     }
+    }
    }
   },
   "lab6_water": {
@@ -417,6 +570,30 @@ window.RECORDED = {
       "confidence": 0.9673
      }
     }
+   },
+   "suggested": {
+    "is the roadway safe for normal traffic": {
+     "text": "Is the roadway safe for normal traffic?",
+     "jev": {
+      "p_yes": 0.06,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.1062,
+      "confidence": 0.8938
+     }
+    },
+    "did customers report a water quality problem": {
+     "text": "Did customers report a water quality problem?",
+     "jev": {
+      "p_yes": 0.98,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.2598,
+      "confidence": 0.7402
+     }
+    }
    }
   },
   "lab6_fire": {
@@ -445,6 +622,30 @@ window.RECORDED = {
      "injury": {
       "p_yes": 0.7501,
       "confidence": 0.7501
+     }
+    }
+   },
+   "suggested": {
+    "did the smoke detectors activate": {
+     "text": "Did the smoke detectors activate?",
+     "jev": {
+      "p_yes": 0.99,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.958,
+      "confidence": 0.958
+     }
+    },
+    "was anyone hurt": {
+     "text": "Was anyone hurt?",
+     "jev": {
+      "p_yes": 0.95,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.8158,
+      "confidence": 0.8158
      }
     }
    }

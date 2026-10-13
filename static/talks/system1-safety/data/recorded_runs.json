@@ -67,6 +67,52 @@
       "confidence": 0.5463
      }
     }
+   },
+   "suggested": {
+    "is the east guardrail missing": {
+     "text": "Is the east guardrail missing?",
+     "jev": {
+      "p_yes": 0.98,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.9308,
+      "confidence": 0.9308
+     }
+    },
+    "did the worker fall to the ground": {
+     "text": "Did the worker fall to the ground?",
+     "jev": {
+      "p_yes": 0.07,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.1167,
+      "confidence": 0.8833
+     }
+    },
+    "does the report say that no one was injured": {
+     "text": "Does the report say that no one was injured?",
+     "jev": {
+      "p_yes": 0.97,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.8319,
+      "confidence": 0.8319
+     }
+    },
+    "should work on level 3 stop until the guardrail is fixed": {
+     "text": "Should work on level 3 stop until the guardrail is fixed?",
+     "jev": {
+      "p_yes": 0.96,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.1416,
+      "confidence": 0.8584
+     }
+    }
    }
   },
   "lab2_schema": {
@@ -117,6 +163,52 @@
      "witness_cited": {
       "p_yes": 0.694,
       "confidence": 0.694
+     }
+    }
+   },
+   "suggested": {
+    "was the driver of unit 1 taken to the hospital": {
+     "text": "Was the driver of Unit 1 taken to the hospital?",
+     "jev": {
+      "p_yes": 0.99,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.9277,
+      "confidence": 0.9277
+     }
+    },
+    "did the driver of unit 1 brake before the crash": {
+     "text": "Did the driver of Unit 1 brake before the crash?",
+     "jev": {
+      "p_yes": 0.05,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.3937,
+      "confidence": 0.6063
+     }
+    },
+    "was alcohol involved": {
+     "text": "Was alcohol involved?",
+     "jev": {
+      "p_yes": 0.13,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.3535,
+      "confidence": 0.6465
+     }
+    },
+    "was unit 2 moving when it was hit": {
+     "text": "Was Unit 2 moving when it was hit?",
+     "jev": {
+      "p_yes": 0.14,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.8036,
+      "confidence": 0.8036
      }
     }
    }
@@ -179,6 +271,30 @@
       "confidence": 0.8955
      }
     }
+   },
+   "suggested": {
+    "was a trench box or shoring in place": {
+     "text": "Was a trench box or shoring in place?",
+     "jev": {
+      "p_yes": 0.02,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.4013,
+      "confidence": 0.5987
+     }
+    },
+    "was the spoil pile placed too close to the trench edge": {
+     "text": "Was the spoil pile placed too close to the trench edge?",
+     "jev": {
+      "p_yes": 0.86,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.5222,
+      "confidence": 0.5222
+     }
+    }
    }
   },
   "lab6_bridge": {
@@ -219,6 +335,30 @@
       "confidence": 0.0785
      }
     }
+   },
+   "suggested": {
+    "did the inspector find section loss on the girder": {
+     "text": "Did the inspector find section loss on the girder?",
+     "jev": {
+      "p_yes": 0.03,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.3779,
+      "confidence": 0.6221
+     }
+    },
+    "is the bearing working normally": {
+     "text": "Is the bearing working normally?",
+     "jev": {
+      "p_yes": 0.08,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.0868,
+      "confidence": 0.9132
+     }
+    }
    }
   },
   "lab6_water": {
@@ -249,6 +389,30 @@
       "confidence": 0.9673
      }
     }
+   },
+   "suggested": {
+    "is the roadway safe for normal traffic": {
+     "text": "Is the roadway safe for normal traffic?",
+     "jev": {
+      "p_yes": 0.06,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.1062,
+      "confidence": 0.8938
+     }
+    },
+    "did customers report a water quality problem": {
+     "text": "Did customers report a water quality problem?",
+     "jev": {
+      "p_yes": 0.98,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.2598,
+      "confidence": 0.7402
+     }
+    }
    }
   },
   "lab6_fire": {
@@ -277,6 +441,30 @@
      "injury": {
       "p_yes": 0.7501,
       "confidence": 0.7501
+     }
+    }
+   },
+   "suggested": {
+    "did the smoke detectors activate": {
+     "text": "Did the smoke detectors activate?",
+     "jev": {
+      "p_yes": 0.99,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.958,
+      "confidence": 0.958
+     }
+    },
+    "was anyone hurt": {
+     "text": "Was anyone hurt?",
+     "jev": {
+      "p_yes": 0.95,
+      "confidence": null
+     },
+     "laya": {
+      "p_yes": 0.8158,
+      "confidence": 0.8158
      }
     }
    }

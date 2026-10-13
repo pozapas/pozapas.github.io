@@ -291,11 +291,15 @@ h2.display { font-weight: 800; font-size: 88px; line-height: 1.02; letter-spacin
 
 /* ---------- motion preferences ---------- */
 
+/* Respect the system's reduced-motion setting, unless the presenter turns motion on (key M). */
 @media (prefers-reduced-motion: reduce) {
-  .bar .fill, .box path, .pval { transition: none !important; }
-  .reveal .stamp.fragment.visible { animation: none; opacity: 0.9; transform: rotate(-6deg); filter: none; }
-  .run-status.on i, .tally-marks .new { animation: none; }
+  html:not(.motion-on) .bar .fill, html:not(.motion-on) .box path, html:not(.motion-on) .pval { transition: none !important; }
+  html:not(.motion-on) .reveal .stamp.fragment.visible { animation: none; opacity: 0.9; transform: rotate(-6deg); filter: none; }
+  html:not(.motion-on) .run-status.on i, html:not(.motion-on) .tally-marks .new { animation: none; }
 }
+.motion-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: #501214; color: #f5efe2;
+  font: 600 16px/1 "Public Sans", sans-serif; padding: 10px 16px; z-index: 50; opacity: 0; transition: opacity 300ms; pointer-events: none; }
+.motion-toast.show { opacity: 1; }
 
 /* ---------- print / PDF export ---------- */
 
