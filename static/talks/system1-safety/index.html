@@ -279,7 +279,7 @@
         <div><div class="mono" style="font-size: 54px; font-weight: 700;">distracted 90, weather 20</div><div class="note">For each question, how likely the answer is yes, in percent.</div></div>
       </div>
       <div class="field countdown" data-seconds="20">
-        <span class="lbl">Time · press T</span>
+        <span class="lbl">Time</span>
         <div class="t">0:20</div>
         <div class="drain"><i></i></div>
       </div>
@@ -457,7 +457,7 @@ result = router.predict(state, questions)
       <div class="card"><span class="lbl">Type · score</span><h3>An ordinal level</h3><p>How detailed is the narrative, from 0 to 3?</p></div>
     </div>
     <div class="field" style="display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 30px;">
-      <span class="lbl">Your turn · Teams chat · press T</span>
+      <span class="lbl">Your turn · Teams chat</span>
       <div><p class="big-q" style="font-size: 46px; margin: 0 0 16px;">Post one yes or no question you would ask of this report.</p><p class="note" style="font-size: 30px; margin: 0; color: var(--ink-soft);">For example, <span class="mono" style="color: var(--ink); font-weight: 700;">Was the driver of Unit 1 taken to the hospital?</span></p></div>
       <div class="countdown" data-seconds="60"><div class="t" style="font-size: 84px;">1:00</div><div class="drain"><i></i></div></div>
     </div>
@@ -971,8 +971,8 @@ p_new = platt.predict_proba(z)[:, 1]        # recalibrated
       <div class="card"><span class="lbl">Buildings <span class="synthetic-tag">Synthetic</span></span><h3>Fire report</h3><p>Kitchen fire, four-story apartment. No sprinkler system. One resident treated for smoke.</p><div class="tq">Suppression missing or failed?</div></div>
     </div>
     <div class="field" style="display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center;">
-      <span class="lbl">Your turn · Teams chat · press T</span>
-      <p class="big-q" style="font-size: 46px;">Pick a card, or bring a report from your own field. Post one typed question.</p>
+      <span class="lbl">Your turn · Teams chat</span>
+      <div><p class="big-q" style="font-size: 44px; margin: 0 0 16px;">In the chat, name a card and ask one yes or no question about it.</p><p class="note" style="font-size: 30px; margin: 0; color: var(--ink-soft);">For example, <span class="mono" style="color: var(--ink); font-weight: 700;">Fire report. Did the smoke detectors activate?</span></p></div>
       <div class="countdown" data-seconds="45"><div class="t" style="font-size: 84px;">0:45</div><div class="drain"><i></i></div></div>
     </div>
   </div>
