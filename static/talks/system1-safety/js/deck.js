@@ -142,34 +142,34 @@
 
   const DS = {
     p1: {
-      src: "Paper 1 · Jev 1.13 · crash narratives",
+      src: "arXiv 2609.24052 · Jev 1.13 · crash narratives",
       head: "Points sit on the line. The tails can be trusted.",
       body: "2,416 blinded human judgments in five bins. When it says 0.98 it is right 99 percent of the time.",
       conf: [0.019, 0.097, 0.477, 0.847, 0.978], acc: [0.001, 0.005, 0.354, 0.855, 0.991]
     },
     p3: {
-      src: "Paper 3 · Jev 1.13 · pedestrian direction",
+      src: "Pedestrian study · Jev 1.13 · pedestrian direction",
       head: "It says 0.98 and is right less than half the time.",
       body: "Jülich one-way corridor, direction 1 s ahead, about 3,000 decisions in ten bins. Confidence rises, accuracy does not.",
       conf: [0.44, 0.502, 0.562, 0.689, 0.837, 0.907, 0.939, 0.957, 0.971, 0.982],
       acc: [0.226, 0.263, 0.276, 0.66, 0.625, 0.625, 0.58, 0.605, 0.52, 0.465]
     },
     p4laya: {
-      src: "Paper 4A · Laya English as shipped · typed decisions",
+      src: "arXiv 2610.00346 · Laya English as shipped · typed decisions",
       head: "A flat curve. Higher confidence does not mean right more often.",
       body: "2,000 benchmark decisions in ten bins. Rescaling cannot fix a model whose confidence does not rank its answers.",
       conf: [0.275, 0.337, 0.385, 0.442, 0.498, 0.532, 0.572, 0.619, 0.699, 0.82],
       acc: [0.285, 0.35, 0.305, 0.29, 0.325, 0.42, 0.475, 0.485, 0.34, 0.39]
     },
     p4raw: {
-      src: "Paper 4A · Jev 1.13 as shipped · emotion labels",
+      src: "arXiv 2610.00346 · Jev 1.13 as shipped · emotion labels",
       head: "Far below the line. Overconfident on emotion labels.",
       body: "About 50 decisions per bin. Expected calibration error 0.314.",
       conf: [0.46, 0.579, 0.679, 0.765, 0.833, 0.917, 0.962, 0.986, 0.999, 1.0],
       acc: [0.24, 0.40, 0.224, 0.38, 0.34, 0.56, 0.68, 0.531, 0.84, 0.84]
     },
     p4cal: {
-      src: "Paper 4A · Jev 1.13 rescaled · emotion labels",
+      src: "arXiv 2610.00346 · Jev 1.13 rescaled · emotion labels",
       head: "Temperature scaling pulls it back to the line.",
       body: "Same answers after out-of-fold temperature scaling. Error falls from 0.314 to 0.073. The ranking does not change, only the numbers.",
       conf: [0.244, 0.307, 0.36, 0.405, 0.449, 0.485, 0.534, 0.576, 0.716, 0.739],
