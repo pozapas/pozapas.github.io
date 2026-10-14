@@ -216,16 +216,40 @@
     ob.style.color = Math.abs(d.conf[n] - d.acc[n]) > 0.1 ? "var(--cannot)" : "var(--can)";
   }
 
+  function setDataset(k) {
+    if (!DS[k]) return;
+    ds = k;
+    document.querySelectorAll(".seg button[data-ds]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.ds === k)));
+    drawCalib();
+  }
+
   function initInstrument() {
     document.querySelectorAll(".seg button[data-ds]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        ds = btn.dataset.ds;
-        document.querySelectorAll(".seg button[data-ds]").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
-        drawCalib();
-      });
+      btn.addEventListener("click", () => { setDataset(btn.dataset.ds); send({ t: "ds", ds: btn.dataset.ds }); });
     });
     drawCalib();
   }
+
+  /* ---------- sync between the main window and the speaker view ---------- */
+
+  // The speaker view (S) runs its own copy of the deck; reveal.js only syncs the slide.
+  // This channel mirrors typing, presets, results, timers and toggles between windows.
+  let upcoming = false;
+  try { upcoming = !!(window.frameElement && window.frameElement.closest("#upcoming-slide")); } catch (e) {}
+  const chan = (!upcoming && "BroadcastChannel" in window) ? new BroadcastChannel("system1-deck") : null;
+  const lives = [];
+  const handlers = {
+    input: (m) => lives[m.i] && lives[m.i].input(m),
+    preset: (m) => lives[m.i] && lives[m.i].preset(m),
+    result: (m) => lives[m.i] && lives[m.i].result(m),
+    cd: () => toggleCountdown(),
+    ds: (m) => setDataset(m.ds),
+    motion: (m) => setMotion(m.on, false),
+    hello: () => send({ t: "state", ds, lives: lives.map((l) => l.snapshot()) }),
+    state: (m) => { if (m.ds) setDataset(m.ds); (m.lives || []).forEach((snap, i) => lives[i] && lives[i].restore(snap)); }
+  };
+  function send(msg) { if (chan) try { chan.postMessage(msg); } catch (e) {} }
+  if (chan) chan.onmessage = (e) => { const h = e.data && handlers[e.data.t]; if (h) h(e.data); };
 
   /* ---------- live runner ---------- */
 
@@ -261,7 +285,7 @@
     }).join("");
   }
 
-  function buildLive(el) {
+  function buildLive(el, idx) {
     const presetKeys = (el.dataset.presets || el.dataset.preset).split(",");
     const extra = parseInt(el.dataset.extra || "0", 10);
     let key = el.dataset.preset;
@@ -315,12 +339,16 @@
       });
     }
 
+    function showResult(model, html, metaText) {
+      if (html !== null) el.querySelector('.rows[data-m="' + model + '"]').innerHTML = html;
+      el.querySelector('[data-meta="' + model + '"]').textContent = metaText;
+    }
+
     async function run(model) {
       const questions = currentQuestions();
       const state = st.value.trim();
-      const rowsEl = el.querySelector('.rows[data-m="' + model + '"]');
-      const meta = el.querySelector('[data-meta="' + model + '"]');
-      meta.textContent = "running";
+      showResult(model, null, "running");
+      send({ t: "result", i: idx, model, html: null, meta: "running" });
       let out = null, how = "";
       if (runnerUp) {
         try {
@@ -351,15 +379,39 @@
         }
         out = { answers };
       }
-      rowsEl.innerHTML = resultRows(questions, out.answers);
-      meta.textContent = how;
+      const html = resultRows(questions, out.answers);
+      showResult(model, html, how);
+      send({ t: "result", i: idx, model, html, meta: how });
     }
 
     el.querySelectorAll("[data-run]").forEach((b) => b.addEventListener("click", () => {
       const m = b.dataset.run;
       if (m === "both") { run("laya"); run("jev"); } else run(m);
     }));
-    el.querySelectorAll(".presets .btn").forEach((b) => b.addEventListener("click", () => load(b.dataset.k)));
+    el.querySelectorAll(".presets .btn").forEach((b) => b.addEventListener("click", () => { load(b.dataset.k); send({ t: "preset", i: idx, k: b.dataset.k }); }));
+    el.addEventListener("input", (e) => {
+      const f = e.target;
+      if (f === st) send({ t: "input", i: idx, id: "st", v: f.value });
+      else if (f.matches(".qs input")) send({ t: "input", i: idx, id: f.dataset.id, v: f.value });
+    });
+    const field = (id) => id === "st" ? st : qs.querySelector('input[data-id="' + id + '"]');
+    lives[idx] = {
+      input: (m) => { const f = field(m.id); if (f) f.value = m.v; },
+      preset: (m) => { if (PRESETS[m.k]) load(m.k); },
+      result: (m) => showResult(m.model, m.html, m.meta),
+      snapshot: () => ({
+        k: key, st: st.value,
+        qs: Array.from(qs.querySelectorAll("input")).map((x) => [x.dataset.id, x.value]),
+        res: ["laya", "jev"].map((m) => [m, el.querySelector('.rows[data-m="' + m + '"]').innerHTML, el.querySelector('[data-meta="' + m + '"]').textContent])
+      }),
+      restore: (snap) => {
+        if (!snap || !PRESETS[snap.k]) return;
+        load(snap.k);
+        st.value = snap.st;
+        snap.qs.forEach(([id, v]) => { const f = field(id); if (f) f.value = v; });
+        snap.res.forEach(([m, html, metaText]) => showResult(m, html, metaText));
+      }
+    };
     load(key);
   }
 
@@ -371,17 +423,23 @@
   const toast = document.createElement("div");
   toast.className = "motion-toast";
   document.body.appendChild(toast);
-  function toggleMotion() {
-    const on = root.classList.toggle("motion-on");
+  function setMotion(on, announce) {
+    root.classList.toggle("motion-on", on);
     try { localStorage.setItem("deck-motion", on ? "on" : "off"); } catch (e) {}
+    if (!announce) return;
     toast.textContent = on ? "Full animation on" : "Animation follows the system setting";
     toast.classList.add("show");
     setTimeout(() => toast.classList.remove("show"), 1600);
   }
+  function toggleMotion() {
+    const on = !root.classList.contains("motion-on");
+    setMotion(on, true);
+    send({ t: "motion", on });
+  }
 
   /* ---------- boot ---------- */
 
-  document.querySelectorAll(".live").forEach(buildLive);
+  document.querySelectorAll(".live").forEach((el, i) => buildLive(el, i));
 
   Reveal.initialize({
     width: 1920,
@@ -397,11 +455,12 @@
     transitionSpeed: "fast",
     backgroundTransition: "none",
     pdfSeparateFragments: false,
-    keyboard: { 84: toggleCountdown, 77: toggleMotion },
+    keyboard: { 84: () => { toggleCountdown(); send({ t: "cd" }); }, 77: toggleMotion },
     plugins: [RevealHighlight, RevealNotes]
   }).then(() => {
     initInstrument();
     renderTally();
+    send({ t: "hello" });
     pingRunner();
     setInterval(pingRunner, 15000);
     // ?autorun fills every live form on load (used for the PDF backup and checks)
