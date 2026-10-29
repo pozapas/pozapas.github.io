@@ -102,6 +102,15 @@
 
 # arXiv and SSRN preprints — newest first
 
+- title: "System One Decision Models: A Survey of the Typed Decision Contract, Its Ecosystem and Its Evidence"
+  authors: "Amir Rafe and Subasish Das"
+  venue: "Preprint, manuscript under review"
+  year: 2026
+  page: "https://pozapas.github.io/system-one-models-survey/"
+  pdf: "https://pozapas.github.io/system-one-models-survey/system-one-decision-models-survey.pdf"
+  thumbnail: "/images/publications/system-one-decision-models-survey.webp"
+  citation: "Rafe, A., and Das, S. (2026). System One Decision Models: A Survey of the Typed Decision Contract, Its Ecosystem and Its Evidence. Preprint, manuscript under review. https://pozapas.github.io/system-one-models-survey/"
+
 - title: "Estimating Uncoded Crash Factors with Tabular Foundation and System One Models: Kumo Tabular and Jev"
   authors: "Amir Rafe and Subasish Das"
   venue: "arXiv preprint"
