@@ -28,7 +28,7 @@ The tool records and image paths are in `data/tools.yml`.
 - `paiper.webp`
 - `trcrp-a56.webp`
 - `tcrp-b58.webp`
-- `bts-39.webp`
+- `last-leg-impairment.webp`
 - `crashsketch-av.webp`
 - `evacuaidi.webp`
 
