@@ -1,6 +1,6 @@
 {{ define "head" }}
 <meta property="og:image" content="{{ "images/courses/qcai/banner.webp" | absURL }}">
-<link rel="preload" as="image" href="{{ "/images/courses/qcai/course-home.webp" | relURL }}">
+<link rel="preload" as="image" href="{{ "/images/courses/qcai/banner-clean.webp" | relURL }}">
 {{ end }}
 {{ define "main" }}
 <main id="main-content" class="course-page">
@@ -17,7 +17,7 @@
         </div>
       </div>
       <a class="course-hero-shot" href="{{ .Params.course_url }}" aria-label="Open the Quantum Causal AI course">
-        <img src="{{ .Params.image | relURL }}" alt="Home page of the Quantum Causal AI course" width="1280" height="768">
+        <img src="{{ .Params.image | relURL }}" alt="Illustration of a causal graph feeding a glass Bloch sphere and an eight-step learning staircase" width="1280" height="801">
       </a>
     </div>
     <div class="site-container">
