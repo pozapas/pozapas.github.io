@@ -4,6 +4,7 @@
  "description": "A free, open course that starts with counting and fair tests and ends at research on quantum causal models, indefinite causal order, and quantum machine learning.",
  "course_url": "https://pozapas.github.io/quantum-causal-ai/",
  "image": "/images/courses/qcai/banner-clean.webp",
+ "og_image": "images/courses/qcai/banner.webp",
  "stats": [
   {
    "n": 80,
