@@ -1,0 +1,75 @@
+{{ define "head" }}
+<meta property="og:image" content="{{ "images/courses/qcai/banner.webp" | absURL }}">
+<link rel="preload" as="image" href="{{ "/images/courses/qcai/course-home.webp" | relURL }}">
+{{ end }}
+{{ define "main" }}
+<main id="main-content" class="course-page">
+  <section class="course-hero">
+    <div class="site-container course-hero-grid">
+      <div class="course-hero-copy">
+        <p class="course-kicker">Open course · free</p>
+        <h1>{{ .Title }}</h1>
+        <p class="course-lede">Learn how causes work, then learn how quantum physics changes the question. The course starts with counting objects and fair tests and climbs, one checked step at a time, to current research on quantum causal models, indefinite causal order, and quantum machine learning.</p>
+        <div class="course-actions">
+          <a class="course-btn course-btn-primary" href="{{ .Params.course_url }}">Start the course</a>
+          <a class="course-btn" href="{{ .Params.course_url }}#find-my-level">Find my level</a>
+          <a class="course-btn course-btn-quiet" href="https://github.com/pozapas/quantum-causal-ai" target="_blank" rel="noreferrer">Source on GitHub</a>
+        </div>
+      </div>
+      <a class="course-hero-shot" href="{{ .Params.course_url }}" aria-label="Open the Quantum Causal AI course">
+        <img src="{{ .Params.image | relURL }}" alt="Home page of the Quantum Causal AI course" width="1280" height="768">
+      </a>
+    </div>
+    <div class="site-container">
+      <ul class="course-stats" aria-label="Course in numbers">
+        {{ range .Params.stats }}<li><strong>{{ .n }}</strong><span>{{ .label }}</span></li>{{ end }}
+      </ul>
+    </div>
+  </section>
+
+  <div class="site-container">
+    <section class="member-section course-section" aria-labelledby="ladder-heading">
+      <h2 class="member-section-heading" id="ladder-heading">Eight levels, one path</h2>
+      <p class="section-introduction">Each level is a teaching guide, not a certificate. Every lesson has a worked example, an exercise with a solution, a self-check, and a lab. A one-minute placement check suggests where to start.</p>
+      <ol class="course-ladder">
+        {{ range .Params.levels }}
+        <li>
+          <a href="{{ .url }}">
+            <img src="{{ printf "/images/courses/qcai/qicon-level-%d.svg" .n | relURL }}" alt="" width="48" height="48">
+            <span class="course-ladder-text"><small>Level {{ .n }} · {{ .stage }} · {{ .lessons }} lessons</small><strong>{{ .title }}</strong><span>{{ .intro }}</span></span>
+          </a>
+        </li>
+        {{ end }}
+      </ol>
+    </section>
+
+    <section class="member-section course-section" aria-labelledby="map-heading">
+      <h2 class="member-section-heading" id="map-heading">See how every lesson connects</h2>
+      <p class="section-introduction">The learning map shows all 80 lessons. Pick one to trace everything it builds on and everything it unlocks, then expand the map to full screen to zoom and pan.</p>
+      <figure class="course-map">
+        <a href="{{ .Params.course_url }}start/roadmap/"><img src="{{ "/images/courses/qcai/learning-map.webp" | relURL }}" alt="Learning map of the course with one lesson selected and its prerequisites highlighted" width="1600" height="844" loading="lazy"></a>
+        <figcaption>Lesson L6-04 selected: violet shows the lessons it builds on, cyan the lessons it unlocks. <a href="{{ .Params.course_url }}start/roadmap/">Open the interactive map</a></figcaption>
+      </figure>
+    </section>
+
+    <section class="member-section course-section" aria-labelledby="inside-heading">
+      <h2 class="member-section-heading" id="inside-heading">What is inside</h2>
+      <div class="course-features">
+        <article><img src="{{ "/images/courses/qcai/qicon-lab.svg" | relURL }}" alt="" width="44" height="44"><h3>Labs with results on the page</h3><p>Eleven notebooks, from coin flips to the quantum switch, show every result in the browser. Each one opens in Google Colab with one click.</p></article>
+        <article><img src="{{ "/images/courses/qcai/qicon-verified.svg" | relURL }}" alt="" width="44" height="44"><h3>Checked sources</h3><p>Every reference was matched against arXiv, Crossref, or the publisher's page. For causal AI the course follows Elias Bareinboim's <em>Causal Artificial Intelligence</em>.</p></article>
+        <article><img src="{{ "/images/courses/qcai/qicon-map.svg" | relURL }}" alt="" width="44" height="44"><h3>A map and a placement check</h3><p>An interactive map of all prerequisites, and a short adaptive quiz that suggests a starting level.</p></article>
+        <article><img src="{{ "/images/courses/qcai/qicon-media.svg" | relURL }}" alt="" width="44" height="44"><h3>Watch and listen</h3><p>Lectures, explainers, and podcast episodes for every level, including <a href="{{ "/podcasts/decoding-causality/" | relURL }}"><em>Decoding Causality</em></a>.</p></article>
+      </div>
+    </section>
+
+    <section class="course-cta" aria-labelledby="cta-heading">
+      <h2 id="cta-heading">Start where you are</h2>
+      <p>No background is needed for Level 0, and every page stays open, so you can jump ahead or back at any time.</p>
+      <div class="course-actions">
+        <a class="course-btn course-btn-primary" href="{{ .Params.course_url }}">Open the course</a>
+        <a class="course-btn" href="{{ .Params.course_url }}#find-my-level">Take the placement check</a>
+      </div>
+    </section>
+  </div>
+</main>
+{{ end }}

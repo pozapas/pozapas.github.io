@@ -21,6 +21,10 @@ Welcome to Decoding Causality, where conversations unravel the mysteries of caus
 <br>
 <br>
 
+{{< rawhtml >}}
+<div class="course-companion-intro"><strong>Learning with the course?</strong> Each episode below links to the matching lesson in the free <a href="/courses/quantum-causal-ai/">Quantum Causal AI</a> course.</div>
+{{< /rawhtml >}}
+
 ## Season 1: The Book of Why
 In Season 1, two AI-generated voices guide us through the foundational concepts of causality, exploring groundbreaking ideas from The Book of Why.
 
@@ -31,6 +35,7 @@ What separates humans from other species, and from today's AI systems, is not ju
 
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/6gXdZ6jQhUm2xND0mfAS30" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<p class="course-companion">Course companion: <a href="https://pozapas.github.io/quantum-causal-ai/levels/level-2/">Level 2: evidence and causal maps</a></p>
 {{< /rawhtml >}}
 
 <br>
@@ -41,6 +46,7 @@ For centuries, humanity relied on intuition, folklore, and trial and error to un
 
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/3vJJNCdtotb3WWTak1oW13" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<p class="course-companion">Course companion: <a href="https://pozapas.github.io/quantum-causal-ai/levels/level-2/">Level 2: evidence and causal maps</a></p>
 {{< /rawhtml >}}
 
 <br>
@@ -51,6 +57,7 @@ What do Sherlock Holmes and artificial intelligence have in common? Both rely on
 
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/5nyqFj3QdEkTNW5yEs0AOz" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<p class="course-companion">Course companion: <a href="https://pozapas.github.io/quantum-causal-ai/levels/level-2/l2-05/">L2-05: reverse a condition with Bayes' rule</a></p>
 {{< /rawhtml >}}
 
 <br>
@@ -61,6 +68,7 @@ Not all correlations tell the truth. Hidden biases and confounding factors can d
 
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/5D1Sbm80tpOy05jUB7p3qH?si=u-wLqhDfTCylnzru_TrDeQ" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<p class="course-companion">Course companion: <a href="https://pozapas.github.io/quantum-causal-ai/levels/level-4/l4-03/">L4-03: confounders, mediators, and colliders</a></p>
 {{< /rawhtml >}}
 
 <br>
@@ -71,6 +79,7 @@ How can we prove that one thing causes another when experiments are impossible o
 
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/4iiPLwWoXq4TdGy0qPmGla?si=3PoXRKWlTJ-DNnlUqFTXvQ" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<p class="course-companion">Course companion: <a href="https://pozapas.github.io/quantum-causal-ai/levels/level-4/">Level 4: classical causal AI</a></p>
 {{< /rawhtml >}}
 
 <br>
@@ -81,6 +90,7 @@ Sometimes, the numbers lie, or at least, they seem to. In this episode, we dive 
 
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/7C1YCvYz4NAEOuJ19LrNvn?si=Xv0NMEx3T3WjRQvvkl_lXw" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<p class="course-companion">Course companion: <a href="https://pozapas.github.io/quantum-causal-ai/levels/level-2/l2-06/">L2-06: see a reversed comparison (Simpson's paradox)</a></p>
 {{< /rawhtml >}}
 
 <br>
@@ -91,6 +101,7 @@ What if things had happened differently? Counterfactual reasoning, the ability t
 
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/3Bchlql1C5pRfSu6oArUkt?si=oFalVqJxQPGOXmuasXFS9A" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<p class="course-companion">Course companion: <a href="https://pozapas.github.io/quantum-causal-ai/levels/level-4/l4-05/">L4-05: front-door identification and interventions</a></p>
 {{< /rawhtml >}}
 
 <br>
@@ -101,6 +112,7 @@ What if Cleopatra's nose had been shorter? What if Joe had taken the aspirin? In
 
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/1OVkpXRALANG3DZoPc9q9p?si=6M05k93JRLOM7PEBNAQjRg" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<p class="course-companion">Course companion: <a href="https://pozapas.github.io/quantum-causal-ai/levels/level-4/l4-09/">L4-09: counterfactual reasoning</a></p>
 {{< /rawhtml >}}
 
 <br>
@@ -111,6 +123,7 @@ This episode explores the concept of mediation, the often-hidden processes that 
 
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/2CQ7mLuX7XpNHGeqDZjNMX?si=lnJ1PbqxQpuZiXU06qEHHA" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<p class="course-companion">Course companion: <a href="https://pozapas.github.io/quantum-causal-ai/levels/level-4/l4-03/">L4-03: confounders, mediators, and colliders</a></p>
 {{< /rawhtml >}}
 
 <br>
@@ -121,6 +134,7 @@ In this season finale, we explore the fascinating intersection of artificial int
 
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/4XrnLDGvJZBN2TAza6VrCu?si=nP7QWvzBSiGwhKwS0jjIHQ" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<p class="course-companion">Course companion: <a href="https://pozapas.github.io/quantum-causal-ai/levels/level-7/">Level 7: research frontier</a></p>
 {{< /rawhtml >}}
 
 <br>
@@ -131,4 +145,5 @@ This episode reflects on the journey through causal reasoning, connecting the la
 
 {{< rawhtml >}}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/6s4vONEdxmI3eEUYWS8VYc" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<p class="course-companion">Course companion: <a href="https://pozapas.github.io/quantum-causal-ai/levels/level-4/">Level 4: classical causal AI</a></p>
 {{< /rawhtml >}}
