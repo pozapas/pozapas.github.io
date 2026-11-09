@@ -32,3 +32,7 @@ The four September and October 2026 arXiv papers added on October 11 use:
 - `system-one-decision-benchmark.webp`
 - `pregnancy-crash-narratives-page2.webp`
 - `jev-crash-narratives-page2.webp`
+
+The November 2026 *Automation in Construction* article uses:
+
+- `ifc-bim-mixture-of-experts.webp`

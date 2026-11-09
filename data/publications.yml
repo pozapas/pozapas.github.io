@@ -1,5 +1,13 @@
 # Journal articles — newest first
 
+- title: "Integrating Semantic and Operational Capabilities into IFC-Compliant BIM for Building Design: A Mixture-of-Experts Fine-Tuning Approach"
+  authors: "Peizhen Gong, Ying Lu, Zhenan Feng, Amir Rafe, Xinyu Shen, and Ruggiero Lovreglio"
+  venue: "Automation in Construction, 193, 107355"
+  year: 2027
+  doi: "https://doi.org/10.1016/j.autcon.2026.107355"
+  thumbnail: "/images/publications/ifc-bim-mixture-of-experts.webp"
+  citation: "Gong, P., Lu, Y., Feng, Z., Rafe, A., Shen, X., and Lovreglio, R. (2027). Integrating Semantic and Operational Capabilities into IFC-Compliant BIM for Building Design: A Mixture-of-Experts Fine-Tuning Approach. Automation in Construction, 193, 107355. https://doi.org/10.1016/j.autcon.2026.107355"
+
 - title: "Do Aviation Hazard Rankings Overlook Conservation-Concern Birds in U.S. Wildlife Strikes?"
   authors: "Amir Rafe and Subasish Das"
   venue: "Transportation Research Part D: Transport and Environment, 161, 105602"
