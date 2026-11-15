@@ -15,9 +15,7 @@
           <a class="course-btn course-btn-quiet" href="https://github.com/pozapas/quantum-causal-ai" target="_blank" rel="noreferrer">Source on GitHub</a>
         </div>
       </div>
-      <a class="course-hero-shot" href="{{ .Params.course_url }}" aria-label="Open the Quantum Causal AI course">
-        <img src="{{ .Params.image | relURL }}" alt="Illustration of a causal graph feeding a glass Bloch sphere and an eight-step learning staircase" width="1280" height="801">
-      </a>
+      <div class="course-hero-video">{{ partial "qcai-trailer.html" . }}</div>
     </div>
     <div class="site-container">
       <ul class="course-stats" aria-label="Course in numbers">
