@@ -1587,6 +1587,15 @@ iframe:focus-visible {
 .course-banner-art img{display:block;width:100%;height:auto;transform-origin:42% 48%}
 @media (prefers-reduced-motion:no-preference){.course-banner-art img{animation:course-drift 22s ease-in-out infinite alternate}.course-banner-art:hover img{animation-play-state:paused}}
 @keyframes course-drift{from{transform:scale(1) translate(0,0)}to{transform:scale(1.06) translate(-1.2%,-.8%)}}
+/* homepage trailer (replaces the banner image) */
+.course-trailer{position:relative;aspect-ratio:16/9;background:#0b0726}
+.course-trailer video{display:block;width:100%;height:100%;object-fit:cover}
+.trailer-sound{position:absolute;right:.75rem;bottom:.75rem;display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .8rem;border:0;border-radius:999px;font:600 .85rem/1 inherit;color:#0b0726;background:rgba(255,255,255,.92);box-shadow:0 6px 18px -6px rgba(0,0,0,.5);cursor:pointer}
+.trailer-sound:hover{background:#fff}
+.trailer-sound:focus-visible{outline:3px solid #06b6d4;outline-offset:2px}
+.trailer-sound[aria-pressed="false"] .trailer-waves{opacity:.35}
+@media (max-width:560px){.trailer-sound{top:.5rem;bottom:auto;right:.5rem;padding:.3rem .55rem;font-size:.72rem}}
+
 .course-banner .course-kicker{margin-bottom:.35rem}
 .course-banner h2{margin:0 0 .5rem;font-size:1.5rem}
 .course-banner p{margin:0 0 1rem;color:var(--color-text-secondary)}
