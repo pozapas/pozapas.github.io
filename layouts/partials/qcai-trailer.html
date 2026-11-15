@@ -1,53 +1,85 @@
-{{- /* Quantum Causal AI trailer: self-contained (styles, markup, behaviour), used on the homepage and the course page. */ -}}
+<!-- Quantum Causal AI trailer player: self-contained styles, markup and behaviour.
+     Used by qcai.widgets.trailer() on the course home page and copied verbatim to the author's site
+     (layouts/partials/qcai-trailer.html). Video and poster are served from pozapas.github.io. -->
 <style>
-.qt{position:relative;display:block;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0b0726;box-shadow:0 22px 48px -20px rgba(10,26,44,.6)}
+.qt{position:relative;display:block;width:100%;max-width:980px;margin:0 auto;aspect-ratio:16/9;border-radius:14px;overflow:hidden;
+  background:#0b0726;box-shadow:0 22px 52px -24px rgba(15,10,46,.8),0 0 0 1px rgba(165,243,252,.16)}
 .qt .qt-video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;margin:0;border:0}
-.qt .qt-sound{position:absolute;left:12px;bottom:12px;z-index:2;display:inline-flex;align-items:center;gap:7px;height:34px;min-width:0;margin:0;padding:0 14px 0 11px;
+.qt:fullscreen{max-width:none;border-radius:0;box-shadow:none;background:#000}
+.qt:fullscreen .qt-video{object-fit:contain}
+.qt .qt-bar{position:absolute;left:12px;right:12px;bottom:12px;z-index:2;display:flex;justify-content:space-between;align-items:center;pointer-events:none}
+.qt .qt-btn{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;gap:7px;height:34px;min-width:34px;margin:0;padding:0 14px 0 11px;
   border:1px solid rgba(255,255,255,.3);border-radius:999px;background:rgba(11,7,38,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   box-shadow:0 6px 18px -8px rgba(0,0,0,.6);color:#fff;font:600 13px/1 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:.01em;
   text-transform:none;cursor:pointer;-webkit-appearance:none;appearance:none;transition:background-color .2s ease,transform .2s ease}
-.qt .qt-sound:hover{background:rgba(124,58,237,.8);transform:translateY(-1px)}
-.qt .qt-sound:focus-visible{outline:3px solid #06b6d4;outline-offset:2px}
-.qt .qt-sound svg{display:block;width:17px;height:17px;flex:none}
-.qt .qt-sound .qt-on,.qt .qt-sound[aria-pressed="true"] .qt-off{display:none}
-.qt .qt-sound[aria-pressed="true"] .qt-on{display:block}
-@media (max-width:560px){.qt .qt-sound{left:8px;bottom:8px;height:30px;padding:0 11px 0 9px;font-size:12px}}
+.qt .qt-btn.qt-full{width:34px;padding:0;border-radius:9px}
+.qt .qt-btn:hover{background:rgba(124,58,237,.8);transform:translateY(-1px)}
+.qt .qt-btn:focus-visible{outline:3px solid #06b6d4;outline-offset:2px}
+.qt .qt-btn svg{display:block;width:17px;height:17px;flex:none}
+.qt .qt-btn .qt-on,.qt .qt-sound[aria-pressed="true"] .qt-off,.qt .qt-full .qt-shrink,.qt .qt-full[aria-pressed="true"] .qt-grow{display:none}
+.qt .qt-sound[aria-pressed="true"] .qt-on,.qt .qt-full[aria-pressed="true"] .qt-shrink{display:block}
+@media (max-width:560px){.qt .qt-bar{left:8px;right:8px;bottom:8px}.qt .qt-btn{height:30px;min-width:30px;padding:0 11px 0 9px;font-size:12px}.qt .qt-btn.qt-full{width:30px;padding:0}}
 </style>
 <div class="qt" data-qt>
   <video class="qt-video" muted loop playsinline preload="none" width="1920" height="1080"
-         poster="{{ "/images/courses/qcai/trailer-poster.webp" | relURL }}"
+         poster="https://pozapas.github.io/images/courses/qcai/trailer-poster.webp"
          aria-label="Trailer for the Quantum Causal AI course: 45 seconds of animations from each level, with music">
-    <source src="{{ "/videos/qcai-trailer.mp4" | relURL }}" type="video/mp4">
+    <source src="https://pozapas.github.io/videos/qcai-trailer.mp4" type="video/mp4">
   </video>
-  <button class="qt-sound" type="button" aria-pressed="false">
-    <svg class="qt-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 9.5l5 5m0-5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    <svg class="qt-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    <span>Sound on</span>
-  </button>
+  <div class="qt-bar">
+    <button class="qt-btn qt-sound" type="button" aria-pressed="false">
+      <svg class="qt-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 9.5l5 5m0-5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <svg class="qt-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span>Sound on</span>
+    </button>
+    <button class="qt-btn qt-full" type="button" aria-pressed="false" aria-label="Full screen" title="Full screen">
+      <svg class="qt-grow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="qt-shrink" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
 </div>
 <script>
-(function () {
+(function boot(tries) {
+  var boxes = document.querySelectorAll("[data-qt]:not([data-qt-ready])");
+  if (!boxes.length) { if ((tries || 0) < 50) { setTimeout(function () { boot((tries || 0) + 1); }, 100); } return; }
   var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  document.querySelectorAll("[data-qt]:not([data-qt-ready])").forEach(function (box) {
+  boxes.forEach(function (box) {
     box.setAttribute("data-qt-ready", "");
-    var v = box.querySelector("video"), b = box.querySelector(".qt-sound"), label = b.querySelector("span");
-    function sync() {
+    var v = box.querySelector("video"), snd = box.querySelector(".qt-sound"), full = box.querySelector(".qt-full");
+    var label = snd.querySelector("span");
+    function syncSound() {
       var on = !v.muted && !v.paused;
-      b.setAttribute("aria-pressed", on ? "true" : "false");
+      snd.setAttribute("aria-pressed", on ? "true" : "false");
       label.textContent = on ? "Mute" : "Sound on";
+    }
+    function isFull() { return (document.fullscreenElement || document.webkitFullscreenElement) === box; }
+    function syncFull() {
+      var f = isFull();
+      full.setAttribute("aria-pressed", f ? "true" : "false");
+      full.setAttribute("aria-label", f ? "Exit full screen" : "Full screen");
+      full.title = f ? "Exit full screen" : "Full screen";
     }
     if (!still && "IntersectionObserver" in window) {
       new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) { v.play().catch(function () {}); } else { v.pause(); } });
-      }, {threshold: 0.4}).observe(v);
+        es.forEach(function (e) { if (e.isIntersecting || isFull()) { v.play().catch(function () {}); } else { v.pause(); } });
+      }, {threshold: 0.4}).observe(box);
     }
-    b.addEventListener("click", function () {
-      if (v.muted || v.paused) { v.muted = false; v.currentTime = 0; v.play().catch(function () {}); }
+    snd.addEventListener("click", function () {
+      if (v.muted || v.paused) { v.muted = false; v.play().catch(function () {}); }  // keep the current position
       else { v.muted = true; if (still) { v.pause(); } }
-      sync();
+      syncSound();
     });
-    v.addEventListener("pause", sync);
-    v.addEventListener("play", sync);
+    full.addEventListener("click", function () {
+      if (isFull()) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); return; }
+      var req = box.requestFullscreen || box.webkitRequestFullscreen;
+      if (req) { req.call(box); v.play().catch(function () {}); }
+      else if (v.webkitEnterFullscreen) { v.webkitEnterFullscreen(); v.play().catch(function () {}); }  // iPhone: native player
+    });
+    document.addEventListener("fullscreenchange", syncFull);
+    document.addEventListener("webkitfullscreenchange", syncFull);
+    v.addEventListener("pause", syncSound);
+    v.addEventListener("play", syncSound);
+    v.addEventListener("volumechange", syncSound);
   });
 })();
 </script>
