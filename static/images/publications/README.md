@@ -36,3 +36,7 @@ The four September and October 2026 arXiv papers added on October 11 use:
 The November 2026 *Automation in Construction* article uses:
 
 - `ifc-bim-mixture-of-experts.webp`
+
+The Safety Science review added on November 24, 2026 uses:
+
+- `who-leads-who-follows-evacuation.webp`
