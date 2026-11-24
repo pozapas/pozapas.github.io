@@ -31,5 +31,9 @@ The tool records and image paths are in `data/tools.yml`.
 - `last-leg-impairment.webp`
 - `crashsketch-av.webp`
 - `evacuaidi.webp`
+- `txdot-intersection-atlas.webp`
+- `txdot-direction-atlas.webp`
+- `signal-or-noise.webp`
+- `lane-filtering-navigator.webp`
 
 Do not use generated artwork for a tool screenshot. Use the real interface.
