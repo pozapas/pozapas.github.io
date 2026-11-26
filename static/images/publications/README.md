@@ -40,3 +40,7 @@ The November 2026 *Automation in Construction* article uses:
 The Safety Science review added on November 24, 2026 uses:
 
 - `who-leads-who-follows-evacuation.webp`
+
+The Neurocomputing survey on state-space architectures (S4 to Mamba), added on November 26, 2026, uses:
+
+- `state-space-s4-mamba-survey.webp`

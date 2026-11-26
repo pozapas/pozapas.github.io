@@ -1,5 +1,13 @@
 # Journal articles — newest first
 
+- title: "Advancing Intelligent Sequence Modeling: Evolution, Trade-offs, and Applications of State-Space Architectures from S4 to Mamba: A Survey"
+  authors: "Shriyank Somvanshi, Md Monzurul Islam, Mahmuda Sultana Mimi, Sazzad Bin Bashar Polock, Gaurab Chhetri, Anandi Dutta, Amir Rafe, and Subasish Das"
+  venue: "Neurocomputing, 713, 135736"
+  year: 2027
+  doi: "https://doi.org/10.1016/j.neucom.2026.135736"
+  thumbnail: "/images/publications/state-space-s4-mamba-survey.webp"
+  citation: "Somvanshi, S., Islam, M. M., Mimi, M. S., Polock, S. B. B., Chhetri, G., Dutta, A., Rafe, A., and Das, S. (2027). Advancing Intelligent Sequence Modeling: Evolution, Trade-offs, and Applications of State-Space Architectures from S4 to Mamba: A Survey. Neurocomputing, 713, 135736. https://doi.org/10.1016/j.neucom.2026.135736"
+
 - title: "Who Leads, Who Follows? A Review of Leadership and Guidance Dynamics in Evacuation"
   authors: "Amir Rafe and Patrick A. Singleton"
   venue: "Safety Science, 207, 107577"
